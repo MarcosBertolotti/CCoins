@@ -12,10 +12,6 @@ $ docker run --rm -it -p 4200:4200 -v `pwd`:/app ccoins /bin/bash
 
 $ npm install
 
-* Run project for local:
-
-$ docker run --rm -p 4200:4200 -v `pwd`:/app ccoins
-
 ### ENV ###
 
 * To run the project in with envs config, just add the flag --configuration in serve
