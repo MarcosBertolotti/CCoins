@@ -1,20 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ProviderRoutingModule } from './provider-routing.module';
+import { BarRoutingModule } from './bar-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
-
-import { ProviderComponent } from './components/provider/provider.component';
+import { BarComponent } from './components/bar/bar.component';
 
 
 @NgModule({
   declarations: [
-    ProviderComponent,
+    BarComponent,
   ],
   imports: [
     CommonModule,
-    ProviderRoutingModule,
+    BarRoutingModule,
     SharedModule,
   ]
 })
-export class ProviderModule { }
+export class BarModule { }

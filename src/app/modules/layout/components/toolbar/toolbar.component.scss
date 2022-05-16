@@ -1,0 +1,28 @@
+mat-toolbar {
+    position: sticky;
+    top: 0;
+    background-color: var(--dark-base-color);
+    justify-content: space-between;
+  }
+  
+  mat-toolbar mat-icon {
+    color: white;
+  }
+  
+  mat-toolbar-row {
+    justify-content: space-between;
+  }
+  
+  button[mat-icon-button] {
+    font-size: 0;
+  }
+  
+  .lad-logo {
+    width: 128px;
+    border-radius: 0;
+  }
+  .lad-logo  mat-icon{
+    width: 100%;
+    font-size: 30px;
+  }
+  

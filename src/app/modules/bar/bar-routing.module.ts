@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RouterComponent } from 'src/app/shared/components/router/router.component';
-import { ProviderComponent } from './components/provider/provider.component';
+import { BarComponent } from './components/bar/bar.component';
 
 const routes: Routes = [
   {
     path: '',
     component: RouterComponent,
     children: [
-      { path: '', component: ProviderComponent }
+      { path: '', component: BarComponent }
     ]
   }
 ];
@@ -17,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ProviderRoutingModule { }
+export class BarRoutingModule { }

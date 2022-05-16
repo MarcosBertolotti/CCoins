@@ -6,11 +6,11 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: AppPaths.provider
+    redirectTo: AppPaths.SIDENAV
   },
   {
-    path: AppPaths.provider,
-    loadChildren: () => import("src/app/modules/provider/provider.module").then(m => m.ProviderModule),
+    path: AppPaths.SIDENAV,
+    loadChildren: () => import("src/app/modules/layout/layout.module").then(m => m.LayoutModule),
   },
 ];
 

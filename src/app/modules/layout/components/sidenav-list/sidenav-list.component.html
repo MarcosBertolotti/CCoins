@@ -1,0 +1,36 @@
+<app-layout>
+  <div sidenav>
+    <div class="logo">
+    <!--  <app-logo></app-logo>-->
+    </div>
+    <mat-nav-list>
+      <div>
+        <mat-list-item
+          *ngFor="let item of items"
+          [routerLink]="[item.route]"
+          routerLinkActive="mat-list-single-selected-option">
+
+          <span matLine matBadge="&#8288;" matBadgeOverlap="false" matBadgePosition="before">
+            <a>{{ item.title }}</a>
+          </span>
+
+         <!--   <mat-icon svgIcon="arrow-down" *ngIf="item.route === paths.USERS"></mat-icon>-->
+        </mat-list-item>
+      </div>
+      <div class="bottom-items">
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <span matLine matBadge="&#8288;" matBadgeOverlap="false" matBadgePosition="before">
+            <a>Settings</a>
+          </span>
+        </mat-list-item>
+        <mat-list-item>
+          <span matLine matBadge="&#8288;" matBadgeOverlap="false" matBadgePosition="before">
+            <a>Logout</a>
+          </span>
+        </mat-list-item>
+      </div>
+    </mat-nav-list>
+  </div>
+  <router-outlet #router></router-outlet>
+</app-layout>

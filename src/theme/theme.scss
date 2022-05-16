@@ -8,6 +8,35 @@
 // Be sure that you only ever include this mixin once!
 @include mat.core();
 
+
+/* SCSS Variables */
+:root {
+  --dark-base-color: #29293b;
+  --dark-lighter-color: #bfbfc4;
+  --dark-darker-color: #191926;
+  --accent-base-color: #ff4d7c;
+  --accent-lighter-color: #ffcad8;
+  --accent-darker-color: #ff345f;
+  --primary-base-color: #c3ff00;
+  --primary-lighter-color: #edffb3;
+  --primary-darker-color: #aeff00;
+  --gray-base-color: #d8d8d8;
+  --gray-lighter-color: #f3f3f3;
+  --gray-darker-color: #c8c8c8;
+  --gray-darker-color-v2: #4D4D61;
+  --input-border-color: #e0e0e0;
+  --purple-base-color: #7878F7;
+  --black-alpha-70: #000000b3; /* 70% */
+  --black-alpha-60: #00000099; /* 60% */
+  --black-alpha-50: #00000080; /* 50% */
+  --black-alpha-42: #0000006B; /* 42% */
+  --black-alpha-35: #00000059; /* 35% */
+  --black-alpha-10: #0000001a; /* 10% */
+  --black-alpha-08: #00000014; /* 8% */
+  --black-alpha-04: #0000000a; /* 4% */
+ }
+
+ 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/

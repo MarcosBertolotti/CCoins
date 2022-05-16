@@ -1,5 +1,7 @@
 export enum AppPaths {
   AUTH = 'auth',
   LOGIN = 'login',
-  provider = 'provider',
+  SIDENAV = 'sidenav',
+  BAR = 'bar',
+  HOME = '',
 }

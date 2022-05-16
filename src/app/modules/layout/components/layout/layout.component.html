@@ -1,0 +1,12 @@
+<app-toolbar
+  *ngIf="(!isHandset && !sidenav.drawer?.opened) || isHandset"
+  [isHandset$]="isHandset$"
+  [drawer]="sidenav.drawer">
+</app-toolbar>
+<app-sidenav
+  #sidenav
+  [isHandset$]="isHandset$"
+  (onClick)="closeDrawer()">
+    <ng-content sidenav select="[sidenav]"></ng-content>
+    <ng-content></ng-content>
+</app-sidenav>

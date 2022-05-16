@@ -1,0 +1,14 @@
+<mat-sidenav-container [hasBackdrop]="(isHandset$ | async)">
+  <mat-sidenav
+    #drawer
+    (click)="onClick.emit()"
+    [fixedInViewport]="true"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [opened]="(isHandset$ | async) === false"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'">
+    <ng-content select="[sidenav]"></ng-content>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
