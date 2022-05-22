@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { SocialAuthService, SocialUser } from 'angularx-social-login';
 import { Router } from '@angular/router';
 import { AppPaths } from '../enums/app-paths.enum';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, PartialObserver } from 'rxjs';
 import { AccessToken } from '../models/access-token.model';
 import { environment } from 'src/environments/environment';
+import { ToastService } from '../shared/services/toast.services';
 
 
 @Injectable({
@@ -16,9 +17,10 @@ export class AuthService {
   baseApiURL = `${environment.API_URL}/oauth`;
 
   constructor(
-    private socialAuthService: SocialAuthService,
     private router: Router,
     private http: HttpClient,
+    private toastService: ToastService,
+    private socialAuthService: SocialAuthService,
   ) { }
   
   private login(token: string, socialType: string): Observable<AccessToken> {
@@ -38,9 +40,9 @@ export class AuthService {
           }
           this.login(socialUser.idToken, socialType.toLowerCase()).subscribe(socialLoginObserver);
         } else
-          console.error(`Ha ocurrido un error al iniciar sesión con ${socialType.toLowerCase()}`);
+          this.toastService.openErrorToast(`Ha ocurrido un error al iniciar sesión con ${socialType.toLowerCase()}`);
       }
-    ).catch((err: any) => console.error(err))
+    ).catch((err: any) => this.toastService.openErrorToast(err))
   }
 
   logOut(): void {

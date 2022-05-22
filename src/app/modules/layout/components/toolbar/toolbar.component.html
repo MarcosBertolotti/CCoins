@@ -1,18 +1,18 @@
-<mat-toolbar class="mat-elevation-z2">
-    <mat-toolbar-row>
-      <button
-        mat-icon-button
-        (click)="drawer?.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
+<mat-toolbar class="mat-elevation-z2" *ngIf="(isHandset$ | async)">
+  <mat-toolbar-row>
+    <button
+      mat-icon-button
+      (click)="drawer?.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
 
-      <button
-        mat-icon-button
-        class="lad-logo"
-        [disableRipple]="true"
-        (click)="drawer?.toggle()"
-        [disabled]="!(isHandset$ | async)">
-        <mat-icon svgIcon="logo-beer-barrel"></mat-icon> <!-- logo -->
-      </button>
+    <button
+      mat-icon-button
+      class="lad-logo"
+      [disableRipple]="true"
+      (click)="drawer?.toggle()"
+      [disabled]="!(isHandset$ | async)">
+      <mat-icon svgIcon="logo-beer-barrel"></mat-icon> <!-- logo -->
+    </button>
   </mat-toolbar-row>
 </mat-toolbar>

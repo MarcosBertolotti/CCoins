@@ -8,3 +8,142 @@ body {
   margin: 0; 
   font-family: Roboto, "Helvetica Neue", sans-serif; 
 }
+
+p {
+  margin: 0;
+  font-weight: 300;
+  color: var(--dark-base-color);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 3px solid transparent;
+  border-radius: 16px;
+  background-clip: padding-box;
+  -webkit-background-clip: padding-box;
+  background-color: var(--black-alpha-35);
+}
+
+/* Start button style */
+
+button[mat-raised-button] {
+  height: 3rem;
+  //box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.05) !important;
+  border-radius: 30px;
+
+  span {
+    margin: auto;
+  }
+
+  .mat-button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+button[mat-icon-button] {
+  .mat-button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+button .east {
+  position: absolute;
+  right: 1rem;
+}
+
+/* Start form-fields style */
+
+mat-label {
+  font-size: .75rem;
+  padding-bottom: .25rem;
+}
+  
+mat-form-field {
+  font-size: 0.888rem !important;
+  font-weight: 300 !important;
+  z-index: 1001;
+}
+mat-form-field .mat-form-field-wrapper {
+  padding: 0 0 .75rem 0;
+  margin: 0 !important;
+}
+mat-form-field .mat-form-field-outline-start {
+  border-radius: 30px 0 0 30px !important;
+  min-width: 30px !important;
+}
+mat-form-field .mat-form-field-outline-end {
+  border-radius: 0 30px 30px 0 !important;
+}
+mat-form-field .mat-form-field-infix {
+  padding-left: .75rem !important;
+}
+mat-form-field input.mat-input-element {
+  font-size: 16px;
+}
+mat-form-field mat-icon[matprefix] {
+  margin-left: .25rem;
+}
+
+.mat-autocomplete-panel.custom-panel {
+  padding-top: 1rem;
+  margin-top: -1rem;
+  border: 1px solid var(--gray-base-color);
+  border-top: none;
+  border-radius: 0 0 1.45rem 1.45rem;
+  box-shadow: none !important;
+}
+
+/* start checkbox */
+
+mat-checkbox {
+  font-weight: 300;
+}
+mat-checkbox .mat-checkbox-inner-container {
+  margin-right: .75rem;
+}
+
+/* start card */
+
+mat-card {
+  border-radius: 30px !important;
+  box-shadow: 0px 4px 20px rgba(139, 141, 160, 0.2) !important;
+}
+
+/* input of type="number" */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance:textfield;
+}
+
+/* toast */
+
+.toast {
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+  color: white !important;
+  border-radius: 10px !important;
+}
+
+.toast-error {
+  background: var(--danger-base-color) !important;
+}
+
+.toast-success {
+  background: var(--success-base-color) !important;
+}
+ 
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

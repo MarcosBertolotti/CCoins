@@ -26,10 +26,10 @@ div[sidenav] {
   .mat-list-single-selected-option,
   .mat-list-single-selected-option:focus,
   .mat-list-single-selected-option:hover {
-    background-color: var(--gray-darker-color-v2);
+    background-color: var(--red-darker-color);
   }
   .mat-list-single-selected-option .mat-badge-content {
-    background-color: var(--primary-base-color);
+    background-color: white;
   }
   
   mat-list-item ::ng-deep .mat-list-item-content .mat-list-text>* {
@@ -44,7 +44,7 @@ div[sidenav] {
     width: 19px;
     height: 19px;
     line-height: 19px;
-    background-color: var(--gray-darker-color-v2);
+    background-color: var(--red-darker-color);
   }
   
   .mat-icon[svgIcon="arrow-down"] {
@@ -67,6 +67,6 @@ div[sidenav] {
   }
   
   .mat-divider {
-    border-top-color: var(--gray-darker-color-v2);
+    border-top-color: var(--red-darker-color);
     padding-top: 1.5rem;
   }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService, SocialUser } from 'angularx-social-login';
+import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -11,25 +11,15 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
- //userLogged!: SocialUser;
- // isLogged!: boolean;
-
   constructor(
     private authService: AuthService,
-   // private socialAuthService: SocialAuthService,
     private domSanitizer: DomSanitizer,
     private matIconRegistry: MatIconRegistry,
   ) { 
     this.registerIcons();
   }
 
-  ngOnInit(): void {/*
-    this.socialAuthService.authState.subscribe(
-      (data: SocialUser) => {
-        this.userLogged = data;
-        this.isLogged = this.userLogged !== null;
-      }
-    )*/
+  ngOnInit(): void {
   }
 
   registerIcons(): void {

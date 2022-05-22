@@ -10,16 +10,13 @@
           [routerLink]="[item.route]"
           routerLinkActive="mat-list-single-selected-option"
           #router="routerLinkActive">
-
+   <!--  
           <mat-icon matListIcon svgIcon="{{ router.isActive ? 'beer-fill' : 'beer-empty' }}"></mat-icon>
-          <p matLine> {{ item.title }} </p>
+          <p matLine> {{ item.title }} </p>-->
           
-   <!--     <mat-icon matListIcon svgIcon="{{ myTemplateVar.isActive ? 'beer-fill' : 'beer-empty' }}"></mat-icon>
           <span matLine matBadge="&#8288;" matBadgeOverlap="false" matBadgePosition="before">
             <a>{{ item.title }}</a>
           </span>
-
-        <mat-icon svgIcon="arrow-down" *ngIf="item.route === paths.USERS"></mat-icon>-->
         </mat-list-item>
       </div>
       <div class="bottom-items">

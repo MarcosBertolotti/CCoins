@@ -12,6 +12,9 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { environment } from 'src/environments/environment';
 
 import { AppComponent } from './app.component';
+import { ToastService } from './shared/services/toast.services';
+import { SharedModule } from './shared/shared.module';
+import { SpinnerInterceptor } from './interceptors/spinner.interceptor';
 
 @NgModule({
   declarations: [
@@ -23,8 +26,10 @@ import { AppComponent } from './app.component';
     BrowserAnimationsModule,
     HttpClientModule,
     SocialLoginModule,
+    SharedModule,
   ],
   providers: [
+    ToastService,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
@@ -44,6 +49,7 @@ import { AppComponent } from './app.component';
       } as SocialAuthServiceConfig,
     },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })
