@@ -18,11 +18,13 @@ mat-toolbar {
   }
   
   .lad-logo {
-    width: 128px;
+    width: 60px;
     border-radius: 0;
+    display: flex;
+    justify-content: flex-end;
   }
   .lad-logo  mat-icon{
     width: 100%;
-    font-size: 30px;
+    height: 36px;
   }
   

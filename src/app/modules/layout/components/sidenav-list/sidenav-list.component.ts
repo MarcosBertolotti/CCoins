@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 import { AppPaths } from 'src/app/enums/app-paths.enum';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-sidenav-list',
@@ -29,9 +32,34 @@ export class SidenavListComponent implements OnInit {
 
   paths = AppPaths;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(
+    private domSanitizer: DomSanitizer,
+    private matIconRegistry: MatIconRegistry,
+    private authService: AuthService,
+  ) { 
+    this.registerIcons();
   }
 
+  ngOnInit(): void {
+  }
+
+  registerIcons(): void {
+    this.matIconRegistry.addSvgIcon(
+      'logo-beer',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/logo-beer.svg')
+    ).addSvgIcon(
+      'logo-beer-barrel',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/logo-beer-barrel.svg')
+    ).addSvgIcon(
+      'beer-empty',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/beer-empty.svg')
+    ).addSvgIcon(
+      'beer-fill',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/beer-fill.svg')
+    )
+  }
+
+  logOut(): void {
+    this.authService.logOut();
+  }
 }

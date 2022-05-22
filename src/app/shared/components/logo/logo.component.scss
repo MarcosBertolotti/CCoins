@@ -1,0 +1,33 @@
+:host {
+    display: block;
+ }
+  
+ :host.bg-dark {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+    width: 111px;
+    height: 32px;
+    border-radius: 20px;
+    background-color: var(--dark-base-color);
+ }
+  
+ :host .mat-icon[svgIcon="logo-beer"] {
+    color: var(--logo-color, var(--primary-base-color));
+    width: var(--logo-width, 110px);
+    height: auto;
+ }
+  
+ :host.bg-dark .mat-icon[svgIcon="logo-beer"] {
+    color: var(--primary-base-color);
+    width: 60px;
+    height: 32px;
+ }
+  
+ @media screen and (min-width: 600px) {
+ :host.bg-dark {
+    display: none;
+ }
+ }
+ 

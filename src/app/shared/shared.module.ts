@@ -4,18 +4,23 @@ import { RouterModule } from '@angular/router';
 
 // COMPONENTS
 import { RouterComponent } from './components/router/router.component';
+import { LogoComponent } from './components/logo/logo.component';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
   declarations: [
     RouterComponent,
+    LogoComponent,
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    MatIconModule,
   ],
   exports: [
     RouterComponent,
+    LogoComponent,
   ]
 })
 export class SharedModule { }

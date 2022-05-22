@@ -1,0 +1,40 @@
+:host {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .container {
+    max-width: 500px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    button[mat-raised-button] {
+      background-color: #067FDA;
+    }
+
+    button[mat-raised-button]:first-of-type {
+      background-color: white;
+      color: #757575;
+    }
+
+    .mat-raised-button {
+      margin-bottom: 1rem;
+      height: 3rem;
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.05) !important;
+      border-radius: 30px;
+    
+      .mat-button-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      mat-icon {
+        margin-right:.5rem
+      }
+    }
+  }
+}

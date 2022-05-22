@@ -1,6 +1,7 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { map, Observable, shareReplay, tap } from 'rxjs';
+import { Observable } from 'rxjs';
+import { map, shareReplay, tap } from 'rxjs/operators';
 import { SidenavComponent } from '../sidenav/sidenav.component';
 
 @Component({

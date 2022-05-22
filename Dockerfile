@@ -2,7 +2,7 @@ FROM node:16.14.2
 
 WORKDIR /app
 
-RUN npm install -g @angular/cli@13.3.5
+RUN npm install -g @angular/cli@12.2.17
 
 EXPOSE 4200
 
