@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SocialAuthService, SocialUser } from 'angularx-social-login';
+import { GoogleLoginProvider, SocialAuthService, SocialUser } from 'angularx-social-login';
 import { Router } from '@angular/router';
 import { AppPaths } from '../enums/app-paths.enum';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -36,13 +36,17 @@ export class AuthService {
               this.saveToken(token.value);
               this.router.navigate([AppPaths.SIDENAV, AppPaths.BAR])
             },
-            error: (error: HttpErrorResponse) => console.error(error.message)
+            error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.message),
           }
-          this.login(socialUser.idToken, socialType.toLowerCase()).subscribe(socialLoginObserver);
+          this.login(this.getSocialToken(socialType, socialUser), socialType.toLowerCase()).subscribe(socialLoginObserver);
         } else
           this.toastService.openErrorToast(`Ha ocurrido un error al iniciar sesión con ${socialType.toLowerCase()}`);
       }
-    ).catch((err: any) => this.toastService.openErrorToast(err))
+    ).catch((err: any) => this.toastService.openErrorToast(err));
+  }
+
+  private getSocialToken(socialType: string, socialUser: SocialUser): string {
+    return socialType === GoogleLoginProvider.PROVIDER_ID ? socialUser.idToken : socialUser.authToken;
   }
 
   logOut(): void {

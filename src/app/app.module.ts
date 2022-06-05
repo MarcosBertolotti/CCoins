@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { GoogleLoginProvider, SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider, SocialLoginModule, SocialAuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -39,6 +39,13 @@ import { SpinnerInterceptor } from './interceptors/spinner.interceptor';
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
               environment.AUTH_GOOGLE_CLIENT_ID,
+              { scope: "email", plugin_name:'App Name that you used in google developer console API' }
+            )
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider(
+              environment.AUTH_FACEBOOK_APPLICATION_ID,
               { scope: "email", plugin_name:'App Name that you used in google developer console API' }
             )
           }
