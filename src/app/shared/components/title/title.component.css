@@ -1,0 +1,15 @@
+div {
+  padding-bottom: 1rem;
+}
+
+h2 {
+  font-size: var(--title-font-size, 30px);
+  font-weight: var(--title-font-weight, 300);
+  margin: 0;
+}
+
+@media (min-width: 599px) {
+  div {
+    padding-top: 5rem;
+  }
+}

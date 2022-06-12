@@ -4,4 +4,5 @@ export enum AppPaths {
   SIDENAV = 'sidenav',
   BAR = 'bar',
   HOME = '',
+  UPDATE = 'update',
 }

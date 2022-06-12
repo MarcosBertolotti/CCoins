@@ -1,22 +1,17 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { FIELD_ERROR_MESSAGES } from 'src/app/const/fieldErrorMessages.const';
-import { AppPaths } from 'src/app/enums/app-paths.enum';
 import { Bar } from 'src/app/models/bar-model';
 import { BarService } from 'src/app/services/bar.service';
 import { ToastService } from 'src/app/shared/services/toast.services';
 
 @Component({
-  selector: 'app-bar',
-  templateUrl: './bar.component.html',
-  styleUrls: ['./bar.component.scss']
+  selector: 'app-bar-update',
+  templateUrl: './bar-update.component.html',
+  styleUrls: ['./bar-update.component.scss']
 })
-export class BarComponent implements OnInit {
-
-  @ViewChild('form') 
-  ngForm!: HTMLFormElement;
+export class BarUpdateComponent implements OnInit {
 
   formGroup!: FormGroup;
 
@@ -26,7 +21,6 @@ export class BarComponent implements OnInit {
     private formBuilder: FormBuilder,
     private barService: BarService,
     private toastService: ToastService,
-    private router: Router,
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -46,7 +40,7 @@ export class BarComponent implements OnInit {
     if (this.formGroup.valid) {
       const newBar: Bar = {
         name: this.name.value.trim(),
-        address: this.address.value.trim(),
+         address: this.address.value.trim(),
         city: this.city.value.trim(),
         menuLink: this.menuLink.value.trim(),
       }
@@ -57,11 +51,8 @@ export class BarComponent implements OnInit {
           this.toastService.openErrorToast(error.error.message);
         });
 
-      if(barCreated) {
-        this.ngForm['resetForm']();
+      if(barCreated)
         this.toastService.openSuccessToast('Bar creado exitosamente!');
-        this.router.navigate([AppPaths.SIDENAV, AppPaths.BAR, AppPaths.UPDATE]);
-      }
     }
   }
 

@@ -1,10 +1,10 @@
-<app-title [title]="'Crear Bar'"></app-title>
+<app-title [title]="'Editar Bar'"></app-title>
 <!--<app-navbar [sectionPath]="providerPathBase"></app-navbar>-->
 
 <div class="container">
   <form [formGroup]="formGroup" #form="ngForm">
 
-    <h4 class="title-accent">Nuevo Bar</h4>
+    <h4 class="title-accent">Actualizar Bar</h4>
 
     <mat-label>Nombre {{ (name | fieldRequired) ? '*' : '' }}</mat-label>
     <mat-form-field appearance="outline">
