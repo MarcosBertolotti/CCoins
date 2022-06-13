@@ -15,4 +15,7 @@ export class TableService {
     return this.requestService.post(`${this.baseApiURL}/save/quantity`, { quantity, bar: idBar });
   }
 
+  findAllByBar(id: number): Promise<Table[]> {
+    return this.requestService.post(`${this.baseApiURL}/bar`, { id });
+  }
 }
