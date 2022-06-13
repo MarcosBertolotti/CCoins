@@ -9,25 +9,25 @@
     <mat-label>Nombre {{ (name | fieldRequired) ? '*' : '' }}</mat-label>
     <mat-form-field appearance="outline">
       <input matInput formControlName="name" placeholder="Nombre del bar">
-      <mat-error *ngIf="name?.errors">{{ fieldErrors.required }}</mat-error>
+      <mat-error>{{ 'name' | errorMessage : formGroup }}</mat-error>
     </mat-form-field>
 
     <mat-label>Dirección {{ (address | fieldRequired) ? '*' : '' }}</mat-label>
     <mat-form-field appearance="outline">
       <input matInput formControlName="address" placeholder="Dirección del bar">
-      <mat-error *ngIf="address?.errors">{{ fieldErrors.required }}</mat-error>
+      <mat-error>{{ 'address' | errorMessage : formGroup }}</mat-error>
     </mat-form-field>
 
     <mat-label>Localidad {{ (city | fieldRequired) ? '*' : '' }}</mat-label>
     <mat-form-field appearance="outline">
       <input matInput formControlName="city" placeholder="Localidad del bar">
-      <mat-error *ngIf="city?.errors">{{ fieldErrors.required }}</mat-error>
+      <mat-error>{{ 'city' | errorMessage : formGroup }}</mat-error>
     </mat-form-field>
 
     <mat-label>Link Menu {{ (menuLink | fieldRequired) ? '*' : '' }}</mat-label>
     <mat-form-field appearance="outline">
       <input matInput formControlName="menuLink" placeholder="Link del menu">
-      <mat-error *ngIf="menuLink?.errors">{{ fieldErrors.required }}</mat-error>
+      <mat-error>{{ 'menuLink' | errorMessage : formGroup }}</mat-error>
     </mat-form-field>
 
     <p>Una vez finalizada la creación sera redireccionado a la pantalla de edición.</p>

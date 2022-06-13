@@ -10,34 +10,34 @@
 
 /* SCSS Variables */
 :root {
+  --dark-lighter-color: #423c3c;
   --dark-base-color: #1b1616;
+  --dark-darker-color: #000000;
+
+  --red-lighter-color: #966966;
+  --red-base-color: #673e3c;
   --red-darker-color: #3a1716;
 
+  --primary-lighter-color: #dbfebe;
   --primary-base-color: #87fd26;
+  --primary-darker-color: #4cc900;
+
+  --accent-lighter-color: #ffd6b3;
   --accent-base-color: #ff7600;
+  --accent-darker-color: #ff5900;
   
-  --success-base-color: #57baa0;
-  --success-lighter-color: #cdeae3;
-  --success-darker-color: #3ca384;
+ // --success-base-color: #57baa0;
+ // --success-lighter-color: #cdeae3;
+ // --success-darker-color: #3ca384;
+
   --danger-base-color: #ef453e;
   --danger-lighter-color: #fac7c5;
   --danger-darker-color: #e82e28;
   
-  //--dark-base-color: #29293b;
-  --dark-lighter-color: #bfbfc4;
-  --dark-darker-color: #191926;
-  //--accent-base-color: #ff4d7c;
-  --accent-lighter-color: #ffcad8;
-  --accent-darker-color: #ff345f;
-  //--primary-base-color: #c3ff00;
-  --primary-lighter-color: #edffb3;
-  --primary-darker-color: #aeff00;
-  --gray-base-color: #d8d8d8;
-  --gray-lighter-color: #f3f3f3;
-  --gray-darker-color: #c8c8c8;
-  --gray-darker-color-v2: #4D4D61;
-  --input-border-color: #e0e0e0;
-  --purple-base-color: #7878F7;
+  --gray-lighter-color: #f5f5f5;
+  --gray-base-color: #c2c2c2;
+  --gray-darker-color: #929292;
+
   --black-alpha-70: #000000b3; /* 70% */
   --black-alpha-60: #00000099; /* 60% */
   --black-alpha-50: #00000080; /* 50% */
@@ -50,20 +50,20 @@
 
    /* For use in src/lib/core/theming/_palette.scss */
    $ccoins-primary: (
-    50: #e2e9f4,
-    100: #b6c8e3,
-    200: #86a3d0,
-    300: #567ebd,
-    400: #3163af,
-    500: #0d47a1,
-    600: #0b4099,
-    700: #09378f,
-    800: #072f85,
-    900: #032074,
-    A100: #a2b4ff,
-    A200: #6f8aff,
-    A400: #3c61ff,
-    A700: #234cff,
+    50: #F1FFE5,
+    100: #DBFEBE,
+    200: #C3FE93,
+    300: #ABFE67,
+    400: #99FD47,
+    500: #87fd26,
+    600: #7FFD22,
+    700: #74FC1C,
+    800: #6AFC17,
+    900: #57FC0D,
+    A100: #FFFFFF,
+    A200: #F6FFF3,
+    A400: #D1FFC0,
+    A700: #BEFFA7,
     contrast: (
       50: #000000,
       100: #000000,
@@ -83,20 +83,20 @@
    );
     
    $ccoins-accent: (
-    50: #e5efff,
-    100: #bfd7ff,
-    200: #94bcff,
-    300: #69a1ff,
-    400: #498dff,
-    500: #2979ff,
-    600: #2471ff,
-    700: #1f66ff,
-    800: #195cff,
-    900: #0f49ff,
-    A100: #ffffff,
-    A200: #f7f9ff,
-    A400: #c4d0ff,
-    A700: #abbcff,
+    50: #FFEFE0,
+    100: #FFD6B3,
+    200: #FFBB80,
+    300: #FF9F4D,
+    400: #FF8B26,
+    500: #FF7600,
+    600: #FF6E00,
+    700: #FF6300,
+    800: #FF5900,
+    900: #FF4600,
+    A100: #FFFFFF,
+    A200: #FFF5F2,
+    A400: #FFCDBF,
+    A700: #FFB9A6,
     contrast: (
       50: #000000,
       100: #000000,

@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
     private matIconRegistry: MatIconRegistry,
   ) { 
     this.registerIcons();
+    localStorage.clear();
   }
 
   ngOnInit(): void {

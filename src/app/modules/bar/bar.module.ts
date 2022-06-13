@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { BarRoutingModule } from './bar-routing.module';
-import { BarComponent } from './components/bar/bar.component';
+import { BarCreateComponent } from './components/bar/bar-create.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatButtonModule } from '@angular/material/button';
 import { BarUpdateComponent } from './components/bar-update/bar-update.component';
@@ -15,7 +15,7 @@ import { BarListComponent } from './components/bar-list/bar-list.component';
 
 @NgModule({
   declarations: [
-    BarComponent,
+    BarCreateComponent,
     BarUpdateComponent,
     BarListComponent,
   ],

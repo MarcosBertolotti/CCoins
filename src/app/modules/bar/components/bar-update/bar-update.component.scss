@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  mat-form-field {
+    width: 100%;
+    margin-bottom: .5rem;
+  }
+  
+  p {
+    padding-top: 1rem;
+    font-size: 12px;
+    text-align: center;
+  }
+  
+  button[mat-raised-button] {
+    margin-top: 1.25rem;
+  }
+  
+  @media (min-width: 1280px) {
+    form {
+      width: 50%;
+    }
+  }

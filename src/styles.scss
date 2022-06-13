@@ -7,6 +7,7 @@ html, body {
 body { 
   margin: 0; 
   font-family: Rubik, "Helvetica Neue", sans-serif;
+  background-color: white;
 }
 
 p {
@@ -170,5 +171,5 @@ input:-webkit-autofill:active {
 }
 
 .toast-success {
-  background: var(--success-base-color) !important;
+  background: var(--primary-darker-color) !important;
 }

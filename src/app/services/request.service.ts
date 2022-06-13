@@ -39,6 +39,11 @@ export class RequestService {
     return this.http.put(url, body).toPromise();
   }
 
+  patch(urlEndpoint: string, body: {}): Promise<any> {
+    let url = this.getUrl(urlEndpoint)
+    return this.http.patch(url, body).toPromise();
+  }
+
   post(urlEndpoint: string, body: {}): Promise<any> {
     let url = this.getUrl(urlEndpoint)
     return this.http.post(url, body).toPromise();

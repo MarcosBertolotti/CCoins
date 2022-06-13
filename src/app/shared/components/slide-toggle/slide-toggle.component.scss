@@ -1,0 +1,50 @@
+:host {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	background-color: var(--gray-lighter-color);
+	border-radius: 30px;
+	height: 48px;
+	width: 200px;
+}
+	
+p {
+	font-size: 14px;
+	margin: 0;
+}
+	
+mat-slide-toggle {
+	width: var(--toggle-width, 48px);
+	height: var(--toggle-height, 24px);
+}
+
+mat-slide-toggle ::ng-deep .mat-slide-toggle-bar {
+	height: 100%;
+	width: 100%;
+	border-radius: 30px;
+	background-color: var(--toggle-disabled-color, var(--accent-base-color));
+}
+	
+mat-slide-toggle ::ng-deep .mat-slide-toggle-thumb-container {
+	width: var(--toggle-height, 24px);
+	height: 100%;
+top: 0px;
+	}
+	
+mat-slide-toggle.mat-checked ::ng-deep .mat-slide-toggle-thumb-container {
+	transform: translate3d(calc(var(--toggle-width, 48px) - var(--toggle-height, 24px)), 0 ,0);
+}
+	
+mat-slide-toggle ::ng-deep .mat-slide-toggle-thumb {
+	height: 100%;
+	width: 100%;
+}
+	
+:host ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+	background-color: var(--toggle-enabled-color, var(--primary-base-color));
+}
+	
+mat-slide-toggle.mat-checked ::ng-deep .mat-slide-toggle-thumb {
+	background-color: var(--toggle-circle-color, white) !important;
+}
+   

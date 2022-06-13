@@ -2,18 +2,18 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FIELD_ERROR_MESSAGES } from 'src/app/const/fieldErrorMessages.const';
+import { FIELD_ERROR_MESSAGES } from 'src/app/const/field-error-messages.const';
 import { AppPaths } from 'src/app/enums/app-paths.enum';
 import { Bar } from 'src/app/models/bar-model';
 import { BarService } from 'src/app/services/bar.service';
 import { ToastService } from 'src/app/shared/services/toast.services';
 
 @Component({
-  selector: 'app-bar',
-  templateUrl: './bar.component.html',
-  styleUrls: ['./bar.component.scss']
+  selector: 'app-bar-create',
+  templateUrl: './bar-create.component.html',
+  styleUrls: ['./bar-create.component.scss']
 })
-export class BarComponent implements OnInit {
+export class BarCreateComponent implements OnInit {
 
   @ViewChild('form') 
   ngForm!: HTMLFormElement;
@@ -47,7 +47,7 @@ export class BarComponent implements OnInit {
       const newBar: Bar = {
         name: this.name.value.trim(),
         address: this.address.value.trim(),
-        city: this.city.value.trim(),
+      //  city: this.city.value.trim(),
         menuLink: this.menuLink.value.trim(),
       }
 
@@ -60,7 +60,7 @@ export class BarComponent implements OnInit {
       if(barCreated) {
         this.ngForm['resetForm']();
         this.toastService.openSuccessToast('Bar creado exitosamente!');
-        this.router.navigate([AppPaths.SIDENAV, AppPaths.BAR, AppPaths.UPDATE]);
+        this.router.navigate([AppPaths.SIDENAV, AppPaths.BAR, AppPaths.UPDATE, barCreated.id]);
       }
     }
   }
