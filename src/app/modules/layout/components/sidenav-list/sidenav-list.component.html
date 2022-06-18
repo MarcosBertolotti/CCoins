@@ -10,26 +10,20 @@
           [routerLink]="[item.route]"
           routerLinkActive="mat-list-single-selected-option"
           #router="routerLinkActive">
-   <!--  
-          <mat-icon matListIcon svgIcon="{{ router.isActive ? 'beer-fill' : 'beer-empty' }}"></mat-icon>
-          <p matLine> {{ item.title }} </p>-->
-          
-          <span matLine matBadge="&#8288;" matBadgeOverlap="false" matBadgePosition="before">
-            <a>{{ item.title }}</a>
-          </span>
+
+          <mat-icon fontSet="material-icons-outlined" matListIcon>{{ item.icon }}</mat-icon>
+          <p matLine>{{ item.title }}</p> 
         </mat-list-item>
       </div>
       <div class="bottom-items">
         <mat-divider></mat-divider>
         <mat-list-item>
-          <span matLine matBadge="&#8288;" matBadgeOverlap="false" matBadgePosition="before">
-            <a>Settings</a>
-          </span>
+          <mat-icon matListIcon>settings</mat-icon>
+          <p matLine>Settings</p> 
         </mat-list-item>
         <mat-list-item (click)="logOut()">
-          <span matLine matBadge="&#8288;" matBadgeOverlap="false" matBadgePosition="before">
-            <a>Logout</a>
-          </span>
+          <mat-icon matListIcon>logout</mat-icon>
+          <p matLine>Logout</p> 
         </mat-list-item>
       </div>
     </mat-nav-list>
