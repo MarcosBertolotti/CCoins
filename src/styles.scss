@@ -36,13 +36,14 @@ p {
   background-color: var(--black-alpha-35);
 }
 
-/* Start button style */
+/* mat-button */
 
 button[mat-raised-button] {
   height: 3rem;
   //box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.05) !important;
   border-radius: 30px;
-  min-width: 180px;
+  max-width: 220px;
+  width: 100%;
 
   span {
     margin: auto;
@@ -75,7 +76,7 @@ button[mat-icon-button] {
   height: auto
 }
 
-/* Start form-fields style */
+/* mat-form-field */
 
 mat-label {
   font-size: .75rem;
@@ -127,7 +128,7 @@ mat-error {
   box-shadow: none !important;
 }
 
-/* start checkbox */
+/* mat-checkbox */
 
 mat-checkbox {
   font-weight: 300;
@@ -136,14 +137,14 @@ mat-checkbox .mat-checkbox-inner-container {
   margin-right: .75rem;
 }
 
-/* start card */
+/* mat-card */
 
 mat-card {
   border-radius: 30px !important;
   box-shadow: 0px 4px 20px rgba(139, 141, 160, 0.2) !important;
 }
 
-/* input of type="number" */
+/* input */
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -155,8 +156,6 @@ input[type=number] {
   -moz-appearance:textfield;
 }
 
-/* input autofill color */
-
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus, 
@@ -165,7 +164,7 @@ input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 
-/* toast */
+/* mat-snack-bar */
 
 .toast {
   white-space: pre-wrap !important;

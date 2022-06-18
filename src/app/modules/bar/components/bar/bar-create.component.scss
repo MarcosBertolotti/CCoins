@@ -1,6 +1,11 @@
+::ng-deep app-router {
+  padding-top: 1rem;
+}
+
 .container {
   display: flex;
   justify-content: center;
+  padding-bottom: 1rem;
 }
 
 form {
@@ -27,5 +32,15 @@ button[mat-raised-button] {
 @media (min-width: 1280px) {
   form {
     width: 50%;
+  }
+}
+
+@media (max-width: 600px) {
+  ::ng-deep app-router {
+    //56px = toolbar height
+    //57px = navbar height
+    //1rem = padding-top
+    max-height: calc(100vh - 56px - 57px - 1rem);
+    overflow-y: auto;
   }
 }

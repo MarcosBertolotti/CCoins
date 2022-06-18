@@ -14,7 +14,7 @@ export class SidenavListComponent implements OnInit {
   items = [
     {
       route: AppPaths.BAR,
-      title: 'Home',
+      title: 'Mis bares',
       icon: 'grid_view', // dashboard
     },
     {

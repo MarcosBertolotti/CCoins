@@ -46,6 +46,7 @@
 @media(max-width: 599px) {
   
   .navbar {
+    position: fixed;
     padding-bottom: 0;
     left: 0;
     bottom: 0;
