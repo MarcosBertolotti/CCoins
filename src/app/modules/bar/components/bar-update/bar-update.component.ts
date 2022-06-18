@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FIELD_ERROR_MESSAGES } from 'src/app/const/field-error-messages.const';
+import { AppPaths } from 'src/app/enums/app-paths.enum';
 import { Bar } from 'src/app/models/bar-model';
 import { Table } from 'src/app/models/table.model';
 import { BarService } from 'src/app/services/bar.service';
@@ -17,10 +18,12 @@ import { ToastService } from 'src/app/shared/services/toast.services';
 export class BarUpdateComponent implements OnInit {
 
   bar!: Bar;
+  idBar!: number;
   barTables: Table[] = [];
   formGroup!: FormGroup;
 
   fieldErrors = FIELD_ERROR_MESSAGES;
+  barPathBase = AppPaths.BAR;
   
   constructor(
     private formBuilder: FormBuilder,
@@ -32,9 +35,9 @@ export class BarUpdateComponent implements OnInit {
   ) { }
 
   async ngOnInit(): Promise<void> {    
-    const idBar = this.route.snapshot.paramMap.get('id')!;
+    this.idBar = +this.route.snapshot.paramMap.get('id')!;
 
-    const bar: Bar = await this.barService.findById(+idBar);
+    const bar: Bar = await this.barService.findById(this.idBar);
     if (!bar) this.goToHome();
 
     const tables: any = await this.tableService.findAllByBar(bar.id!)

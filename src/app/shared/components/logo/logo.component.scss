@@ -12,17 +12,19 @@
     border-radius: 20px;
     background-color: var(--dark-base-color);
  }
-  
- :host .mat-icon[svgIcon="logo-beer"] {
+
+ img,
+ :host .mat-icon {
     color: var(--logo-color, var(--primary-base-color));
     width: var(--logo-width, 110px);
-    height: auto;
+    height: 110px;
  }
   
- :host.bg-dark .mat-icon[svgIcon="logo-beer"] {
+ img,
+ :host.bg-dark .mat-icon {
     color: var(--primary-base-color);
-    width: 60px;
-    height: 32px;
+    width: var(--logo-width, 100px);
+    height: 100px;
  }
   
  @media screen and (min-width: 600px) {

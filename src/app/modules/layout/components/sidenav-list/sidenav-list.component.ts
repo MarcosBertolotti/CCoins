@@ -56,9 +56,18 @@ export class SidenavListComponent implements OnInit {
     ).addSvgIcon(
       'beer-fill',
       this.domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/beer-fill.svg')
+    ).addSvgIcon(
+      'chopp-coins-logo',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/chopp-coins-logo.svg')
+    ).addSvgIcon(
+      'chopp coins',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/chopp coins.svg')
+    ).addSvgIcon(
+      'chopp_coins',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/chopp_coins.svg')
     )
   }
-
+  
   logOut(): void {
     this.authService.logOut();
   }

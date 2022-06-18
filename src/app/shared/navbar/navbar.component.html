@@ -1,0 +1,15 @@
+<div class="navbar">
+  <div class="navbar-container">
+    <div class="navbar-content" *ngFor="let item of items">
+      <ng-container *ngIf="item.display">
+        <a 
+          [routerLink]="[item.path]" 
+          routerLinkActive="route-active" 
+          #route="routerLinkActive">
+          {{ item.name }}
+        </a>
+        <div *ngIf="route.isActive" class="bottom-bar"></div>
+      </ng-container>
+    </div>
+  </div>
+</div>

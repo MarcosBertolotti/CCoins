@@ -1,3 +1,8 @@
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
 div {
   padding-bottom: 1rem;
 }
@@ -8,8 +13,12 @@ h2 {
   margin: 0;
 }
 
+.title-center {
+  margin: 0 auto;
+}
+
 @media (min-width: 599px) {
   div {
-    padding-top: 5rem;
+    padding-top: 1.5rem;
   }
 }

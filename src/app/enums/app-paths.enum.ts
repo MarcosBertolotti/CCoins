@@ -3,6 +3,7 @@ export enum AppPaths {
   LOGIN = 'login',
   SIDENAV = 'sidenav',
   BAR = 'bar',
-  HOME = '',
+  LIST = 'list',
+  CREATE = 'create',
   UPDATE = 'update',
 }

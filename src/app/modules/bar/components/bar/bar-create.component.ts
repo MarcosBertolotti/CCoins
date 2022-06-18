@@ -21,6 +21,7 @@ export class BarCreateComponent implements OnInit {
   formGroup!: FormGroup;
 
   fieldErrors = FIELD_ERROR_MESSAGES;
+  barPathBase = AppPaths.BAR;
   
   constructor(
     private formBuilder: FormBuilder,

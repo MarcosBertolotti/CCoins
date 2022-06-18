@@ -42,6 +42,7 @@ button[mat-raised-button] {
   height: 3rem;
   //box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.05) !important;
   border-radius: 30px;
+  min-width: 180px;
 
   span {
     margin: auto;
@@ -62,9 +63,16 @@ button[mat-icon-button] {
   }
 }
 
-button .east {
+.mat-button-base .east {
   position: absolute;
   right: 1rem;
+}
+
+.mat-button-base .mat-icon.east {
+  position: absolute;
+  right: 1rem;
+  font-size: 28px;
+  height: auto
 }
 
 /* Start form-fields style */

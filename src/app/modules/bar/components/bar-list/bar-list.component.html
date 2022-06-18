@@ -1,1 +1,9 @@
-<p>bar-list works!</p>
+<app-title title="Mis bares" titleCenter="Listado"></app-title>
+<app-navbar [sectionPath]="appPaths.BAR"></app-navbar>
+<button
+  mat-raised-button
+  color="primary"
+  routerLink="../create">
+  Crear
+  <mat-icon class="east">east</mat-icon>
+</button>

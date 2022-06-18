@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppPaths } from 'src/app/enums/app-paths.enum';
 
 @Component({
   selector: 'app-bar-list',
@@ -12,4 +13,5 @@ export class BarListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  appPaths = AppPaths;
 }

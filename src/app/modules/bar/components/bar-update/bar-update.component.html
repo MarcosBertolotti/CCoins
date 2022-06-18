@@ -1,12 +1,12 @@
 <ng-container *ngIf="bar">
-  <app-title [title]="bar.name"></app-title>
+  <app-title [title]="bar.name" titleCenter="Detalle y actualización"></app-title>
+  <app-navbar [sectionPath]="barPathBase" [id]="idBar"></app-navbar>
+  
   <app-slide-toggle 
     [title]="bar.active ? 'Habilitado' : 'Deshabilitado'" 
     [value]="bar.active!" 
     (toggle)="toggleActive()">
   </app-slide-toggle>
-
-  <!--<app-navbar [sectionPath]="providerPathBase"></app-navbar>-->
 
   <div class="container">
     <form [formGroup]="formGroup">
