@@ -35,7 +35,7 @@ mat-list-item ::ng-deep .mat-list-item-content .mat-icon {
 .mat-list-single-selected-option,
 .mat-list-single-selected-option:focus,
 .mat-list-single-selected-option:hover {
-  background-color: var(--red-darker-color);
+  background-color: var(--gold-darker-color);
 }
   
 mat-list-item ::ng-deep .mat-list-item-content .mat-list-text {
@@ -51,7 +51,7 @@ p {
 }
 
 .mat-divider {
-  border-top-color: var(--red-darker-color);
+  border-top-color: var(--gold-darker-color);
   padding-top: 1.5rem;
 }
 

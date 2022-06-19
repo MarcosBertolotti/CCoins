@@ -15,6 +15,7 @@
     button[mat-raised-button] {
       background-color: #067FDA; /* #006bbd */
       color: white;
+      max-width: 500px;
     }
 
     button[mat-raised-button]:first-of-type {
