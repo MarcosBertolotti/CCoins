@@ -4,7 +4,7 @@ import { AppPaths } from 'src/app/enums/app-paths.enum';
 import { RouterComponent } from 'src/app/shared/components/router/router.component';
 import { BarListComponent } from './components/bar-list/bar-list.component';
 import { BarUpdateComponent } from './components/bar-update/bar-update.component';
-import { BarCreateComponent } from './components/bar/bar-create.component';
+import { BarCreateComponent } from './components/bar-create/bar-create.component';
 
 const routes: Routes = [
   {

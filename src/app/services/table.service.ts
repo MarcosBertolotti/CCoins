@@ -18,4 +18,8 @@ export class TableService {
   findAllByBar(id: number): Promise<Table[]> {
     return this.requestService.post(`${this.baseApiURL}/bar`, { id });
   }
+
+  removeByQuantity(quantity: number, idBar: number) {
+    return this.requestService.delete(`${this.baseApiURL}/quantity`, { quantity, bar: idBar} );
+  }
 }

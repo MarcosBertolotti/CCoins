@@ -7,7 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 
 import { BarRoutingModule } from './bar-routing.module';
-import { BarCreateComponent } from './components/bar/bar-create.component';
+import { BarCreateComponent } from './components/bar-create/bar-create.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatButtonModule } from '@angular/material/button';
 import { BarUpdateComponent } from './components/bar-update/bar-update.component';

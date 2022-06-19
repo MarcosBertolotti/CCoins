@@ -49,8 +49,8 @@ export class RequestService {
     return this.http.post(url, body).toPromise();
   }
 
-  delete(urlEndpoint: string): Promise<any> {
+  delete(urlEndpoint: string, body: {}): Promise<any> {
     let url = this.getUrl(urlEndpoint);
-    return this.http.delete(url).toPromise();
+    return this.http.delete(url, { body }).toPromise();
   }
 }

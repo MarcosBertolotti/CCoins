@@ -20,6 +20,7 @@ export class BarUpdateComponent implements OnInit {
   bar!: Bar;
   idBar!: number;
   barTables: Table[] = [];
+  tableQuantity: number = 0;
   formGroup!: FormGroup;
 
   fieldErrors = FIELD_ERROR_MESSAGES;
@@ -43,7 +44,10 @@ export class BarUpdateComponent implements OnInit {
     const tables: any = await this.tableService.findAllByBar(bar.id!)
       .catch((error: HttpErrorResponse) => console.error(error.error.message));
 
-    if(tables && tables.list?.length > 0) this.barTables = tables.list;
+    if(tables && tables.list?.length > 0) {
+      this.barTables = tables.list;
+      this.tableQuantity = this.barTables.length
+    }
 
     this.bar = bar;
     this.buildForm();
@@ -78,19 +82,34 @@ export class BarUpdateComponent implements OnInit {
           this.toastService.openErrorToast(error.error.message);
         });
       
-      let quantityToCreate = (this.tables.value - this.barTables.length);
-      quantityToCreate = quantityToCreate > 0 ? quantityToCreate : 0;
-      const tablesCreated = this.tableService.createByQuantity(quantityToCreate, this.bar.id!)
-        .catch((error: HttpErrorResponse) => {
-          //const message = error.error?.name === ApiErrorResponses.EXISTING_OBJECT ? 'Ya existe un Bar' : error.message;
-          this.toastService.openErrorToast(error.error.message);
-        });
+      let quantityToUpdate = (this.tables.value - this.tableQuantity);
+      const tablesUpdated = quantityToUpdate > 0 ? this.createTables(quantityToUpdate) : this.removeTables(quantityToUpdate * -1);
 
-      const response = await Promise.all([barCreated, tablesCreated]);
+      const response = await Promise.all([barCreated, tablesUpdated]);
 
       if(response[0])
         this.toastService.openSuccessToast('Bar actualizado exitosamente!');
     }
+  }
+
+  private createTables(quantity: number): Promise<void | Table[]> {
+    console.log("create table: ", quantity)
+    return this.tableService.createByQuantity(quantity, this.bar.id!)
+    .then(() => this.tableQuantity = this.tables.value)
+    .catch((error: HttpErrorResponse) => {
+      //const message = error.error?.name === ApiErrorResponses.EXISTING_OBJECT ? 'Ya existe un Bar' : error.message;
+      this.toastService.openErrorToast(error.error.message);
+    });
+  }
+
+  private removeTables(quantity: number): Promise<void | Table[]> {
+    console.log("remove table: ", quantity)
+    return this.tableService.removeByQuantity(quantity, this.bar.id!)
+    .then(() => this.tableQuantity = this.tables.value)
+    .catch((error: HttpErrorResponse) => {
+      //const message = error.error?.name === ApiErrorResponses.EXISTING_OBJECT ? 'Ya existe un Bar' : error.message;
+      this.toastService.openErrorToast(error.error.message);
+    });
   }
 
   async toggleActive(): Promise<void> {
