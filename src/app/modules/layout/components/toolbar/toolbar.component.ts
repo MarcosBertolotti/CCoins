@@ -13,6 +13,10 @@ export class ToolbarComponent implements OnInit {
 
   @Input() isHandset$!: Observable<boolean>;
 
+  @Input() logoName: string = 'chopp_coins_cinta';
+
+  @Input() logoFormat: string = 'png';
+
   constructor() { }
 
   ngOnInit(): void {

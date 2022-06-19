@@ -8,6 +8,10 @@
   padding-bottom: 1rem;
 }
 
+button[mat-raised-button] {
+  max-width: 220px;
+}
+
 @media (max-width: 600px) {
   ::ng-deep app-router {
     //56px = toolbar height

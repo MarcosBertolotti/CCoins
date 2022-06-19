@@ -12,7 +12,7 @@
       [disableRipple]="true"
       (click)="drawer?.toggle()"
       [disabled]="!(isHandset$ | async)">
-      <app-logo></app-logo>
+      <app-logo [name]="logoName" [format]="logoFormat"></app-logo>
     </button>
   </mat-toolbar-row>
 </mat-toolbar>
