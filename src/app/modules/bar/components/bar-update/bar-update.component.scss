@@ -6,12 +6,39 @@
   display: flex;
   justify-content: center;
   padding-bottom: 1rem;
-}
+  flex-wrap: wrap;
+  
+  > * 
+  {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-width: 25%;
+  }
 
-form {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+  .left-content {
+    padding-top: 1rem;
+
+    .table-container {
+      background-color: var(--gray-lighter-color);
+      border-radius: 30px;
+      max-width: calc(200px - 2rem);
+      width: 100%;
+      padding: 1rem;
+
+      h3 {
+        font-weight: 400;
+      }
+
+      button[mat-raised-button] {
+        max-width: 180px;
+      }
+    }
+  }
+
+  form {
+    width: 100%;
+  }
 }
 
 mat-form-field {
@@ -30,12 +57,15 @@ button[mat-raised-button] {
 }
 
 @media (min-width: 1280px) {
-  form {
-    width: 50%;
+
+  .container {
+    form {
+      width: 50%;
+    }
   }
 }
 
-@media (max-width: 599px) {
+@media (max-width: 960px) {
   ::ng-deep app-router {
     //56px = toolbar height
     //57px = navbar height

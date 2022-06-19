@@ -9,6 +9,18 @@
   </app-slide-toggle>
 
   <div class="container">
+
+    <div class="left-content">
+      <div class="table-container">
+        <h3>{{ tableQuantity }} Mesas creadas</h3>
+      <button 
+        mat-raised-button
+        color="accent">
+        Administrar mesas
+      </button>
+      </div>
+    </div>
+
     <form [formGroup]="formGroup">
 
       <h4 class="title-accent">Actualizar Bar</h4>
@@ -53,5 +65,7 @@
         Actualizar
       </button>
     </form>
+
+    <div class="right-content"></div>
   </div>
 </ng-container>

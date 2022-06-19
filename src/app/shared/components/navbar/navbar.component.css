@@ -6,7 +6,7 @@
   padding-bottom: 2rem;
   /* revisar */
   position: absolute;
-  top: 12%;
+  top: calc(130px);
   right: 2%;
 }
 
