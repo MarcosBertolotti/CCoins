@@ -72,7 +72,7 @@ export class BarUpdateComponent implements OnInit {
       const newBar: Bar = {
         name: this.name.value.trim(),
         address: this.address.value.trim(),
-        city: this.city.value.trim(),
+        //city: this.city.value.trim() !== this.bar.city ? this.city.value.trim() : undefined,
         menuLink: this.menuLink.value.trim(),
       }
 
@@ -83,7 +83,10 @@ export class BarUpdateComponent implements OnInit {
         });
       
       let quantityToUpdate = (this.tables.value - this.tableQuantity);
-      const tablesUpdated = quantityToUpdate > 0 ? this.createTables(quantityToUpdate) : this.removeTables(quantityToUpdate * -1);
+      let tablesUpdated
+
+      if(quantityToUpdate !== 0)
+        tablesUpdated = quantityToUpdate > 0 ? this.createTables(quantityToUpdate) : this.removeTables(quantityToUpdate * -1);
 
       const response = await Promise.all([barCreated, tablesUpdated]);
 

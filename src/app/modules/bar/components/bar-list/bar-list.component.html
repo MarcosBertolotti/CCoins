@@ -7,3 +7,65 @@
   Crear
   <mat-icon class="east">east</mat-icon>
 </button>
+
+<div class="container">
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="bars && bars.length > 0">
+
+    <ng-container [matColumnDef]="column.name" *ngFor="let column of initColumns; index as index">
+      <mat-header-cell *matHeaderCellDef> {{ column.display }} </mat-header-cell>
+      <mat-cell *matCellDef="let item"> 
+        <ng-container *ngIf="index === 0">
+          <button mat-icon-button [routerLink]="['../update', item.id]">
+            <mat-icon fontSet="material-icons-outlined">info</mat-icon>
+          </button>
+        </ng-container>
+
+        <ng-container *ngIf="index === 1">
+          <button mat-icon-button [routerLink]="['../update', item.id]">
+            <mat-icon fontSet="material-icons-outlined">table_bar</mat-icon>
+          </button>
+        </ng-container>
+
+        <ng-container *ngIf="index === 2">
+          <mat-checkbox 
+            (click)="toggleActive(item.id)"
+            [checked]="item.active"
+            color="primary">
+          </mat-checkbox>
+        </ng-container>
+
+        <ng-container *ngIf="index >= 3">
+          {{ item[column.name] }} 
+        </ng-container>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+  </mat-table>
+</div>
+
+<!--
+<ng-container matColumnDef="select">
+  <mat-header-cell *matHeaderCellDef>
+    <mat-checkbox (change)="$event ? masterToggle() : null"
+                  [checked]="selection.hasValue() && isAllSelected()"
+                  [indeterminate]="selection.hasValue() && !isAllSelected()"
+                  [aria-label]="checkboxLabel()">
+    </mat-checkbox>
+  </mat-header-cell>
+  
+  <mat-cell *matCellDef="let row">
+    <mat-checkbox (click)="$event.stopPropagation()"
+                  (change)="$event ? selection.toggle(row) : null"
+                  [checked]="selection.isSelected(row)"
+                  [aria-label]="checkboxLabel(row)">
+    </mat-checkbox>
+  </mat-cell>
+</ng-container>
+
+    <mat-row *matRowDef="let row; columns: displayedColumns;"
+        (click)="selection.toggle(row)">
+    </mat-row>
+-->

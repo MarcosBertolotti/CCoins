@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { BarRoutingModule } from './bar-routing.module';
 import { BarCreateComponent } from './components/bar-create/bar-create.component';
@@ -30,6 +32,8 @@ import { BarListComponent } from './components/bar-list/bar-list.component';
     SharedModule,
     MatButtonModule,
     MatIconModule,
+    MatTableModule,
+    MatCheckboxModule
   ]
 })
 export class BarModule { }

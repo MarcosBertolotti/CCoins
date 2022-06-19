@@ -1,5 +1,10 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { AppPaths } from 'src/app/enums/app-paths.enum';
+import { Bar } from 'src/app/models/bar-model';
+import { BarService } from 'src/app/services/bar.service';
+import { ToastService } from 'src/app/shared/services/toast.services';
 
 @Component({
   selector: 'app-bar-list',
@@ -8,10 +13,65 @@ import { AppPaths } from 'src/app/enums/app-paths.enum';
 })
 export class BarListComponent implements OnInit {
 
-  constructor() { }
+  initColumns: any[] = [
+    { name: 'detail', display: 'Detalle' },
+    { name: 'tables', display: 'Mesas' },
+    { name: 'active', display: 'Activo' },
+    { name: 'name', display: 'name' },
+    { name: 'address', display: 'Dirección' },
+    { name: 'city', display: 'Localidad' },
+    { name: 'menuLink', display: 'Menu Link' },
+  ];
+  displayedColumns: any[] = this.initColumns.map(col => col.name);
 
-  ngOnInit(): void {
+  dataSource!: MatTableDataSource<Bar>;
+
+  /*
+  selection = new SelectionModel<Bar>(true, []);
+
+  // Whether the number of selected items matches the total number of rows.
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
   }
 
+  // Selects all rows if they are not all selected; otherwise clear selection.
+  masterToggle() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+    this.selection.select(...this.dataSource.data);
+  }
+
+  // The label for the checkbox on the passed row
+  checkboxLabel(row?: Bar): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${2}`; // revisar
+  }
+*/
+  bars: Bar[] = [];
   appPaths = AppPaths;
+
+  constructor(
+    private barsService: BarService,
+    private toastService: ToastService,
+  ) { }
+
+  async ngOnInit(): Promise<void> {
+    this.bars = (await this.barsService.findAllByOwner())?.list;
+
+    if(this.bars?.length > 0) {
+      this.dataSource = new MatTableDataSource<Bar>(this.bars);
+    }
+  }
+
+  toggleActive(id: number): void {
+    this.barsService.updateActive(id)
+      .then(() => this.toastService.openSuccessToast('Bar actualizado exitosamente!'))
+      .catch(() => this.toastService.openSuccessToast('Ocurrió un error al actualizar el bar'))
+  }
 }

@@ -28,4 +28,12 @@ app-logo ::ng-deep img {
   width: 160px;
   height: auto;
 }
+
+@media (max-width: 960px) {
+
+  .mat-toolbar-multiple-rows, mat-toolbar-row {
+    height: 56px;
+    min-height: 56px;
+  }
+}
   

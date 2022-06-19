@@ -19,8 +19,8 @@ export class BarService {
     return this.requestService.post(`${this.baseApiURL}/id`, { id });
   }
 
-  findAllByOwner(): Promise<Bar> {
-    return this.requestService.get(`${this.baseApiURL}/all`);
+  findAllByOwner(): Promise<any> {
+    return this.requestService.get(`${this.baseApiURL}/owner`);
   }
 
   updateActive(id: number): Promise<Bar> {
