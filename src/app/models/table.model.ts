@@ -3,4 +3,5 @@ export interface Table {
     number: number,
     active: boolean,
     bar: number,
+    qrCode: string,
 }

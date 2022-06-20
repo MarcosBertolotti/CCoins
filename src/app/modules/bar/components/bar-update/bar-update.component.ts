@@ -104,7 +104,6 @@ export class BarUpdateComponent implements OnInit {
   }
 
   private createTables(quantity: number): Promise<void | Table[]> {
-    console.log("create table: ", quantity)
     return this.tableService.createByQuantity(quantity, this.bar.id!)
     .then(() => this.tableQuantity = this.tables.value)
     .catch((error: HttpErrorResponse) => {
@@ -114,7 +113,6 @@ export class BarUpdateComponent implements OnInit {
   }
 
   private removeTables(quantity: number): Promise<void | Table[]> {
-    console.log("remove table: ", quantity)
     return this.tableService.removeByQuantity(quantity, this.bar.id!)
     .then(() => this.tableQuantity = this.tables.value)
     .catch((error: HttpErrorResponse) => {

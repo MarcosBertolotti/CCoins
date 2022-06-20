@@ -9,13 +9,46 @@
   form {
     width: 100%;
 
+    .field-container {
+      display: flex;
+      align-items: center;
+      padding-bottom: 1rem;
+
+      button[mat-icon-button] {
+        color: var(--primary-base-color);
+      }
+
+      button[mat-icon-button]:nth-of-type(2) {
+        color: var(--accent-base-color);
+      }
+
+      button[mat-raised-button] {
+        max-width: 180px;
+        margin-left: 1rem;
+      }
+
+      .mat-form-field-appearance-outline {
+        max-width: 110px;
+        
+        ::ng-deep .mat-form-field-wrapper {
+          padding: 0;
+        }
+
+        ::ng-deep .mat-form-field-label {
+            left: 1.75rem;
+            top: 1.5rem;
+            color: var(--dark-darker-color);
+        }
+      }
+    }
+
     mat-table {
-      // 2rem = padding top // 159px = app title // 48px = button // 3rem = margin button
-      max-height: calc(100vh - 2rem - 159px - 48px - 3rem);
+      // 2rem = padding top // 159px = app title // 63px = form field //48px = button // 3rem = margin button
+      max-height: calc(100vh - 2rem - 159px - 63px - 48px - 3rem);
       overflow-y: auto;
     }
 
-    button[mat-raised-button] {
+    button[mat-raised-button]:not(.field-container button) {
       max-width: 250px;
       float: right;
       margin-top: 1.5rem;
@@ -27,8 +60,8 @@
   .container {
     form {
       mat-table {
-        // 56px = toolbar // 1rem = padding top // 104px = app title // 48px = button // 3rem = margin button
-        max-height: calc(100vh - 56px - 1rem - 104px - 48px - 3rem);
+        // 56px = toolbar // 1rem = padding top // 104px = app title // // 63px = form field  48px = button // 3rem = margin button
+        max-height: calc(100vh - 56px - 1rem - 104px - 63px - 48px - 3rem);
       }
 
       button[mat-raised-button] {

@@ -154,6 +154,11 @@ mat-table {
     mat-header-cell {
       color: white;
 
+      button[mat-icon-button] {
+        margin-left: .5rem;
+        background-color: transparent;
+      }
+
       mat-checkbox .mat-checkbox-frame {
         border-color: white;
       }
