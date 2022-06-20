@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit {
   sectionPath!: string;
 
   @Input()
-  id!: number;
+  id?: number;
 
   barPath = `/${AppPaths.SIDENAV}/${AppPaths.BAR}`;
 

@@ -8,10 +8,10 @@ import { Component, Input, OnInit } from '@angular/core';
 export class TitleComponent implements OnInit {
 
   @Input()
-  title!: string; 
+  title?: string; 
 
   @Input()
-  titleCenter!: string; 
+  titleCenter?: string; 
 
   constructor() { }
 

@@ -19,6 +19,7 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
 import { TitleComponent } from './components/title/title.component';
 import { SlideToggleComponent } from './components/slide-toggle/slide-toggle.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     ErrorMessagePipe,
     SlideToggleComponent,
     NavbarComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     CommonModule,
@@ -49,6 +51,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     ErrorMessagePipe,
     SlideToggleComponent,
     NavbarComponent,
+    PageNotFoundComponent,
   ],
 })
 export class SharedModule { }

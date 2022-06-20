@@ -19,17 +19,17 @@ export class SidenavListComponent implements OnInit {
     },
     {
       route: '#',
-      title: 'Section 2',
+      title: 'Sección 2',
       icon: 'article',
     },
     {
       route: '#',
-      title: 'Section 3',
+      title: 'Sección 3',
       icon: 'article',
     },
     {
       route: '#',
-      title: 'Section 4',
+      title: 'Sección 4',
       icon: 'article',
     },
   ];

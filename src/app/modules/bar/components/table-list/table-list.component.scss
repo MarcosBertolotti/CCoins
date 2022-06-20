@@ -1,0 +1,45 @@
+::ng-deep app-router {
+  padding-top: 1rem;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+
+  form {
+    width: 100%;
+
+    mat-table {
+      // 2rem = padding top // 159px = app title // 48px = button // 3rem = margin button
+      max-height: calc(100vh - 2rem - 159px - 48px - 3rem);
+      overflow-y: auto;
+    }
+
+    button[mat-raised-button] {
+      max-width: 250px;
+      float: right;
+      margin-top: 1.5rem;
+    }
+  }
+}
+
+@media (max-width: 960px) {
+  .container {
+    form {
+      mat-table {
+        // 56px = toolbar // 1rem = padding top // 104px = app title // 48px = button // 3rem = margin button
+        max-height: calc(100vh - 56px - 1rem - 104px - 48px - 3rem);
+      }
+
+      button[mat-raised-button] {
+        max-width: initial;
+      }
+    }
+  }
+
+  ::ng-deep app-router {
+    //56px = toolbar height  //1rem = padding-top
+    max-height: calc(100vh - 56px - 1rem);
+    overflow-y: auto;
+  }
+}

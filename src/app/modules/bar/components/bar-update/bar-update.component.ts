@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PartialObserver } from 'rxjs';
 import { FIELD_ERROR_MESSAGES } from 'src/app/const/field-error-messages.const';
 import { AppPaths } from 'src/app/enums/app-paths.enum';
 import { Bar } from 'src/app/models/bar-model';
@@ -24,7 +25,7 @@ export class BarUpdateComponent implements OnInit {
   formGroup!: FormGroup;
 
   fieldErrors = FIELD_ERROR_MESSAGES;
-  barPathBase = AppPaths.BAR;
+  appPaths = AppPaths;
   
   constructor(
     private formBuilder: FormBuilder,
@@ -38,19 +39,24 @@ export class BarUpdateComponent implements OnInit {
   async ngOnInit(): Promise<void> {    
     this.idBar = +this.route.snapshot.paramMap.get('id')!;
 
-    const bar: Bar = await this.barService.findById(this.idBar);
-    if (!bar) this.goToHome();
-
-    const tables: any = await this.tableService.findAllByBar(bar.id!)
-      .catch((error: HttpErrorResponse) => console.error(error.error.message));
-
-    if(tables && tables.list?.length > 0) {
-      this.barTables = tables.list;
-      this.tableQuantity = this.barTables.length
-    }
-
-    this.bar = bar;
-    this.buildForm();
+    const barObserver: PartialObserver<Bar> = {
+      next: async (bar: Bar) => {
+        const tables: any = await this.tableService.findAllByBar(this.idBar)
+          .catch((error: HttpErrorResponse) => console.error(error.error.message));
+  
+        if(tables && tables.list?.length > 0) {
+          this.barTables = tables.list;
+          this.tableQuantity = this.barTables.length;
+        }
+        this.bar = bar;
+        this.buildForm();
+      },
+      error: (error: HttpErrorResponse) => { 
+        this.toastService.openErrorToast(error.error.message);
+        this.goToHome();
+      },
+    };
+    this.barService.getCurrentBar(this.idBar).subscribe(barObserver);    
   }
 
   private goToHome(): void {
@@ -69,14 +75,16 @@ export class BarUpdateComponent implements OnInit {
   
   async submitForm(): Promise<void> {
     if (this.formGroup.valid) {
-      const newBar: Bar = {
+      const updateBar: Bar = {
+        id: this.bar.id,
         name: this.name.value.trim(),
         address: this.address.value.trim(),
         //city: this.city.value.trim() !== this.bar.city ? this.city.value.trim() : undefined,
         menuLink: this.menuLink.value.trim(),
+        active: this.bar.active,
       }
 
-      const barCreated = this.barService.create(newBar)
+      const barCreated = this.barService.create(updateBar)
         .catch((error: HttpErrorResponse) => {
           //const message = error.error?.name === ApiErrorResponses.EXISTING_OBJECT ? 'Ya existe un Bar' : error.message;
           this.toastService.openErrorToast(error.error.message);

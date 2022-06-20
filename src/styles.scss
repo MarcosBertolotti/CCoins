@@ -143,6 +143,29 @@ mat-card {
   box-shadow: 0px 4px 20px rgba(139, 141, 160, 0.2) !important;
 }
 
+/* mat-table */
+
+mat-table {
+  width: 100%;
+
+  .mat-table-sticky.mat-header-row {
+    background-color: var(--dark-base-color);
+
+    mat-header-cell {
+      color: white;
+
+      mat-checkbox .mat-checkbox-frame {
+        border-color: white;
+      }
+    }
+  }
+
+  button[mat-icon-button] {
+    background-color: var(--dark-lighter-color);
+    color: var(--accent-base-color);
+  }
+}
+
 /* input */
 
 input::-webkit-outer-spin-button,
@@ -178,4 +201,18 @@ input:-webkit-autofill:active {
 
 .toast-success {
   background: var(--primary-darker-color) !important;
+}
+
+@media (max-width: 960px) {
+  mat-table {
+    mat-header-cell:first-of-type,
+    mat-cell:first-of-type {
+      padding-left: 0;
+    }
+
+    mat-header-cell:last-of-type,
+    mat-cell:last-of-type {
+      padding-right: 0;
+    }
+  }
 }

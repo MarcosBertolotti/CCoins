@@ -1,0 +1,61 @@
+<app-title title="Mis mesas" [titleCenter]="bar?.name"></app-title>
+
+<div class="container">
+  <form [formGroup]="formGroup" *ngIf="tables && tables.length > 0">
+    <mat-table formArrayName="tables" [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <ng-container [matColumnDef]="column.name" *ngFor="let column of initColumns; index as index">
+
+        <mat-header-cell *matHeaderCellDef [ngClass]="{'hide': !column.show && (isSmallScreen$ | async)}"> 
+          <ng-container *ngIf="column.name === 'active'">
+            <mat-checkbox 
+              (change)="$event ? masterToggle() : null"
+              [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()"
+              color="primary">
+            </mat-checkbox>
+          </ng-container>
+          {{ column.display }} 
+        </mat-header-cell>
+
+        <ng-container *ngIf="index === 0">
+          <mat-cell *matCellDef="let item"> 
+            <button mat-icon-button>
+              <mat-icon fontSet="material-icons-outlined">info</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container *ngIf="index === 1">
+          <mat-cell *matCellDef="let item let rowIndex = index" [formGroupName]="rowIndex"> 
+            <mat-checkbox 
+              formControlName="active"
+              (click)="$event.stopPropagation()"
+              (change)="$event ? selection.toggle(item) : null"
+              [checked]="selection.isSelected(item)"
+              color="primary">
+            </mat-checkbox>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container *ngIf="index >= 2">
+          <mat-cell *matCellDef="let item"> 
+            {{ item[column.name] }}
+          </mat-cell>
+        </ng-container>
+        
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="update()">
+      Actualizar
+    </button>
+  </form>
+</div>

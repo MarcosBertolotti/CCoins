@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppPaths } from './enums/app-paths.enum';
 import { AuthGuard } from './guards/auth.guard';
 import { IsAuthenticatedGuard } from './guards/is-authenticated.guard';
+import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
     loadChildren: () => import("src/app/modules/bar/auth/auth.module").then(m => m.AuthModule),
     canActivateChild: [IsAuthenticatedGuard]
   },
+  { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
 ];
 
 @NgModule({

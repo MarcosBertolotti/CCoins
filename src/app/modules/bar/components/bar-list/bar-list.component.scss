@@ -10,34 +10,31 @@ button[mat-raised-button] {
 .container {
   display: flex;
   justify-content: center;
-  // 2rem = padding top // 159px = app title // 48px = button // 1.5rem = margin bottom button
-  max-height: calc(100vh - 2rem - 159px - 48px - 1.5rem);
-  overflow-y: auto;
-
+  
   mat-table {
-    width: 100%;
+    // 2rem = padding top // 159px = app title // 48px = button // 1.5rem = margin bottom button
+    max-height: calc(100vh - 2rem - 159px - 48px - 1.5rem);
+    overflow-y: auto;
   }
+}
+
+.hide {
+  display: none;
 }
 
 @media (max-width: 960px) {
   .container {
-    // 56px = toolbar // 1rem = padding top // 120px = app title // 48px = button // 1.5rem = margin bottom button // 57px = navbar
-    max-height: calc(100vh - 56px - 1rem - 104px - 48px - 1.5rem - 57px);
-
     mat-table {
+      // 56px = toolbar // 1rem = padding top // 120px = app title // 48px = button // 1.5rem = margin bottom button // 57px = navbar
+      max-height: calc(100vh - 56px - 1rem - 104px - 48px - 1.5rem - 57px);
+
       mat-header-cell:first-of-type,
       mat-cell:first-of-type {
-        padding-left: 0;
-      }
-
-      mat-header-cell:last-of-type,
-      mat-cell:last-of-type {
-        padding-right: 0;
+        max-width: 70px;
       }
     }
   }
 
-  // revisar
   ::ng-deep app-router {
     //56px = toolbar height //57px = navbar height //1rem = padding-top
     max-height: calc(100vh - 56px - 57px - 1rem);

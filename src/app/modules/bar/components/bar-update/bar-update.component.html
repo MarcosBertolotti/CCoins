@@ -1,6 +1,6 @@
 <ng-container *ngIf="bar">
   <app-title [title]="bar.name" titleCenter="Detalle y actualización"></app-title>
-  <app-navbar [sectionPath]="barPathBase" [id]="idBar"></app-navbar>
+  <app-navbar [sectionPath]="appPaths.BAR" [id]="bar.id"></app-navbar>
   
   <app-slide-toggle 
     [title]="bar.active ? 'Habilitado' : 'Deshabilitado'" 
@@ -15,7 +15,8 @@
         <h3>{{ tableQuantity }} Mesas creadas</h3>
       <button 
         mat-raised-button
-        color="accent">
+        color="accent"
+        [routerLink]="['../../', bar.id, appPaths.TABLES]">
         Administrar mesas
       </button>
       </div>
@@ -55,7 +56,7 @@
         <mat-error>{{ 'tables' | errorMessage : formGroup : 'mesas' }}</mat-error>
       </mat-form-field>
 
-      <p>Al hacer click en actualizar todos los campos serán sobreescritos</p>
+      <!--<p>Al hacer click en actualizar todos los campos serán sobreescritos</p>-->
 
       <button
         mat-raised-button

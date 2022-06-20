@@ -12,16 +12,16 @@
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="bars && bars.length > 0">
 
     <ng-container [matColumnDef]="column.name" *ngFor="let column of initColumns; index as index">
-      <mat-header-cell *matHeaderCellDef> {{ column.display }} </mat-header-cell>
-      <mat-cell *matCellDef="let item"> 
+      <mat-header-cell *matHeaderCellDef [ngClass]="{'hide': !column.show && (isSmallScreen$ | async)}"> {{ column.display }} </mat-header-cell>
+      <mat-cell *matCellDef="let item" [ngClass]="{'hide': !column.show && (isSmallScreen$ | async)}"> 
         <ng-container *ngIf="index === 0">
-          <button mat-icon-button [routerLink]="['../update', item.id]">
+          <button mat-icon-button [routerLink]="['../', appPaths.UPDATE, item.id]">
             <mat-icon fontSet="material-icons-outlined">info</mat-icon>
           </button>
         </ng-container>
 
         <ng-container *ngIf="index === 1">
-          <button mat-icon-button [routerLink]="['../update', item.id]">
+          <button mat-icon-button [routerLink]="['../', item.id, appPaths.TABLES]">
             <mat-icon fontSet="material-icons-outlined">table_bar</mat-icon>
           </button>
         </ng-container>
@@ -34,9 +34,7 @@
           </mat-checkbox>
         </ng-container>
 
-        <ng-container *ngIf="index >= 3">
-          {{ item[column.name] }} 
-        </ng-container>
+        <ng-container *ngIf="index >= 3">{{ item[column.name] }}</ng-container>
       </mat-cell>
     </ng-container>
 

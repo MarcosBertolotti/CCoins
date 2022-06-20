@@ -14,6 +14,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MatButtonModule } from '@angular/material/button';
 import { BarUpdateComponent } from './components/bar-update/bar-update.component';
 import { BarListComponent } from './components/bar-list/bar-list.component';
+import { TableListComponent } from './components/table-list/table-list.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { BarListComponent } from './components/bar-list/bar-list.component';
     BarCreateComponent,
     BarUpdateComponent,
     BarListComponent,
+    TableListComponent,
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,7 @@ import { BarListComponent } from './components/bar-list/bar-list.component';
     MatButtonModule,
     MatIconModule,
     MatTableModule,
-    MatCheckboxModule
+    MatCheckboxModule,
   ]
 })
 export class BarModule { }
