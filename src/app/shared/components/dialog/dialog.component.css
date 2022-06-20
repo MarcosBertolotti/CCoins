@@ -1,0 +1,28 @@
+:host {
+  text-align: var(--dialog-text-align, center);
+}
+
+::ng-deep .custom-dialog-container{
+  max-width: 500px !important;
+  line-height: 28px;
+}
+
+h1.mat-dialog-title {
+  margin-bottom: 0;
+  color:var(--primary-base-color);
+  font-size: 20px;
+  line-height: 24px;
+}
+
+p {
+  color:white;
+  margin: 1rem 0
+}
+
+.mat-stroked-button.mat-primary {
+  border: 1px solid var(--primary-base-color);
+}
+
+.mat-dialog-actions{
+  justify-content: space-evenly;
+}

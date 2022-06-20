@@ -7,6 +7,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 // PIPES
 import { FieldRequiredPipe } from './pipes/field-required.pipe';
@@ -20,6 +22,7 @@ import { TitleComponent } from './components/title/title.component';
 import { SlideToggleComponent } from './components/slide-toggle/slide-toggle.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 
 @NgModule({
@@ -33,6 +36,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     SlideToggleComponent,
     NavbarComponent,
     PageNotFoundComponent,
+    DialogComponent,
   ],
   imports: [
     CommonModule,
@@ -42,6 +46,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     FormsModule,
     ReactiveFormsModule,
     MatSlideToggleModule,
+    MatDialogModule,
+    MatButtonModule,
   ],
   exports: [
     RouterComponent,
@@ -52,6 +58,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     SlideToggleComponent,
     NavbarComponent,
     PageNotFoundComponent,
+    DialogComponent,
   ],
 })
 export class SharedModule { }

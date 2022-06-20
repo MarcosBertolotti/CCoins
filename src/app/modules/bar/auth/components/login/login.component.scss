@@ -10,7 +10,25 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
     padding: 0 1rem;
+    margin-top: -5rem;
+
+    app-logo:first-of-type ::ng-deep {
+      img {
+        height: 120px;
+        width: 120px;
+        margin-bottom: 1rem;
+      }
+    }
+
+    app-logo:last-of-type ::ng-deep {
+      img {
+        width: 100%;
+        max-width: 320px;
+        margin-bottom: 2rem;
+      }
+    }
 
     button[mat-raised-button] {
       background-color: #067FDA; /* #006bbd */

@@ -69,7 +69,7 @@ export class AuthService {
     return (Math.floor((new Date).getTime() / 1000)) >= expiry;
   }
 
-  private saveToken(token: string): void {
+  saveToken(token: string): void {
     localStorage.removeItem('id_token');
     localStorage.setItem('id_token', token);
   }

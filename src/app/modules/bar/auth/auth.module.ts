@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from './components/login/login.component';
+
 import { AuthRoutingModule } from './auth-routing.module';
+import { SharedModule } from 'src/app/shared/shared.module';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
@@ -16,6 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
     AuthRoutingModule,
     MatButtonModule,
     MatIconModule,
+    SharedModule,
   ]
 })
 export class AuthModule { }

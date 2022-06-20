@@ -147,6 +147,7 @@ mat-card {
 
 mat-table {
   width: 100%;
+  border-radius: 10px;
 
   .mat-table-sticky.mat-header-row {
     background-color: var(--dark-base-color);
@@ -171,6 +172,32 @@ mat-table {
   }
 }
 
+/* mat-dialog */
+
+.custom-dialog-container .mat-dialog-container {
+  border-radius: 20px !important;
+  background-color: var(--dark-base-color) !important;
+  color: white !important;
+  word-break: break-word;
+}
+
+/* mat-snack-bar */
+
+.toast {
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+  color: white !important;
+  border-radius: 10px !important;
+}
+
+.toast-error {
+  background: var(--danger-base-color) !important;
+}
+
+.toast-success {
+  background: var(--primary-darker-color) !important;
+}
+
 /* input */
 
 input::-webkit-outer-spin-button,
@@ -189,23 +216,6 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   box-shadow: 0 0 0 30px white inset !important;
   -webkit-box-shadow: 0 0 0 30px white inset !important;
-}
-
-/* mat-snack-bar */
-
-.toast {
-  white-space: pre-wrap !important;
-  word-break: break-word !important;
-  color: white !important;
-  border-radius: 10px !important;
-}
-
-.toast-error {
-  background: var(--danger-base-color) !important;
-}
-
-.toast-success {
-  background: var(--primary-darker-color) !important;
 }
 
 @media (max-width: 960px) {
