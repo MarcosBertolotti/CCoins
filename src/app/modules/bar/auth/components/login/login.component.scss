@@ -25,8 +25,9 @@
     app-logo:last-of-type ::ng-deep {
       img {
         width: 100%;
-        max-width: 320px;
+        max-width: 380px;
         margin-bottom: 2rem;
+        height: auto;
       }
     }
 
