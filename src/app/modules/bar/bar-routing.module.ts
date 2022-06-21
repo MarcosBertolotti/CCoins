@@ -6,6 +6,7 @@ import { BarListComponent } from './components/bar-list/bar-list.component';
 import { BarUpdateComponent } from './components/bar-update/bar-update.component';
 import { BarCreateComponent } from './components/bar-create/bar-create.component';
 import { TableListComponent } from './components/table-list/table-list.component';
+import { TableDetailComponent } from './components/table-detail/table-detail.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
       { path: AppPaths.CREATE, component: BarCreateComponent },
       { path: `${AppPaths.UPDATE}/:id`, component: BarUpdateComponent },
       { path: `:id/${AppPaths.TABLES}`, component: TableListComponent },
+      { path: `:id/${AppPaths.TABLES}/:idTable`, component: TableDetailComponent },
     ]
   }
 ];

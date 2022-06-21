@@ -15,6 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { BarUpdateComponent } from './components/bar-update/bar-update.component';
 import { BarListComponent } from './components/bar-list/bar-list.component';
 import { TableListComponent } from './components/table-list/table-list.component';
+import { TableDetailComponent } from './components/table-detail/table-detail.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { TableListComponent } from './components/table-list/table-list.component
     BarUpdateComponent,
     BarListComponent,
     TableListComponent,
+    TableDetailComponent,
   ],
   imports: [
     CommonModule,

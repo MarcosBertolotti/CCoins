@@ -18,16 +18,20 @@ export class TableService {
 
   constructor(private requestService: RequestService) { }
 
+  findById(id: number): Promise<Table> {
+    return this.requestService.post(`${this.baseApiURL}/id`, { id });
+  }
+
+  findAllByBar(id: number): Promise<Table[]> {
+    return this.requestService.post(`${this.baseApiURL}/bar`, { id });
+  }
+
   saveOrUpdate(table: TableDTO) {
     return this.requestService.post(`${this.baseApiURL}/save`, table);
   }
 
   createByQuantity(quantity: number, idBar: number): Promise<Table[]> {
     return this.requestService.post(`${this.baseApiURL}/save/quantity`, { quantity, bar: idBar });
-  }
-
-  findAllByBar(id: number): Promise<Table[]> {
-    return this.requestService.post(`${this.baseApiURL}/bar`, { id });
   }
 
   removeByQuantity(quantity: number, idBar: number) {

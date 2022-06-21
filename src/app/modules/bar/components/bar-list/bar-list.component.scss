@@ -12,15 +12,9 @@ button[mat-raised-button] {
   justify-content: center;
   
   mat-table {
-    overflow-y: hidden;
     // 2rem = padding top // 159px = app title // 48px = button // 1.5rem = margin bottom button
     max-height: calc(100vh - 2rem - 159px - 48px - 1.5rem);
-
-    .table-scroll {
-      // 2rem = padding top // 159px = app title // 48px = button // 1.5rem = margin bottom button
-      max-height: calc(100vh - 2rem - 159px - 48px - 1.5rem -56px);
-      overflow-y: auto;
-    }
+    overflow-y: auto;
   }
 }
 
