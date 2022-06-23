@@ -9,7 +9,7 @@ export class ToastService {
 constructor(private snackBar: MatSnackBar) {}
  
   openToast(message: string, action: string | undefined = undefined, config?: MatSnackBarConfig<TextOnlySnackBar>): MatSnackBarRef<TextOnlySnackBar> {
-    config = { ...config, duration: 3000 };
+    config = { ...config, duration: 4000 };
     return this.snackBar.open(message, action, config);
   }
 

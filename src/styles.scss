@@ -222,12 +222,12 @@ input:-webkit-autofill:active {
   mat-table {
     mat-header-cell:first-of-type,
     mat-cell:first-of-type {
-      padding-left: 0;
+      padding-left: .5rem;
     }
 
     mat-header-cell:last-of-type,
     mat-cell:last-of-type {
-      padding-right: 0;
+      padding-right: .5rem;
     }
   }
 }

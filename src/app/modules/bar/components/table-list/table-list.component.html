@@ -74,11 +74,19 @@
       </mat-row>
     </mat-table>
 
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="update()">
-      Actualizar
-    </button>
+    <div class="actions-container">
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="downloadPDF()">
+        Descargar QRs
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="update()">
+        Actualizar
+      </button>
+    </div>
   </form>
 </div>

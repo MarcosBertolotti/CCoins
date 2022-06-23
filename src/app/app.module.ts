@@ -51,7 +51,8 @@ import { SpinnerInterceptor } from './interceptors/spinner.interceptor';
           }
         ],
         onError: (err: any) => {
-          console.error("auth social error: ", err);
+          const error = err?.error?.message ?? err?.error ?? err;
+          console.error("auth social error: ", error);
         }
       } as SocialAuthServiceConfig,
     },

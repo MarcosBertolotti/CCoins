@@ -43,33 +43,50 @@
     }
 
     mat-table {
-      // 2rem = padding top // 159px = app title // 63px = form field //48px = button // 3rem = margin button
-      max-height: calc(100vh - 2rem - 159px - 63px - 48px - 3rem);
+      // 56px = toolbar // 1rem = padding top // 104px = app title // // 63px = form field  48px = button // 3rem = margin button
+      max-height: calc(100vh - 56px - 1rem - 104px - 63px - 48px - 3rem);
       overflow-y: auto;
     }
 
-    button[mat-raised-button]:not(.field-container button) {
-      max-width: 250px;
-      float: right;
-      margin-top: 1.5rem;
+    .actions-container {
+      display: flex;
+      flex-direction: column;
+
+      button[mat-raised-button] {
+        margin-top: 1rem;
+      }
+
+      button[mat-raised-button]:first-of-type {
+        margin-top: 1.5rem;
+        display: none;
+      }
     }
   }
 }
 
-@media (max-width: 960px) {
+@media (min-width: 960px) {
   .container {
     form {
       mat-table {
-        // 56px = toolbar // 1rem = padding top // 104px = app title // // 63px = form field  48px = button // 3rem = margin button
-        max-height: calc(100vh - 56px - 1rem - 104px - 63px - 48px - 3rem);
+        // 2rem = padding top // 159px = app title // 63px = form field //48px = button // 3rem = margin button
+        max-height: calc(100vh - 2rem - 159px - 63px - 48px - 3rem);
       }
 
-      button[mat-raised-button] {
-        max-width: initial;
+      .actions-container {
+        flex-direction: row;
+        justify-content: flex-end;
+  
+        button[mat-raised-button] {
+          margin: 1.5rem 0 0 .5rem !important;
+          display: initial !important;
+          max-width: 220px;
+        }
       }
     }
   }
+}
 
+@media (max-width: 959px) {
   ::ng-deep app-router {
     //56px = toolbar height  //1rem = padding-top
     max-height: calc(100vh - 56px - 1rem);
