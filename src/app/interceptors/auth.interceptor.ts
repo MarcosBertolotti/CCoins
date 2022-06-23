@@ -36,7 +36,7 @@ export class AuthInterceptor implements HttpInterceptor {
         }
       }),
       catchError((error) => {
-        if (!this.authService.isAuthenticated() && error.status === 401) {
+        if (this.authService.getToken() && !this.authService.isAuthenticated() && error.status === 401) {
           this.openDialog();
         }
         return throwError(error);

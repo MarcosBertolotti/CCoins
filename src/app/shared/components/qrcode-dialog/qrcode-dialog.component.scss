@@ -1,0 +1,32 @@
+.title {
+  text-align: center;
+  margin: 0 auto 0 auto;
+  padding: 1rem 1rem 0 1rem;
+  color: var(--text-alpha-70);
+}
+
+:host {
+  div[cardContent] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  div[qrcode] {
+    padding-top: 1rem;
+  }
+}
+
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-bottom: 0.5rem;
+}
+
+.waiting-text {
+  text-align: center;
+  margin: 0 auto 0 auto;
+  color: var(--text-alpha-50);
+}

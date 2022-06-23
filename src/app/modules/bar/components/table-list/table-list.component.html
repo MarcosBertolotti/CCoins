@@ -61,7 +61,7 @@
         
         <ng-container *ngIf="index === 3">
           <mat-cell *matCellDef="let item"> 
-            <button mat-icon-button>
+            <button mat-icon-button (click)="openQRDialog(item.qrCode, item.number)">
               <mat-icon fontSet="material-icons-outlined">qr_code_2</mat-icon>
             </button>
           </mat-cell>

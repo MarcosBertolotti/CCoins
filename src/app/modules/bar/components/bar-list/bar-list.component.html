@@ -8,8 +8,8 @@
   <mat-icon class="east">east</mat-icon>
 </button>
 
-<div class="container">
-  <mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="bars && bars.length > 0">
+<div class="container" *ngIf="bars && bars.length > 0; else notBars">
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <ng-container [matColumnDef]="column.name" *ngFor="let column of initColumns; index as index">
       <mat-header-cell *matHeaderCellDef [ngClass]="{'hide': !column.show && (isSmallScreen$ | async)}"> {{ column.display }} </mat-header-cell>
@@ -43,6 +43,12 @@
     </mat-row>
   </mat-table>
 </div>
+
+<ng-template #notBars>
+  <div class="empty-bar">
+    <h1>Aún no se ha creado ningún bar.</h1>
+  </div>
+</ng-template>
 
 <!--
 <ng-container matColumnDef="select">

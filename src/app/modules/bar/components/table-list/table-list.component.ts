@@ -2,6 +2,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PartialObserver } from 'rxjs';
@@ -10,6 +11,7 @@ import { Table } from 'src/app/models/table.model';
 import { BarService } from 'src/app/services/bar.service';
 import { ImagesService } from 'src/app/services/images.service';
 import { TableService } from 'src/app/services/table.service';
+import { QrcodeDialogComponent } from 'src/app/shared/components/qrcode-dialog/qrcode-dialog.component';
 import { ToastService } from 'src/app/shared/services/toast.services';
 
 @Component({
@@ -43,6 +45,7 @@ export class TableListComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
+    private matDialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -165,6 +168,22 @@ export class TableListComponent implements OnInit {
     this.selection = new SelectionModel<Table>(true, this.tables);
   }
 */
+
+  public openQRDialog(qrCode: string, tableNumber: string) {
+    const dialogRef = this.matDialog.open(QrcodeDialogComponent, {
+      width: '80%',
+      maxWidth: '350px',
+      panelClass: 'custom-dialog-container',
+      data: {
+        url: qrCode,
+        title: `Mesa ${tableNumber}`,
+        closeMessage: "Cerrar",
+        canCancel: true,
+      },
+      disableClose: true
+    });
+  }
+
   get quantity() { return this.formGroup.get('quantity') as FormControl }
 
 }

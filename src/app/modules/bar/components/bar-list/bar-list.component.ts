@@ -1,4 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
@@ -44,11 +45,14 @@ export class BarListComponent implements OnInit {
   ) { }
 
   async ngOnInit(): Promise<void> {
-    this.bars = (await this.barsService.findAllByOwner())?.list;
-
-    if(this.bars?.length > 0) {
-      this.dataSource = new MatTableDataSource<Bar>(this.bars);
-    }
+    this.barsService.findAllByOwner()
+    .then((response) => {
+      /*if(response && response.list && response.list.length > 0) {
+        this.bars = response.list;
+        this.dataSource = new MatTableDataSource<Bar>(this.bars);
+      }*/
+    })
+    .catch((error: HttpErrorResponse) => {})
   }
 
   toggleActive(id: number): void {

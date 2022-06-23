@@ -12,7 +12,7 @@ export interface TableQRDTO {
 })
 export class ImagesService {
 
-  baseApiURL: string = '/images';
+  baseApiURL: string = '/images/';
 
   constructor(private requestService: RequestService) { }
 

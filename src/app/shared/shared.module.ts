@@ -23,6 +23,8 @@ import { SlideToggleComponent } from './components/slide-toggle/slide-toggle.com
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { QRCodeModule } from 'angularx-qrcode';
+import { QrcodeDialogComponent } from './components/qrcode-dialog/qrcode-dialog.component';
 
 
 @NgModule({
@@ -37,6 +39,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     NavbarComponent,
     PageNotFoundComponent,
     DialogComponent,
+    QrcodeDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -48,6 +51,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     MatSlideToggleModule,
     MatDialogModule,
     MatButtonModule,
+    QRCodeModule,
   ],
   exports: [
     RouterComponent,
@@ -59,6 +63,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     NavbarComponent,
     PageNotFoundComponent,
     DialogComponent,
+    QrcodeDialogComponent,
   ],
 })
 export class SharedModule { }
