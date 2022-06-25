@@ -15,14 +15,17 @@ jobs:
         with:
           ref: develop
       - name: Initialize Node
-        uses: actions/setup-node@develop
+        uses: actions/setup-node@v2
+        with:
+          ref: develop
       - name: Install Dependencies
         run: npm install
       - name: Build
         run: npm run build
       - name: Deploy
-        uses: w9jds/firebase-action@develop
+        uses: w9jds/firebase-action@v2
         with:
+          ref: develop
           args: deploy --only hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
