@@ -23,7 +23,7 @@ export class TableService {
   }
 
   findAllByBar(id: number): Promise<Table[]> {
-    return this.requestService.post(`${this.baseApiURL}/bar`, { id });
+    return this.requestService.post(`${this.baseApiURL}/bar`, { id }); // revisar status
   }
 
   saveOrUpdate(table: TableDTO) {

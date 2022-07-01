@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PartialObserver } from 'rxjs';
@@ -8,6 +8,7 @@ import { AppPaths } from 'src/app/enums/app-paths.enum';
 import { Bar } from 'src/app/models/bar-model';
 import { Table } from 'src/app/models/table.model';
 import { BarService } from 'src/app/services/bar.service';
+import { NavigationService } from 'src/app/services/navigation.service';
 import { TableService } from 'src/app/services/table.service';
 import { ToastService } from 'src/app/shared/services/toast.services';
 
@@ -16,7 +17,7 @@ import { ToastService } from 'src/app/shared/services/toast.services';
   templateUrl: './bar-update.component.html',
   styleUrls: ['./bar-update.component.scss']
 })
-export class BarUpdateComponent implements OnInit {
+export class BarUpdateComponent implements OnInit, OnDestroy {
 
   bar!: Bar;
   idBar!: number;
@@ -34,7 +35,14 @@ export class BarUpdateComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private tableService: TableService,
-  ) { }
+    private navigationService: NavigationService,
+  ) { 
+    this.navigationService.showNavbar();
+  }
+
+  ngOnDestroy(): void {
+    this.navigationService.hideNavbar();
+  }
 
   async ngOnInit(): Promise<void> {    
     this.idBar = +this.route.snapshot.paramMap.get('id')!;

@@ -1,12 +1,13 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AppPaths } from 'src/app/enums/app-paths.enum';
 import { Bar } from 'src/app/models/bar-model';
 import { BarService } from 'src/app/services/bar.service';
+import { NavigationService } from 'src/app/services/navigation.service';
 import { ToastService } from 'src/app/shared/services/toast.services';
 
 @Component({
@@ -14,7 +15,7 @@ import { ToastService } from 'src/app/shared/services/toast.services';
   templateUrl: './bar-list.component.html',
   styleUrls: ['./bar-list.component.scss']
 })
-export class BarListComponent implements OnInit {
+export class BarListComponent implements OnInit, OnDestroy {
 
   initColumns: any[] = [
     { name: 'detail', display: 'Detalle', show: true },
@@ -42,7 +43,14 @@ export class BarListComponent implements OnInit {
     private barsService: BarService,
     private toastService: ToastService,
     private breakpointObserver: BreakpointObserver,
-  ) { }
+    private navigationService: NavigationService,
+  ) { 
+    this.navigationService.showNavbar();
+  }
+
+  ngOnDestroy(): void {
+    this.navigationService.hideNavbar();
+  }
 
   async ngOnInit(): Promise<void> {
     this.barsService.findAllByOwner()

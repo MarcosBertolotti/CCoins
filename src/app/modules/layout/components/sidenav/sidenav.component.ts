@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Observable } from 'rxjs';
+import { NavigationService } from 'src/app/services/navigation.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -17,7 +18,15 @@ export class SidenavComponent implements OnInit {
   @Output()
   onClick = new EventEmitter<void>();
 
-  constructor() { }
+  isShowedNavbar: boolean = false;
+
+  constructor(
+    private navigationService: NavigationService,
+  ) { 
+    this.navigationService.navbar$.subscribe((isShowedNavbar) => {
+      this.isShowedNavbar = isShowedNavbar;
+    })
+  }
 
   ngOnInit(): void { }
 

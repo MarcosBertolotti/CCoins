@@ -41,6 +41,5 @@ button[mat-raised-button] {
     //57px = navbar height
     //1rem = padding-top
     max-height: calc(100vh - 56px - 57px - 1rem);
-    overflow-y: auto;
   }
 }

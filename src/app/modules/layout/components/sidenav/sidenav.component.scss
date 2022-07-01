@@ -16,6 +16,13 @@ mat-sidenav-container mat-sidenav-content {
   padding: 0 1rem 0;
   box-sizing: border-box;
   background-color: white;
+  overflow-y: overlay;
+}
+
+@media (max-width: 959) {
+  mat-sidenav-container.navbar {
+    height: calc(100vh - 56px - 57px);
+  }
 }
 
 @media (min-width: 960px) {
@@ -26,5 +33,6 @@ mat-sidenav-container mat-sidenav-content {
 
   mat-sidenav-container mat-sidenav-content {
     padding: 1rem 2.75rem 0;
+    overflow-y: auto;
   }
 }

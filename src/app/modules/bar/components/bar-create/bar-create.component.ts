@@ -1,11 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FIELD_ERROR_MESSAGES } from 'src/app/const/field-error-messages.const';
 import { AppPaths } from 'src/app/enums/app-paths.enum';
 import { Bar } from 'src/app/models/bar-model';
 import { BarService } from 'src/app/services/bar.service';
+import { NavigationService } from 'src/app/services/navigation.service';
 import { ToastService } from 'src/app/shared/services/toast.services';
 
 @Component({
@@ -13,7 +14,7 @@ import { ToastService } from 'src/app/shared/services/toast.services';
   templateUrl: './bar-create.component.html',
   styleUrls: ['./bar-create.component.scss']
 })
-export class BarCreateComponent implements OnInit {
+export class BarCreateComponent implements OnInit, OnDestroy {
 
   @ViewChild('form') 
   ngForm!: HTMLFormElement;
@@ -28,7 +29,14 @@ export class BarCreateComponent implements OnInit {
     private barService: BarService,
     private toastService: ToastService,
     private router: Router,
-  ) { }
+    private navigationService: NavigationService,
+  ) { 
+    this.navigationService.showNavbar();
+  }
+
+  ngOnDestroy(): void {
+    this.navigationService.hideNavbar();
+  }
 
   async ngOnInit(): Promise<void> {
     this.buildForm();

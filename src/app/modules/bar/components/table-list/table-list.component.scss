@@ -45,7 +45,7 @@
     mat-table {
       // 56px = toolbar // 1rem = padding top // 104px = app title // // 63px = form field  48px = button // 3rem = margin button
       max-height: calc(100vh - 56px - 1rem - 104px - 63px - 48px - 3rem);
-      overflow-y: auto;
+      overflow-y: overlay;
     }
 
     .actions-container {
@@ -90,6 +90,5 @@
   ::ng-deep app-router {
     //56px = toolbar height  //1rem = padding-top
     max-height: calc(100vh - 56px - 1rem);
-    overflow-y: auto;
   }
 }

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { RequestService } from './request.service';
-import { Table } from '../models/table.model';
 
 export interface TableQRDTO {
   number: number,
@@ -12,7 +11,7 @@ export interface TableQRDTO {
 })
 export class ImagesService {
 
-  baseApiURL: string = '/images/';
+  baseApiURL: string = '/images';
 
   constructor(private requestService: RequestService) { }
 
