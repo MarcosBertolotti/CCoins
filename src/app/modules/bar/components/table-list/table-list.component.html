@@ -13,7 +13,7 @@
       <button mat-raised-button color="primary" (click)="updateQuantity()">Actualizar total</button>
     </div>
 
-    <mat-table formArrayName="tables" [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="tables && tables.length > 0">
+    <mat-table formArrayName="tables" [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="barTables && barTables.length > 0">
       <ng-container [matColumnDef]="column.name" *ngFor="let column of initColumns; index as index">
 
         <mat-header-cell *matHeaderCellDef> 
@@ -74,7 +74,7 @@
       </mat-row>
     </mat-table>
 
-    <div class="actions-container" *ngIf="tables && tables.length > 0">
+    <div class="actions-container" *ngIf="barTables && barTables.length > 0">
       <button
         mat-raised-button
         color="accent"

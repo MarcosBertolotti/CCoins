@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RequestService } from './request.service';
 import { Table } from '../models/table.model';
+import { ResponseData } from '../models/response-data.model';
 
 interface TableDTO {
   id?: number,
@@ -30,7 +31,7 @@ export class TableService {
     return this.requestService.post(`${this.baseApiURL}/save`, table);
   }
 
-  createByQuantity(quantity: number, idBar: number): Promise<Table[]> {
+  createByQuantity(quantity: number, idBar: number): Promise<ResponseData<Table>> {
     return this.requestService.post(`${this.baseApiURL}/save/quantity`, { quantity, bar: idBar });
   }
 

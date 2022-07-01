@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PartialObserver } from 'rxjs';
 import { Bar } from 'src/app/models/bar-model';
+import { ResponseData } from 'src/app/models/response-data.model';
 import { Table } from 'src/app/models/table.model';
 import { BarService } from 'src/app/services/bar.service';
 import { ImagesService } from 'src/app/services/images.service';
@@ -22,9 +23,8 @@ import { ToastService } from 'src/app/shared/services/toast.services';
 export class TableListComponent implements OnInit {
 
   bar!: Bar;
-  tables: Table[] = [];
+  barTables: Table[] = [];
   formGroup!: FormGroup;
-  tableQuantity: number = 0;
   initForm: boolean = false;
 
   initColumns: any[] = [
@@ -79,10 +79,8 @@ export class TableListComponent implements OnInit {
       .catch((error: HttpErrorResponse) =>  this.toastService.openErrorToast(error.error.message));
 
     if(tables && tables.list?.length > 0) {
-      this.tables = tables.list;
-      this.tableQuantity = this.tables.length;
-      this.dataSource = new MatTableDataSource<Table>(this.tables);
-      this.selection = new SelectionModel<Table>(true, this.tables);
+      this.barTables = tables.list;
+      this.updateMatTable();
     }
     this.buildForm();
   }
@@ -90,17 +88,17 @@ export class TableListComponent implements OnInit {
   private buildForm(): void {
     this.formGroup = this.formBuilder.group({
       tables: this.formBuilder.array([]),
-      quantity: [this.tableQuantity, [Validators.required, Validators.min(1), Validators.max(20)]],
+      quantity: [this.barTables.length, [Validators.required, Validators.min(1), Validators.max(20)]],
     })
-    this.setTablesForm();
+    this.setTablesForm(this.barTables);
     this.initForm = true;
-    this.formGroup.get('tables')?.valueChanges.subscribe(tables => {console.log('tables', tables)});
+    //this.tables?.valueChanges.subscribe(tables => {console.log('tables', tables)});
   }
 
-  private setTablesForm(){
-    const tableCtrl = this.formGroup.get('tables') as FormArray;
-    this.tables.forEach((table: Table)=>{
-      tableCtrl.push(this.setTablesFormArray(table))
+  private setTablesForm(barTables: Table[]) {
+    const tablesCtrl = this.tables;
+    barTables.forEach((table: Table)=>{
+      tablesCtrl.push(this.setTablesFormArray(table))
     })
   };
 
@@ -111,9 +109,13 @@ export class TableListComponent implements OnInit {
     });
   }
 
+  private removeTablesForm(quantity: number) {
+    this.tables.removeAt(quantity);
+  };
+
   update(): void {
     // WIP
-    console.log("WIP", this.formGroup.get('tables')?.value)
+    console.log("WIP", this.tables?.value)
   }
 
   // Selects all rows if they are not all selected; otherwise clear selection.
@@ -133,7 +135,7 @@ export class TableListComponent implements OnInit {
   }
 
   downloadPDF(): void {
-    const tables: any = this.tables.map((table: Table) => { return { number: table.number, code: table.qrCode } })
+    const tables: any = this.barTables.map((table: Table) => { return { number: table.number, code: table.qrCode } })
 
     this.imagesService.generatePDFWithQRCodes(tables)
       .then((response) => console.log("download PDF",response))
@@ -144,32 +146,39 @@ export class TableListComponent implements OnInit {
     if(quantity && (quantity > 0 || (quantity <= 0 && this.quantity.value > 1)))
       this.quantity.setValue(this.quantity.value + quantity);
 
-    const quantityToUpdate = (this.quantity.value - this.tableQuantity);
+    const quantityToUpdate = (this.quantity.value - this.barTables.length);
     let response;
 
-    if(quantityToUpdate !== 0 && (this.tableQuantity + quantityToUpdate) > 0)
+    if(quantityToUpdate !== 0 && (this.barTables.length + quantityToUpdate) > 0)
       response = quantityToUpdate > 0 ? this.createTables(quantityToUpdate) : this.removeTables(quantityToUpdate * -1);
   }
 
   private createTables(quantity: number): Promise<any> {
     return this.tableService.createByQuantity(quantity, this.bar.id!)
-    .then(() => this.getTables(this.bar.id!)) // WIP mostrar los nuevos creados
+    .then((response: ResponseData<Table>) => {
+      if(response.data && response.data.length > 0) {
+        this.barTables = [...this.barTables, ...response.data];
+        this.setTablesForm(response.data);
+        this.updateMatTable();
+      }
+    })
     .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message));
   }
 
   private removeTables(quantity: number): Promise<any> {
     return this.tableService.removeByQuantity(quantity, this.bar.id!)
-    .then(() => this.getTables(this.bar.id!)) // WIP this.updateCurrentTables()
+    .then(() => {
+      this.barTables.length = this.barTables.length - quantity;
+      this.removeTablesForm(quantity);
+      this.updateMatTable();
+    })
     .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message));
   }
-/*
-  private updateCurrentTables(): void {
-    this.tableQuantity = this.quantity.value;
-    this.tables.length = this.tableQuantity;
-    this.dataSource = new MatTableDataSource<Table>(this.tables);
-    this.selection = new SelectionModel<Table>(true, this.tables);
+
+  private updateMatTable(): void {
+    this.dataSource = new MatTableDataSource<Table>(this.barTables);
+    this.selection = new SelectionModel<Table>(true, this.barTables);
   }
-*/
 
   public openQRDialog(qrCode: string, tableNumber: string) {
     const dialogRef = this.matDialog.open(QrcodeDialogComponent, {
@@ -187,5 +196,6 @@ export class TableListComponent implements OnInit {
   }
 
   get quantity() { return this.formGroup.get('quantity') as FormControl }
+  get tables() { return this.formGroup.get('tables') as FormArray }
 
 }
