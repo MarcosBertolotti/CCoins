@@ -23,7 +23,7 @@ export class BarListComponent implements OnInit, OnDestroy {
     { name: 'active', display: 'Activo', show: false },
     { name: 'name', display: 'Nombre', show: true },
     { name: 'address', display: 'Dirección', show: true },
-    { name: 'city', display: 'Localidad', show: false },
+    { name: 'location', display: 'Localidad', show: false },
     { name: 'menuLink', display: 'Link menu', show: false },
   ];
   displayedColumns: any[] = this.initColumns.map(col => col.name);

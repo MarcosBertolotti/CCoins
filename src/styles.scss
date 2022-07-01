@@ -218,6 +218,16 @@ input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 
+input::-webkit-calendar-picker-indicator{
+  top: -.5rem;
+  right: -.5rem;
+  background-color: transparent;
+  position: absolute;
+  padding: 1rem 7% 1rem 95%;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
 @media (max-width: 960px) {
   mat-table {
     mat-header-cell:first-of-type,

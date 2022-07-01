@@ -25,6 +25,7 @@ export class TableListComponent implements OnInit {
   tables: Table[] = [];
   formGroup!: FormGroup;
   tableQuantity: number = 0;
+  initForm: boolean = false;
 
   initColumns: any[] = [
     { name: 'detail', display: 'Detalle', show: true },
@@ -80,10 +81,10 @@ export class TableListComponent implements OnInit {
     if(tables && tables.list?.length > 0) {
       this.tables = tables.list;
       this.tableQuantity = this.tables.length;
-      this.buildForm();
       this.dataSource = new MatTableDataSource<Table>(this.tables);
       this.selection = new SelectionModel<Table>(true, this.tables);
     }
+    this.buildForm();
   }
 
   private buildForm(): void {
@@ -92,6 +93,7 @@ export class TableListComponent implements OnInit {
       quantity: [this.tableQuantity, [Validators.required, Validators.min(1), Validators.max(20)]],
     })
     this.setTablesForm();
+    this.initForm = true;
     this.formGroup.get('tables')?.valueChanges.subscribe(tables => {console.log('tables', tables)});
   }
 
@@ -139,13 +141,13 @@ export class TableListComponent implements OnInit {
   }
 
   async updateQuantity(quantity?: number): Promise<void> {
-    if(quantity)
+    if(quantity && (quantity > 0 || (quantity <= 0 && this.quantity.value > 1)))
       this.quantity.setValue(this.quantity.value + quantity);
 
     const quantityToUpdate = (this.quantity.value - this.tableQuantity);
     let response;
 
-    if(quantityToUpdate !== 0)
+    if(quantityToUpdate !== 0 && (this.tableQuantity + quantityToUpdate) > 0)
       response = quantityToUpdate > 0 ? this.createTables(quantityToUpdate) : this.removeTables(quantityToUpdate * -1);
   }
 

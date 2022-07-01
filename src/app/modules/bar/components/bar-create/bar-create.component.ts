@@ -46,8 +46,10 @@ export class BarCreateComponent implements OnInit, OnDestroy {
     this.formGroup = this.formBuilder.group({
       name: ['', [Validators.required]],
       address: ['', [Validators.required]],
-      city: ['', [Validators.required]],
+      location: ['', [Validators.required]],
       menuLink: [''],
+      openTime: [''],
+      closeTime: [''],
     });
   }
   
@@ -56,8 +58,11 @@ export class BarCreateComponent implements OnInit, OnDestroy {
       const newBar: Bar = {
         name: this.name.value.trim(),
         address: this.address.value.trim(),
-      //  city: this.city.value.trim(),
+        location: this.location.value.trim(),
         menuLink: this.menuLink.value.trim(),
+        openTime: this.openTime.value,
+        closeTime: this.closeTime.value,
+        active: true,
       }
 
       const barCreated = await this.barService.create(newBar)
@@ -76,7 +81,9 @@ export class BarCreateComponent implements OnInit, OnDestroy {
 
   get name() { return this.formGroup.get('name') as FormControl }
   get address() { return this.formGroup.get('address') as FormControl }
-  get city() { return this.formGroup.get('city') as FormControl }
+  get location() { return this.formGroup.get('location') as FormControl }
   get menuLink() { return this.formGroup.get('menuLink') as FormControl }
+  get openTime() { return this.formGroup.get('openTime') as FormControl }
+  get closeTime() { return this.formGroup.get('closeTime') as FormControl }
 
 }

@@ -1,19 +1,19 @@
 <app-title title="Mis mesas" [titleCenter]="bar?.name"></app-title>
 
-<div class="container">
-  <form [formGroup]="formGroup" *ngIf="tables && tables.length > 0">
+<div class="container" *ngIf="initForm">
+  <form [formGroup]="formGroup">
 
-    <div class="field-container">
+    <div class="field-container" >
       <button mat-icon-button (click)="updateQuantity(1)"><mat-icon>add</mat-icon></button>
       <mat-form-field appearance="outline">
         <mat-label>Total</mat-label>
-        <input matInput type="number" min="1" max="20" formControlName="quantity" placeholder="Total">
+        <input matInput type="number" value="0" min="1" max="20" formControlName="quantity" placeholder="Total">
       </mat-form-field>
       <button mat-icon-button (click)="updateQuantity(-1)"><mat-icon>remove</mat-icon></button>
       <button mat-raised-button color="primary" (click)="updateQuantity()">Actualizar total</button>
     </div>
 
-    <mat-table formArrayName="tables" [dataSource]="dataSource" class="mat-elevation-z8">
+    <mat-table formArrayName="tables" [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="tables && tables.length > 0">
       <ng-container [matColumnDef]="column.name" *ngFor="let column of initColumns; index as index">
 
         <mat-header-cell *matHeaderCellDef> 
@@ -74,7 +74,7 @@
       </mat-row>
     </mat-table>
 
-    <div class="actions-container">
+    <div class="actions-container" *ngIf="tables && tables.length > 0">
       <button
         mat-raised-button
         color="accent"

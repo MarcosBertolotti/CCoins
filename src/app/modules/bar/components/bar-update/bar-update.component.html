@@ -38,10 +38,10 @@
         <mat-error>{{ 'address' | errorMessage : formGroup }}</mat-error>
       </mat-form-field>
 
-      <mat-label>Localidad {{ (city | fieldRequired) ? '*' : '' }}</mat-label>
+      <mat-label>Localidad {{ (location | fieldRequired) ? '*' : '' }}</mat-label>
       <mat-form-field appearance="outline">
-        <input matInput formControlName="city" placeholder="Localidad del bar">
-        <mat-error>{{ 'city' | errorMessage : formGroup }}</mat-error>
+        <input matInput formControlName="location" placeholder="Localidad del bar">
+        <mat-error>{{ 'location' | errorMessage : formGroup }}</mat-error>
       </mat-form-field>
 
       <mat-label>Link Menu {{ (menuLink | fieldRequired) ? '*' : '' }}</mat-label>
@@ -55,6 +55,23 @@
         <input matInput type="number" formControlName="tables" placeholder="Cantidad de mesas del bar, máximo 20">
         <mat-error>{{ 'tables' | errorMessage : formGroup : 'mesas' }}</mat-error>
       </mat-form-field>
+
+      <div class="inline-content">
+        <div>
+          <mat-label>Hora de apertura {{ (openTime | fieldRequired) ? '*' : '' }}</mat-label>
+          <mat-form-field appearance="outline">
+            <input matInput type="time" formControlName="openTime" placeholder="00:00">
+            <mat-error>{{ 'openTime' | errorMessage : formGroup : 'mesas' }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-label>Hora de cierre {{ (closeTime | fieldRequired) ? '*' : '' }}</mat-label>
+          <mat-form-field appearance="outline">
+            <input matInput type="time" formControlName="closeTime">
+            <mat-error>{{ 'closeTime' | errorMessage : formGroup : 'mesas' }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
 
       <!--<p>Al hacer click en actualizar todos los campos serán sobreescritos</p>-->
 

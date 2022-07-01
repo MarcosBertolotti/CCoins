@@ -75,9 +75,11 @@ export class BarUpdateComponent implements OnInit, OnDestroy {
     this.formGroup = this.formBuilder.group({
       name: [this.bar.name, [Validators.required]],
       address: [this.bar.address, [Validators.required]],
-      city: [this.bar.city, [Validators.required]],
+      location: [this.bar.location, [Validators.required]],
       menuLink: [this.bar.menuLink],
-      tables: [this.barTables.length, [Validators.required, Validators.min(1), Validators.max(20)]]
+      tables: [this.barTables.length, [Validators.required, Validators.min(1), Validators.max(20)]],
+      openTime: [this.bar.openTime],
+      closeTime: [this.bar.closeTime],
     });
   }
   
@@ -87,9 +89,11 @@ export class BarUpdateComponent implements OnInit, OnDestroy {
         id: this.bar.id,
         name: this.name.value.trim(),
         address: this.address.value.trim(),
-        //city: this.city.value.trim() !== this.bar.city ? this.city.value.trim() : undefined,
+        location: this.location.value.trim(),
         menuLink: this.menuLink.value.trim(),
         active: this.bar.active,
+        openTime: this.openTime.value,
+        closeTime: this.closeTime.value,
       }
 
       const barCreated = this.barService.create(updateBar)
@@ -142,7 +146,10 @@ export class BarUpdateComponent implements OnInit, OnDestroy {
 
   get name() { return this.formGroup.get('name') as FormControl }
   get address() { return this.formGroup.get('address') as FormControl }
-  get city() { return this.formGroup.get('city') as FormControl }
+  get location() { return this.formGroup.get('location') as FormControl }
   get menuLink() { return this.formGroup.get('menuLink') as FormControl }
   get tables() { return this.formGroup.get('tables') as FormControl }
+  get openTime() { return this.formGroup.get('openTime') as FormControl }
+  get closeTime() { return this.formGroup.get('closeTime') as FormControl }
+
 }

@@ -19,7 +19,7 @@ mat-sidenav-container mat-sidenav-content {
   overflow-y: overlay;
 }
 
-@media (max-width: 959) {
+@media (max-width: 959px) {
   mat-sidenav-container.navbar {
     height: calc(100vh - 56px - 57px);
   }
