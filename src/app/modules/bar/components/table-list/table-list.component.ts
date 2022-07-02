@@ -90,12 +90,12 @@ export class TableListComponent implements OnInit {
       tables: this.formBuilder.array([]),
       quantity: [this.barTables.length, [Validators.required, Validators.min(1), Validators.max(20)]],
     })
-    this.setTablesForm(this.barTables);
+    this.addTablesForm(this.barTables);
     this.initForm = true;
     //this.tables?.valueChanges.subscribe(tables => {console.log('tables', tables)});
   }
 
-  private setTablesForm(barTables: Table[]) {
+  private addTablesForm(barTables: Table[]) {
     const tablesCtrl = this.tables;
     barTables.forEach((table: Table)=>{
       tablesCtrl.push(this.setTablesFormArray(table))
@@ -112,6 +112,11 @@ export class TableListComponent implements OnInit {
   private removeTablesForm(quantity: number) {
     this.tables.removeAt(quantity);
   };
+
+  private updateMatTable(): void {
+    this.dataSource = new MatTableDataSource<Table>(this.barTables);
+    this.selection = new SelectionModel<Table>(true, this.barTables);
+  }
 
   update(): void {
     // WIP
@@ -158,7 +163,7 @@ export class TableListComponent implements OnInit {
     .then((response: ResponseData<Table>) => {
       if(response.data && response.data.length > 0) {
         this.barTables = [...this.barTables, ...response.data];
-        this.setTablesForm(response.data);
+        this.addTablesForm(response.data);
         this.updateMatTable();
       }
     })
@@ -173,11 +178,6 @@ export class TableListComponent implements OnInit {
       this.updateMatTable();
     })
     .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message));
-  }
-
-  private updateMatTable(): void {
-    this.dataSource = new MatTableDataSource<Table>(this.barTables);
-    this.selection = new SelectionModel<Table>(true, this.barTables);
   }
 
   public openQRDialog(qrCode: string, tableNumber: string) {
