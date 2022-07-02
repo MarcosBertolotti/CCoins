@@ -42,7 +42,11 @@ export class AuthService {
         } else
           this.toastService.openErrorToast(`Ha ocurrido un error al iniciar sesión con ${socialType.toLowerCase()}`);
       }
-    ).catch((err: any) => this.toastService.openErrorToast(err));
+    ).catch((err: any) => {
+      const error = err?.error?.message ?? err?.error ?? err;
+      if(error !== 'popup_closed_by_user' && error !== 'User cancelled login or did not fully authorize.')
+        this.toastService.openErrorToast(error);
+    });
   }
 
   private getSocialToken(socialType: string, socialUser: SocialUser): string {
