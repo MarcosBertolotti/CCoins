@@ -7,4 +7,5 @@ export enum AppPaths {
   CREATE = 'create',
   UPDATE = 'update',
   TABLES = 'tables',
+  ACTIVITIES = 'activities',
 }

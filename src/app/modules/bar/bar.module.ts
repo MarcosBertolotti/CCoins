@@ -18,6 +18,8 @@ import { BarUpdateComponent } from './components/bar-update/bar-update.component
 import { BarListComponent } from './components/bar-list/bar-list.component';
 import { TableListComponent } from './components/table-list/table-list.component';
 import { TableDetailComponent } from './components/table-detail/table-detail.component';
+import { ActivityListComponent } from './components/activity-list/activity-list.component';
+import { ActivityDetailComponent } from './components/activity-detail/activity-detail.component';
 
 
 @NgModule({
@@ -27,6 +29,8 @@ import { TableDetailComponent } from './components/table-detail/table-detail.com
     BarListComponent,
     TableListComponent,
     TableDetailComponent,
+    ActivityListComponent,
+    ActivityDetailComponent,
   ],
   imports: [
     CommonModule,

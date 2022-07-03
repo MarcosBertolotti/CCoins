@@ -13,7 +13,7 @@
       <button mat-raised-button color="primary" (click)="updateQuantity()">Actualizar total</button>
     </div>
 
-    <mat-table formArrayName="tables" [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="barTables && barTables.length > 0">
+    <mat-table formArrayName="tables" [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="barTables && barTables.length > 0; else notTables">
       <ng-container [matColumnDef]="column.name" *ngFor="let column of initColumns; index as index">
 
         <mat-header-cell *matHeaderCellDef [ngClass]="{'hide': !column.show && (isSmallScreen$ | async)}"> 
@@ -112,3 +112,9 @@
     </div>
   </form>
 </div>
+
+<ng-template #notTables>
+  <div class="not-content" *ngIf="tables?.length === 0">
+    <h1>Aún no se ha creado ninguna mesa.</h1>
+  </div>
+</ng-template>

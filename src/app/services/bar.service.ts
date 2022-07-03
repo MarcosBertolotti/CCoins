@@ -45,7 +45,7 @@ export class BarService {
   }
 
   public getCurrentBar(id: number): Observable<Bar> {
-    if(this.currentBar)
+    if(this.currentBar && this.currentBar.id === id)
       return this.currentBar$;
       
     return this.getDetails(id);

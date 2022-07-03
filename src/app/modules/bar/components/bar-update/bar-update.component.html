@@ -11,14 +11,24 @@
   <div class="container">
 
     <div class="left-content">
-      <div class="table-container">
+      <div class="table-container bubble-gray">
         <h3>{{ tableQuantity }} Mesas creadas</h3>
-      <button 
-        mat-raised-button
-        color="accent"
-        [routerLink]="['../../', bar.id, appPaths.TABLES]">
-        Administrar mesas
-      </button>
+        <button 
+          mat-raised-button
+          color="accent"
+          [routerLink]="['../../', bar.id, appPaths.TABLES]">
+          Ver mesas
+        </button>
+      </div>
+
+      <div class="table-container bubble-gray">
+        <h3>Total {{ games?.length }} Actividades</h3>
+        <button 
+          mat-raised-button
+          color="accent"
+          [routerLink]="['../../', bar.id, appPaths.ACTIVITIES]">
+          Ver actividades
+        </button>
       </div>
     </div>
 

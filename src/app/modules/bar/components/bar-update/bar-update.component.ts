@@ -6,8 +6,11 @@ import { PartialObserver } from 'rxjs';
 import { FIELD_ERROR_MESSAGES } from 'src/app/const/field-error-messages.const';
 import { AppPaths } from 'src/app/enums/app-paths.enum';
 import { Bar } from 'src/app/models/bar-model';
+import { Game } from 'src/app/models/game.model';
+import { ResponseList } from 'src/app/models/response-list.model';
 import { Table } from 'src/app/models/table.model';
 import { BarService } from 'src/app/services/bar.service';
+import { GameService } from 'src/app/services/game.service';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { TableService } from 'src/app/services/table.service';
 import { ToastService } from 'src/app/shared/services/toast.services';
@@ -25,6 +28,8 @@ export class BarUpdateComponent implements OnInit, OnDestroy {
   tableQuantity: number = 0;
   formGroup!: FormGroup;
 
+  games: Game[] = [];
+
   fieldErrors = FIELD_ERROR_MESSAGES;
   appPaths = AppPaths;
   
@@ -36,6 +41,7 @@ export class BarUpdateComponent implements OnInit, OnDestroy {
     private router: Router,
     private tableService: TableService,
     private navigationService: NavigationService,
+    private gameService: GameService,
   ) { 
     this.navigationService.showNavbar();
   }
@@ -47,6 +53,11 @@ export class BarUpdateComponent implements OnInit, OnDestroy {
   async ngOnInit(): Promise<void> {    
     this.idBar = +this.route.snapshot.paramMap.get('id')!;
 
+    this.getBar();
+    this.getGames();
+  }
+
+  private getBar(): void {
     const barObserver: PartialObserver<Bar> = {
       next: async (bar: Bar) => {
         const tables: any = await this.tableService.findAllByBar(this.idBar)
@@ -64,7 +75,16 @@ export class BarUpdateComponent implements OnInit, OnDestroy {
         this.goToHome();
       },
     };
-    this.barService.getCurrentBar(this.idBar).subscribe(barObserver);    
+    this.barService.getCurrentBar(this.idBar).subscribe(barObserver);   
+  }
+
+  private getGames(): void {
+    this.gameService.findAllByBar(this.idBar)
+    .then(({ list }: ResponseList<Game>) => {
+      if(list && list.length > 0)
+        this.games = list;
+    })
+    .catch((error: HttpErrorResponse) =>  this.toastService.openErrorToast(error.error.message));
   }
 
   private goToHome(): void {

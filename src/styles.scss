@@ -242,6 +242,28 @@ input::-webkit-calendar-picker-indicator{
   cursor: pointer;
 }
 
+/* not-content message */
+.not-content {
+  position: absolute;
+  top: 40vh;
+  left: 0;
+  right: 0;
+  text-align: center;
+
+  h1 {
+    font-size: 18px;
+    font-weight: 400;
+  }
+}
+
+/* Bubbles */
+
+.bubble-gray {
+  background-color: var(--gray-lighter-color);
+  border-radius: 30px;
+  padding: 1rem;
+}
+
 @media (max-width: 960px) {
   mat-table {
     mat-header-cell:first-of-type,

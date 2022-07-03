@@ -1,0 +1,11 @@
+<app-title title="Mis Actividades" [titleCenter]="bar?.name"></app-title>
+
+<div class="container" *ngIf="games && games.length > 0; else notGames">
+
+</div>
+
+<ng-template #notGames>
+  <div class="not-content" *ngIf="games?.length === 0">
+      <h1>Aún no se ha creado ninguna actividad.</h1>
+  </div>
+</ng-template>
