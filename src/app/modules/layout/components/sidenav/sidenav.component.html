@@ -1,4 +1,4 @@
-<mat-sidenav-container [hasBackdrop]="(isHandset$ | async)" [ngClass]="{'navbar': true}">
+<mat-sidenav-container [hasBackdrop]="(isHandset$ | async)" [ngClass]="{'navbar': isShowedNavbar}">
   <mat-sidenav
     #drawer
     (click)="onClick.emit()"
