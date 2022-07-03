@@ -65,8 +65,11 @@ export class BarListComponent implements OnInit, OnDestroy {
 
   toggleActive(id: number): void {
     this.barsService.updateActive(id)
-      .then(() => this.toastService.openSuccessToast('Bar actualizado exitosamente!'))
-      .catch(() => this.toastService.openSuccessToast('Ocurrió un error al actualizar el bar'))
+      .then((bar: Bar) => {
+        const message = bar.active ? `${bar.name} activado exitosamente!` : `${bar.name} desactivado exitosamente!`;
+        this.toastService.openSuccessToast(message);
+      })
+      .catch(() => this.toastService.openErrorToast('Ocurrió un error al actualizar el bar'))
   }
 }
 

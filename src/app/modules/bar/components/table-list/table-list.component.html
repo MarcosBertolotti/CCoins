@@ -1,6 +1,6 @@
 <app-title title="Mis mesas" [titleCenter]="bar?.name"></app-title>
 
-<div class="container" *ngIf="initForm">
+<div class="container" *ngIf="formGroup">
   <form [formGroup]="formGroup">
 
     <div class="field-container" >
@@ -45,8 +45,7 @@
           <mat-cell *matCellDef="let item let rowIndex = index" [formGroupName]="rowIndex"> 
             <mat-checkbox 
               formControlName="active"
-              (click)="$event.stopPropagation()"
-              (change)="$event ? selection.toggle(item) : null"
+              (click)="toggleActive(item.id)"
               [checked]="selection.isSelected(item)"
               color="primary">
             </mat-checkbox>

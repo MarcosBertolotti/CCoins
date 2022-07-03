@@ -25,7 +25,6 @@ export class TableListComponent implements OnInit {
   bar!: Bar;
   barTables: Table[] = [];
   formGroup!: FormGroup;
-  initForm: boolean = false;
 
   initColumns: any[] = [
     { name: 'detail', display: 'Detalle', show: true },
@@ -91,8 +90,6 @@ export class TableListComponent implements OnInit {
       quantity: [this.barTables.length, [Validators.required, Validators.min(1), Validators.max(20)]],
     })
     this.addTablesForm(this.barTables);
-    this.initForm = true;
-    //this.tables?.valueChanges.subscribe(tables => {console.log('tables', tables)});
   }
 
   private addTablesForm(barTables: Table[]) {
@@ -109,27 +106,39 @@ export class TableListComponent implements OnInit {
     });
   }
 
-  private removeTablesForm(quantity: number) {
-    this.tables.removeAt(quantity);
+  private removeTablesForm() {
+    this.tables.clear();
+    this.addTablesForm(this.barTables);
   };
 
   private updateMatTable(): void {
-    this.dataSource = new MatTableDataSource<Table>(this.barTables);
-    this.selection = new SelectionModel<Table>(true, this.barTables);
-  }
+    if(!this.dataSource)
+      this.dataSource = new MatTableDataSource<Table>(this.barTables);
+    else
+      this.dataSource.data = this.barTables;
 
-  update(): void {
-    // WIP
-    console.log("WIP", this.tables?.value)
+    const tables = this.barTables.filter((table: Table) => table.active);
+
+    if(!this.selection) {
+      this.selection = new SelectionModel<Table>(true, tables, true);
+    } else {
+      this.selection.clear();
+      this.selection.select(...tables);
+    }
   }
 
   // Selects all rows if they are not all selected; otherwise clear selection.
   masterToggle(): void {
     if (this.isAllSelected()) {
+      this.updateActiveByList(this.dataSource.data);
       this.selection.clear();
       return;
     }
+    const auxSelected = this.selection.selected;
     this.selection.select(...this.dataSource.data);
+
+    const changedTables = this.selection.selected.filter(val => !auxSelected.includes(val));
+    this.updateActiveByList(changedTables);
   }
 
   // Whether the number of selected items matches the total number of rows.
@@ -148,14 +157,18 @@ export class TableListComponent implements OnInit {
   }
 
   async updateQuantity(quantity?: number): Promise<void> {
-    if(quantity && (quantity > 0 || (quantity <= 0 && this.quantity.value > 1)))
+    if(quantity && ((quantity > 0 && this.quantity.value < 20) || (quantity <= 0 && this.quantity.value > 1)))
       this.quantity.setValue(this.quantity.value + quantity);
+    else if ((quantity && this.quantity.value >= 20) || this.quantity.value > 20) {
+      this.toastService.openToast('Se ha alcanzado el máximo de mesas ha crear');
+      this.quantity.setValue(20);
+    }
 
     const quantityToUpdate = (this.quantity.value - this.barTables.length);
-    let response;
+    const quantityUpdated = this.barTables.length + quantityToUpdate;
 
-    if(quantityToUpdate !== 0 && (this.barTables.length + quantityToUpdate) > 0)
-      response = quantityToUpdate > 0 ? this.createTables(quantityToUpdate) : this.removeTables(quantityToUpdate * -1);
+    if(quantityToUpdate !== 0 && quantityUpdated > 0 && quantityUpdated <= 20)
+      quantityToUpdate > 0 ? this.createTables(quantityToUpdate) : this.removeTables(quantityToUpdate * -1);
   }
 
   private createTables(quantity: number): Promise<any> {
@@ -165,6 +178,8 @@ export class TableListComponent implements OnInit {
         this.barTables = [...this.barTables, ...response.data];
         this.addTablesForm(response.data);
         this.updateMatTable();
+        const message = quantity === 1 ? 'Se ha creado 1 mesa' : `Se han creado ${quantity} mesas`;
+        this.toastService.openSuccessToast(message);
       }
     })
     .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message));
@@ -174,10 +189,45 @@ export class TableListComponent implements OnInit {
     return this.tableService.removeByQuantity(quantity, this.bar.id!)
     .then(() => {
       this.barTables.length = this.barTables.length - quantity;
-      this.removeTablesForm(quantity);
+      this.removeTablesForm();
       this.updateMatTable();
+      const message = quantity === 1 ? 'Se ha eliminado 1 mesa' : `Se han eliminado ${quantity} mesas`;
+      this.toastService.openSuccessToast(message);
     })
     .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message));
+  }
+
+  toggleActive(id: number): void {
+    this.tableService.updateActive(id)
+      .then((table: Table) => {
+        this.barTables.forEach((t: Table) => t.id === table.id ? t.active = table.active : {});
+        this.updateMatTable();
+
+        const message = table.active ? `Mesa ${table.number} activada exitosamente!` : `Mesa ${table.number} desactivada exitosamente!`;
+        this.toastService.openSuccessToast(message);
+      })
+      .catch(() => this.toastService.openErrorToast('Ocurrió un error al actualizar la mesa'))
+  }
+
+  updateActiveByList(tables: Table[]) {
+    const ids: number[] = tables.map((table: Table) => table.id);
+
+    this.tableService.updateActiveByList(ids)
+    .then((response: ResponseData<Table>) => {
+      this.barTables.forEach((table: Table) => 
+        response.data.some((t: Table) => t.id === table.id) ? table.active = !table.active : {}
+      );
+      this.updateMatTable();
+
+      const status = response.data[0].active === true ? 'activado' : 'desactivado';
+      this.toastService.openSuccessToast(`Se han ${status} ${response.data.length} mesas`);
+    })
+    .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message))
+  }
+
+  update(): void {
+    // WIP
+    console.log("WIP", this.tables?.value)
   }
 
   public openQRDialog(qrCode: string, tableNumber: string) {
@@ -197,5 +247,5 @@ export class TableListComponent implements OnInit {
 
   get quantity() { return this.formGroup.get('quantity') as FormControl }
   get tables() { return this.formGroup.get('tables') as FormArray }
-
+  get active() { return this.formGroup.get('tables')?.get('active') as FormControl }
 }
