@@ -16,13 +16,11 @@ h1.mat-dialog-title {
 
 p {
   color:white;
-  margin: 1rem 0
-}
-
-.mat-stroked-button.mat-primary {
-  border: 1px solid var(--primary-base-color);
+  margin: 1rem 0;
+  white-space: pre-line;
 }
 
 .mat-dialog-actions{
   justify-content: space-evenly;
+  flex-wrap: nowrap;
 }

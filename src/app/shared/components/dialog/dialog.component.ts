@@ -4,12 +4,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
-  styleUrls: ['./dialog.component.css']
+  styleUrls: ['./dialog.component.scss']
 })
 export class DialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<DialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { message: string, title: string, closeMessage: string, canCancel: boolean, canClose: boolean, actions: any }) 
+    @Inject(MAT_DIALOG_DATA) public data: { messages: string[], title: string, closeMessage: string, canCancel: boolean, canClose: boolean, actions: any }) 
     {
       this.data.canClose = this.data.canClose ?? true
     }

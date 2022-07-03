@@ -3,6 +3,7 @@ import { RequestService } from './request.service';
 import { Table } from '../models/table.model';
 import { ResponseData } from '../models/response-data.model';
 import { ResponseList } from '../models/response-list.model';
+import { Response } from '../models/response.model';
 
 interface TableDTO {
   id?: number,
@@ -46,5 +47,9 @@ export class TableService {
 
   updateActiveByList(ids: number[]): Promise<ResponseData<Table>> {
     return this.requestService.put(`${this.baseApiURL}`, { list: ids });
+  }
+
+  generateCodesByList(ids: number[]): Promise<Response> {
+    return this.requestService.put(`${this.baseApiURL}/codes`, { list: ids});
   }
 }

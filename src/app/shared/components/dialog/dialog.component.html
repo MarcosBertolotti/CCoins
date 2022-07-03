@@ -2,23 +2,23 @@
 <h1 mat-dialog-title>{{ data.title}}</h1>
 <ng-content select="[qrcode]"></ng-content>
 <div mat-dialog-content>
-  <p>{{ data.message}}</p>
+  <p *ngFor="let message of data.messages">{{ message}}</p>
 </div>
 <div mat-dialog-actions>
-    <button
-      color="primary"
-      mat-raised-button
-      *ngIf="data.canCancel"
-      (click)="cancel()">
-      {{ data.closeMessage ? (data.closeMessage) : "dialog_close" }}
-    </button>
-    <button
-      mat-raised-button
-      color="primary"
-      cdkFocusInitial
-      *ngFor="let button of data.actions;"
-      (click)="execute(button.action)">
-      {{button.message }}
-      <ng-content select="[icon]"></ng-content>
-    </button>
+  <button
+    color="accent"
+    mat-stroked-button
+    *ngIf="data.canCancel"
+    (click)="cancel()">
+    {{ data.closeMessage ? (data.closeMessage) : "dialog_close" }}
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    cdkFocusInitial
+    *ngFor="let button of data.actions;"
+    (click)="execute(button.action)">
+    {{button.message }}
+    <ng-content select="[icon]"></ng-content>
+  </button>
 </div>

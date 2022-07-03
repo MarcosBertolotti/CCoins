@@ -66,7 +66,7 @@ export class AuthInterceptor implements HttpInterceptor {
       disableClose: true,
       data: {
         title: 'La sesión ha expirado!',
-        message: 'Por favor, vuelva a iniciar sesión.',
+        messages: ['Por favor, vuelva a iniciar sesión.'],
         canCancel: false,
         actions: [
           {

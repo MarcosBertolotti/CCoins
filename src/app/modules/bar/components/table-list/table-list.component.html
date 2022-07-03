@@ -16,21 +16,33 @@
     <mat-table formArrayName="tables" [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="barTables && barTables.length > 0">
       <ng-container [matColumnDef]="column.name" *ngFor="let column of initColumns; index as index">
 
-        <mat-header-cell *matHeaderCellDef> 
+        <mat-header-cell *matHeaderCellDef [ngClass]="{'hide': !column.show && (isSmallScreen$ | async)}"> 
           <ng-container *ngIf="index === 1">
             <mat-checkbox 
               (change)="$event ? masterToggle() : null"
-              [checked]="selection.hasValue() && isAllSelected()"
-              [indeterminate]="selection.hasValue() && !isAllSelected()"
+              [checked]="selection.hasValue() && isAllSelected(selection)"
+              [indeterminate]="selection.hasValue() && !isAllSelected(selection)"
               color="primary">
             </mat-checkbox>
           </ng-container>
-          {{ column.display }} 
+
           <ng-container *ngIf="index === 3">
+            {{ column.display }} 
             <button mat-icon-button color="primary" (click)="downloadPDF()">
               <mat-icon fontSet="material-icons-outlined">file_download</mat-icon>
             </button>
           </ng-container>
+
+          <ng-container *ngIf="index === 4">
+            <mat-checkbox 
+              (change)="$event ? masterToggleQR() : null"
+              [checked]="selectionQR.hasValue() && isAllSelected(selectionQR)"
+              [indeterminate]="selectionQR.hasValue() && !isAllSelected(selectionQR)"
+              color="primary">
+            </mat-checkbox>
+          </ng-container>
+
+          <ng-container *ngIf="index !== 3"> {{ column.display }} </ng-container>
         </mat-header-cell>
 
         <ng-container *ngIf="index === 0">
@@ -59,10 +71,20 @@
         </ng-container>
         
         <ng-container *ngIf="index === 3">
-          <mat-cell *matCellDef="let item"> 
+          <mat-cell *matCellDef="let item" [ngClass]="{'hide': !column.show && (isSmallScreen$ | async)}"> 
             <button mat-icon-button (click)="openQRDialog(item.qrCode, item.number)">
               <mat-icon fontSet="material-icons-outlined">qr_code_2</mat-icon>
             </button>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container *ngIf="index === 4">
+          <mat-cell *matCellDef="let item"> 
+            <mat-checkbox 
+              (change)="toggleSelectionQR(item)"
+              [checked]="selectionQR.isSelected(item)"
+              color="primary">
+            </mat-checkbox>
           </mat-cell>
         </ng-container>
 
@@ -84,8 +106,8 @@
       <button
         mat-raised-button
         color="primary"
-        (click)="update()">
-        Actualizar
+        (click)="updateQRSelecteds()">
+        Actualizar QRs
       </button>
     </div>
   </form>

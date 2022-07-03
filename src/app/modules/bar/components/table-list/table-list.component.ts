@@ -1,17 +1,21 @@
 import { SelectionModel } from '@angular/cdk/collections';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PartialObserver } from 'rxjs';
+import { Observable, PartialObserver } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
 import { Bar } from 'src/app/models/bar-model';
 import { ResponseData } from 'src/app/models/response-data.model';
+import { Response } from 'src/app/models/response.model';
 import { Table } from 'src/app/models/table.model';
 import { BarService } from 'src/app/services/bar.service';
 import { ImagesService } from 'src/app/services/images.service';
 import { TableService } from 'src/app/services/table.service';
+import { DialogComponent } from 'src/app/shared/components/dialog/dialog.component';
 import { QrcodeDialogComponent } from 'src/app/shared/components/qrcode-dialog/qrcode-dialog.component';
 import { ToastService } from 'src/app/shared/services/toast.services';
 
@@ -30,13 +34,21 @@ export class TableListComponent implements OnInit {
     { name: 'detail', display: 'Detalle', show: true },
     { name: 'active', display: 'Activo' , show: true },
     { name: 'number', display: 'Número', show: true },
-    { name: 'qrCode', display: 'Código QR', show: true },
+    { name: 'qrCode', display: 'Código QR', show: false },
+    { name: 'updateQr', display: 'Actualizar QR', show: true },
   ];
   displayedColumns: any[] = this.initColumns.map(col => col.name);
 
   dataSource!: MatTableDataSource<Table>;
   selection!: SelectionModel<Table>;
+  selectionQR: SelectionModel<Table> = new SelectionModel<Table>(true);
 
+  isSmallScreen$: Observable<boolean> = this.breakpointObserver.observe('(max-width: 960px)')
+  .pipe(
+    map(result => result.matches),
+    shareReplay()
+  );
+  
   constructor(
     private toastService: ToastService,
     private barService: BarService,
@@ -46,6 +58,7 @@ export class TableListComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private matDialog: MatDialog,
+    private breakpointObserver: BreakpointObserver,
   ) { }
 
   ngOnInit(): void {
@@ -129,7 +142,7 @@ export class TableListComponent implements OnInit {
 
   // Selects all rows if they are not all selected; otherwise clear selection.
   masterToggle(): void {
-    if (this.isAllSelected()) {
+    if (this.isAllSelected(this.selection)) {
       this.updateActiveByList(this.dataSource.data);
       this.selection.clear();
       return;
@@ -141,9 +154,61 @@ export class TableListComponent implements OnInit {
     this.updateActiveByList(changedTables);
   }
 
+  masterToggleQR(): void {
+    if (this.isAllSelected(this.selectionQR))
+      this.selectionQR.clear();
+    else
+      this.selectionQR.select(...this.dataSource.data);
+  }
+
+  toggleSelectionQR(table: Table): void {
+    if(this.selectionQR.isSelected(table))
+      this.selectionQR.deselect(table);
+    else
+      this.selectionQR.select(table);
+  }
+
+  updateQRSelecteds(): void {
+    let ids: number[] = []
+    let numbers: number[] = [];
+
+    this.selectionQR.selected.forEach((table: Table) => {
+      ids = [...ids, table.id];
+      numbers = [...numbers, table.number];
+    })
+    const displayNumbers = numbers.length > 1 ? `${numbers.slice(0, -1).join(' - ')} - ${numbers.slice(-1)}` : numbers[0];
+
+    const dialogRef = this.matDialog.open(DialogComponent, {
+      width: '80%',
+      maxWidth: '350px',
+      panelClass: 'custom-dialog-container',
+      data: {
+        messages: [
+          'Se actualizarán los códigos QRs de los siguientes números de mesas seleccionadas:',
+          `${displayNumbers}`,
+          'Recordá que se deberán descargar nuevamente las imágenes QR para su correcto funcionamiento.',
+        ],
+        title: `Actualizar códigos QRs`,
+        closeMessage: "Cancelar",
+        canCancel: true,
+        actions: [{
+            message: "Actualizar",
+            action: () => this.generateQRCodes(ids),
+        }],
+      },
+      disableClose: true
+    });
+  }
+
+  generateQRCodes(ids: number[]): void {
+    this.tableService.generateCodesByList(ids)
+    .then(() => this.toastService.openSuccessToast(`${ids.length} códigos QRs actualizados exitosamente!`))
+    .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message));
+  }
+
   // Whether the number of selected items matches the total number of rows.
-  isAllSelected(): boolean {
-    const numSelected = this.selection.selected.length;
+  isAllSelected(selection: SelectionModel<any>): boolean {
+    const numSelected = selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
@@ -223,11 +288,6 @@ export class TableListComponent implements OnInit {
       this.toastService.openSuccessToast(`Se han ${status} ${response.data.length} mesas`);
     })
     .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message))
-  }
-
-  update(): void {
-    // WIP
-    console.log("WIP", this.tables?.value)
   }
 
   public openQRDialog(qrCode: string, tableNumber: string) {
