@@ -134,14 +134,16 @@ export class BarUpdateComponent implements OnInit, OnDestroy {
   }
 
   async toggleActive(): Promise<void> {
-    const updatedBar = await this.barService.updateActive(this.bar.id!)
-      .catch((error: HttpErrorResponse) => {
-        //const message = error.error?.name === ApiErrorResponses.EXISTING_OBJECT ? 'Ya existe un Bar' : error.message;
-        this.toastService.openErrorToast(error.error.message);
-      });
-    
-    if(updatedBar)
-      this.bar.active = updatedBar.active!;
+    this.barService.updateActive(this.bar.id!)
+    .then((bar: Bar) => {
+      this.bar.active = bar.active;
+      const status = this.bar.active ? 'activado' : 'desactivado';
+      this.toastService.openSuccessToast(`${this.bar.name} ${status} exitosamente!`);
+    })
+    .catch((error: HttpErrorResponse) => {
+      //const message = error.error?.name === ApiErrorResponses.EXISTING_OBJECT ? 'Ya existe un Bar' : error.message;
+      this.toastService.openErrorToast(error.error.message);
+    });
   }
 
   get name() { return this.formGroup.get('name') as FormControl }
