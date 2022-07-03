@@ -54,6 +54,10 @@
 
       button[mat-raised-button] {
         margin-top: 1rem;
+
+        mat-icon.east {
+          font-size: 24px !important;
+        }
       }
 
       button[mat-raised-button]:first-of-type {

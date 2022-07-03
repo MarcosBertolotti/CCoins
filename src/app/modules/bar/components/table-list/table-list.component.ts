@@ -10,7 +10,6 @@ import { Observable, PartialObserver } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Bar } from 'src/app/models/bar-model';
 import { ResponseData } from 'src/app/models/response-data.model';
-import { Response } from 'src/app/models/response.model';
 import { Table } from 'src/app/models/table.model';
 import { BarService } from 'src/app/services/bar.service';
 import { ImagesService } from 'src/app/services/images.service';
@@ -172,10 +171,16 @@ export class TableListComponent implements OnInit {
     let ids: number[] = []
     let numbers: number[] = [];
 
+    if(this.selectionQR.selected.length === 0) {
+      this.toastService.openToast('Primero debe seleccionar los códigos QRs a actualizar.');
+      return;
+    }
+
     this.selectionQR.selected.forEach((table: Table) => {
       ids = [...ids, table.id];
       numbers = [...numbers, table.number];
     })
+    numbers = numbers.sort((a: number, b: number) => a - b);
     const displayNumbers = numbers.length > 1 ? `${numbers.slice(0, -1).join(' - ')} - ${numbers.slice(-1)}` : numbers[0];
 
     const dialogRef = this.matDialog.open(DialogComponent, {
@@ -203,7 +208,8 @@ export class TableListComponent implements OnInit {
   generateQRCodes(ids: number[]): void {
     this.tableService.generateCodesByList(ids)
     .then(() => this.toastService.openSuccessToast(`${ids.length} códigos QRs actualizados exitosamente!`))
-    .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message));
+    .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message))
+    .finally(() => this.selectionQR.clear())
   }
 
   // Whether the number of selected items matches the total number of rows.
@@ -225,7 +231,7 @@ export class TableListComponent implements OnInit {
     if(quantity && ((quantity > 0 && this.quantity.value < 20) || (quantity <= 0 && this.quantity.value > 1)))
       this.quantity.setValue(this.quantity.value + quantity);
     else if ((quantity && this.quantity.value >= 20) || this.quantity.value > 20) {
-      this.toastService.openToast('Se ha alcanzado el máximo de mesas ha crear');
+      this.toastService.openToast('Se ha alcanzado el máximo de mesas a crear');
       this.quantity.setValue(20);
     }
 
