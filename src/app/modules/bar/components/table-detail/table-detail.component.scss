@@ -1,0 +1,80 @@
+:host {
+  .container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    
+    > * 
+    {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
+      min-width: 25%;
+    }
+
+    .bubble-gray {
+      background-color: var(--gray-lighter-color);
+	    border-radius: 30px;
+      padding: 1rem;
+      margin: 1rem 0;
+
+      h2 {
+        margin: 1rem 0 .25rem;
+
+        span {
+          font-weight: 400;
+        }
+      }
+    }
+
+    .center-container {
+      width: fit-content;
+      margin: auto;
+      min-width: 50%;
+    }
+
+    .center-container.ls {
+      display: none;
+    }
+
+    .center-container.xs {
+      display: inherit;
+      margin-top: 1rem;
+    }
+  
+    qrcode ::ng-deep {
+      .qrcode {
+        text-align: center;
+      }
+  
+      img {
+        max-width: 280px;
+        width: 100%;
+      }
+    }
+  }
+  
+}
+
+
+@media (min-width: 600px) {
+  .container {
+    padding-top: 1rem;
+
+    .bubble-gray {
+      max-width: calc(280px - 2rem);
+    }
+    button[mat-raised-button] {
+      max-width: 280px;
+    }
+
+    .center-container.xs {
+      display: none !important;
+    }
+
+    .center-container.ls {
+      display: inherit !important;
+    }
+  }
+}
+

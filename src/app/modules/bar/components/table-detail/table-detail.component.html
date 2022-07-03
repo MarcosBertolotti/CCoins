@@ -1,5 +1,38 @@
-<app-title [title]="'Mesa número'" [titleCenter]="bar?.name"></app-title>
+<ng-container *ngIf="table">
+  <app-title [title]="'Mesa número ' + table.number" [titleCenter]="bar?.name"></app-title>
 
-<div class="container">
+  <div class="container">
+    <div class="left-content">
+      <app-slide-toggle 
+        [title]="table.active ? 'Habilitado' : 'Deshabilitado'" 
+        [value]="table.active!" 
+        (toggle)="toggleActive()">
+      </app-slide-toggle>
 
-</div>
+      <div class="center-container xs">
+        <qrcode [qrdata]="table.code" [width]="234" [margin]="0" elementType="url"></qrcode>
+      </div>
+      
+      <div class="bubble-gray">
+        <p>Última actualización: </p>
+        <h2>
+          {{ table.startDate | date : 'dd/MM/yyyy' }}
+          <span>{{ table.startDate | date : 'HH:mm' }}hs </span>
+        </h2>
+      </div>
+
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="updateQR()">
+        Actualizar QR
+      </button>
+    </div>
+
+    <div class="center-container ls">
+      <qrcode [qrdata]="table.code" [width]="280" [margin]="3" elementType="url"></qrcode>
+    </div>
+
+    <div class="right-content"></div>
+  </div>
+</ng-container>

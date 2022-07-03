@@ -44,6 +44,8 @@ export class NavbarComponent implements OnInit {
       },
     ];
 
+    console.log(this.barItems);
+
     if(this.sectionPath === AppPaths.BAR)
       this.items = this.barItems;
   }

@@ -4,4 +4,6 @@ export interface Table {
     active: boolean,
     bar: number,
     qrCode: string,
+    code: string,
+    startDate: any
 }

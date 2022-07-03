@@ -44,31 +44,53 @@
 
     mat-table {
       // 56px = toolbar // 1rem = padding top // 104px = app title // // 63px = form field  48px = button // 3rem = margin button
-      max-height: calc(100vh - 56px - 1rem - 104px - 63px - 48px - 3rem);
+      max-height: calc(100vh - 56px - 1rem - 104px - 63px - 48px - 2rem);
       overflow-y: overlay;
     }
 
     .actions-container {
       display: flex;
-      flex-direction: column;
+      justify-content: flex-end;
 
       button[mat-raised-button] {
-        margin-top: 1rem;
+        margin: 1rem 0 0 .5rem;
 
         mat-icon.east {
           font-size: 24px !important;
+          display: none;
         }
-      }
-
-      button[mat-raised-button]:first-of-type {
-        margin-top: 1.5rem;
-        display: none;
       }
     }
   }
 
   .hide {
     display: none;
+  }
+}
+
+@media (max-width: 359px) {
+  .container form .field-container {
+    
+    button[mat-raised-button] {
+      white-space: pre-wrap;
+      line-height: normal;
+    }
+
+    .mat-form-field-appearance-outline {
+      max-width: 95px;
+    }
+  }
+}
+
+@media (min-width: 600px) {
+  .container form .actions-container {
+    button[mat-raised-button] {
+      max-width: 220px;
+
+      mat-icon.east {
+        display: initial !important;
+      }
+    }
   }
 }
 
@@ -81,12 +103,7 @@
       }
 
       .actions-container {
-        flex-direction: row;
-        justify-content: flex-end;
-  
         button[mat-raised-button] {
-          margin: 1.5rem 0 0 .5rem !important;
-          display: initial !important;
           max-width: 220px;
         }
       }

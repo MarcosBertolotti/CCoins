@@ -13,7 +13,6 @@ export class QrcodeDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) data: any,
   ) {
     this.url = data.url;
-    console.log(data.url)
   }
 
   ngOnInit(): void {}

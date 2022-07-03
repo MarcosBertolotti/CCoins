@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BarRoutingModule } from './bar-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { QRCodeModule } from 'angularx-qrcode';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -39,6 +40,7 @@ import { TableDetailComponent } from './components/table-detail/table-detail.com
     MatIconModule,
     MatTableModule,
     MatCheckboxModule,
+    QRCodeModule,
   ]
 })
 export class BarModule { }

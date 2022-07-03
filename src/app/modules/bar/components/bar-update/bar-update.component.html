@@ -1,6 +1,6 @@
 <ng-container *ngIf="bar">
   <app-title [title]="bar.name" titleCenter="Detalle"></app-title>
-  <app-navbar [sectionPath]="appPaths.BAR" [id]="bar.id"></app-navbar>
+  <app-navbar [sectionPath]="appPaths.BAR" [id]="idBar"></app-navbar>
   
   <app-slide-toggle 
     [title]="bar.active ? 'Habilitado' : 'Deshabilitado'" 

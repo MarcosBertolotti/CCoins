@@ -220,9 +220,9 @@ export class TableListComponent implements OnInit {
   }
 
   downloadPDF(): void {
-    const tables: any = this.barTables.map((table: Table) => { return { number: table.number, code: table.qrCode } })
+    const ids: number[] = this.barTables.map((table: Table) => table.id)
 
-    this.imagesService.generatePDFWithQRCodes(tables)
+    this.imagesService.generatePDFWithQRCodes(ids)
       .then((response) => console.log("download PDF",response))
       .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message))
   }
