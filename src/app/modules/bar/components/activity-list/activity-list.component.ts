@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PartialObserver } from 'rxjs';
+import { AppPaths } from 'src/app/enums/app-paths.enum';
 import { Bar } from 'src/app/models/bar-model';
 import { Game } from 'src/app/models/game.model';
 import { ResponseList } from 'src/app/models/response-list.model';
@@ -18,6 +19,8 @@ export class ActivityListComponent implements OnInit {
 
   bar!: Bar;
   games: Game[] = [];
+
+  appPaths = AppPaths;
 
   constructor(
     private route: ActivatedRoute,

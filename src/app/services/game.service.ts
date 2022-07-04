@@ -40,7 +40,7 @@ export class GameService {
     return this.requestService.patch(`${this.baseApiURL}/active`, { id });
   }
 
-  findAllTypes(id: number): Promise<ResponseList<GameType>> {
+  findAllTypes(): Promise<ResponseList<GameType>> {
     return this.requestService.get(`${this.baseApiURL}/types`);
   }
 }

@@ -1,0 +1,45 @@
+.container {
+	display: flex;
+	justify-content: center;
+	padding-bottom: 1rem;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+
+	mat-form-field {
+		width: 100%;
+		margin-bottom: .5rem;
+	}
+	
+	.inline-content {
+		display: flex;
+		justify-content: space-between;
+		
+		> div {
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+			max-width: calc(50% - .5rem);
+		}
+	}
+}
+  
+p {
+  padding-top: 1rem;
+  font-size: 12px;
+  text-align: center;
+}
+
+button[mat-raised-button] {
+  margin-top: 1.25rem;
+}
+
+@media (min-width: 1280px) {
+	form {
+		width: 50%;
+	}
+}
+  

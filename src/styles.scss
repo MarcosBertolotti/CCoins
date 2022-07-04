@@ -264,6 +264,20 @@ input::-webkit-calendar-picker-indicator{
   padding: 1rem;
 }
 
+/* used in forms */
+
+.inline-content {
+  display: flex;
+  justify-content: space-between;
+  
+  > div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: calc(50% - .5rem);
+  }
+}
+
 @media (max-width: 960px) {
   mat-table {
     mat-header-cell:first-of-type,

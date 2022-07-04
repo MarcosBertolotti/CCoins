@@ -8,6 +8,8 @@ import { BarCreateComponent } from './components/bar-create/bar-create.component
 import { TableListComponent } from './components/table-list/table-list.component';
 import { TableDetailComponent } from './components/table-detail/table-detail.component';
 import { ActivityListComponent } from './components/activity-list/activity-list.component';
+import { ActivityCreateComponent } from './components/activity-create/activity-create.component';
+import { ActivityDetailComponent } from './components/activity-detail/activity-detail.component';
 
 const routes: Routes = [
   {
@@ -25,7 +27,8 @@ const routes: Routes = [
       { path: `:id/${AppPaths.TABLES}`, component: TableListComponent },
       { path: `:id/${AppPaths.TABLES}/:idTable`, component: TableDetailComponent },
       { path: `:id/${AppPaths.ACTIVITIES}`, component: ActivityListComponent },
-      { path: `:id/${AppPaths.ACTIVITIES}/:idActivity`, component: ActivityListComponent },
+      { path: `:id/${AppPaths.ACTIVITIES}/${AppPaths.CREATE}`, component: ActivityCreateComponent },
+      { path: `:id/${AppPaths.ACTIVITIES}/:idActivity`, component: ActivityDetailComponent },
     ]
   }
 ];

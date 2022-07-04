@@ -20,6 +20,7 @@ import { TableListComponent } from './components/table-list/table-list.component
 import { TableDetailComponent } from './components/table-detail/table-detail.component';
 import { ActivityListComponent } from './components/activity-list/activity-list.component';
 import { ActivityDetailComponent } from './components/activity-detail/activity-detail.component';
+import { ActivityCreateComponent } from './components/activity-create/activity-create.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { ActivityDetailComponent } from './components/activity-detail/activity-d
     TableDetailComponent,
     ActivityListComponent,
     ActivityDetailComponent,
+    ActivityCreateComponent,
   ],
   imports: [
     CommonModule,

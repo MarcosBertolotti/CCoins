@@ -1,4 +1,3 @@
-import { Bar } from "./bar-model";
 import { GameType } from "./game-type.model";
 
 export interface Game {
@@ -7,7 +6,7 @@ export interface Game {
     rules: string;
     points: number;
     active?: boolean;
-    bar?: Bar;
+    bar?: number;
     gameType?: GameType;
     startDate?: Date;
     endDate?: Date;

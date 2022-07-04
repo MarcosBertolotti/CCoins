@@ -3,12 +3,17 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { QRCodeModule } from 'angularx-qrcode';
+
 // MATERIAL
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 // PIPES
 import { FieldRequiredPipe } from './pipes/field-required.pipe';
@@ -23,8 +28,8 @@ import { SlideToggleComponent } from './components/slide-toggle/slide-toggle.com
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { DialogComponent } from './components/dialog/dialog.component';
-import { QRCodeModule } from 'angularx-qrcode';
 import { QrcodeDialogComponent } from './components/qrcode-dialog/qrcode-dialog.component';
+import { SelectComponent } from './components/select/select.component';
 
 
 @NgModule({
@@ -40,6 +45,7 @@ import { QrcodeDialogComponent } from './components/qrcode-dialog/qrcode-dialog.
     PageNotFoundComponent,
     DialogComponent,
     QrcodeDialogComponent,
+    SelectComponent,
   ],
   imports: [
     CommonModule,
@@ -52,6 +58,9 @@ import { QrcodeDialogComponent } from './components/qrcode-dialog/qrcode-dialog.
     MatDialogModule,
     MatButtonModule,
     QRCodeModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   exports: [
     RouterComponent,
@@ -64,6 +73,7 @@ import { QrcodeDialogComponent } from './components/qrcode-dialog/qrcode-dialog.
     PageNotFoundComponent,
     DialogComponent,
     QrcodeDialogComponent,
+    SelectComponent
   ],
 })
 export class SharedModule { }

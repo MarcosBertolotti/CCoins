@@ -1,7 +1,15 @@
 <app-title title="Mis Actividades" [titleCenter]="bar?.name"></app-title>
 
-<div class="container" *ngIf="games && games.length > 0; else notGames">
+<button
+  mat-raised-button
+  color="primary"
+  [routerLink]="appPaths.CREATE">
+  Crear
+  <mat-icon class="east">east</mat-icon>
+</button>
 
+<div class="container" *ngIf="games && games.length > 0; else notGames">
+  
 </div>
 
 <ng-template #notGames>
