@@ -25,13 +25,17 @@ export class SelectComponent implements OnInit {
   formGroup!: FormGroup;
 
   @Input()
-  displayValue!: (item: any) => string;
+  displayFn!: (item: any) => string;
 
   fieldErrorMessages: any = FIELD_ERROR_MESSAGES;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  compareFn(option: any, value: any) {
+    return option.id === value?.id;
   }
 
   get control(): FormControl {

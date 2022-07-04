@@ -20,7 +20,6 @@ import { ToastService } from 'src/app/shared/services/toast.services';
 export class ActivityCreateComponent implements OnInit {
 
   bar!: Bar;
-  games!: Game;
   gameTypes: GameType[] = [];
   formGroup!: FormGroup;
   

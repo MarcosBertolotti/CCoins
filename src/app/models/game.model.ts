@@ -8,6 +8,7 @@ export interface Game {
     active?: boolean;
     bar?: number;
     gameType?: GameType;
+    type?: string;
     startDate?: Date;
     endDate?: Date;
   }

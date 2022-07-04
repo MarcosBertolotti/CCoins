@@ -3,12 +3,13 @@
   <mat-select
     panelClass="select-custom-panel simple"
     disableOptionCentering
+    [compareWith]="compareFn"
     [attr.data-name]="name"
     formControlName="{{name}}"
     [placeholder]="placeholder">
     <mat-option
       *ngFor="let item of items" [value]="item">
-      {{ displayValue(item) }}
+      {{ displayFn(item) }}
     </mat-option>
   </mat-select>
   <mat-icon matSuffix>south</mat-icon>

@@ -28,7 +28,7 @@ const routes: Routes = [
       { path: `:id/${AppPaths.TABLES}/:idTable`, component: TableDetailComponent },
       { path: `:id/${AppPaths.ACTIVITIES}`, component: ActivityListComponent },
       { path: `:id/${AppPaths.ACTIVITIES}/${AppPaths.CREATE}`, component: ActivityCreateComponent },
-      { path: `:id/${AppPaths.ACTIVITIES}/:idActivity`, component: ActivityDetailComponent },
+      { path: `:id/${AppPaths.ACTIVITIES}/:idGame`, component: ActivityDetailComponent },
     ]
   }
 ];

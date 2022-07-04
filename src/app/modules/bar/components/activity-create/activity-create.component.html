@@ -1,55 +1,55 @@
 <app-title title="Crear Actividad" [titleCenter]="bar?.name"></app-title>
 
 <div class="container" *ngIf="formGroup">
-    <form [formGroup]="formGroup" #form="ngForm">
-  
-      <h4 class="title-accent">Nueva Actividad</h4>
-  
-      <mat-label>Nombre {{ (name | fieldRequired) ? '*' : '' }}</mat-label>
-      <mat-form-field appearance="outline">
-        <input matInput formControlName="name" placeholder="Nombre de la actividad">
-        <mat-error>{{ 'name' | errorMessage : formGroup }}</mat-error>
-      </mat-form-field>
-      
-      <div class="inline-content">
-        <div>
-          <mat-label>Puntos {{ (points | fieldRequired) ? '*' : '' }}</mat-label>
-          <mat-form-field appearance="outline">
-            <input matInput type="number" formControlName="points" placeholder="Puntos de la actividad" autocomplete="off">
-            <mat-error>{{ 'points' | errorMessage : formGroup }}</mat-error>
-          </mat-form-field>
-        </div>
-        <div>
-          <app-select
-            label="Tipo de actividad"
-            name="gameType"
-            placeholder="Tipo de actividad"
-            [items]="gameTypes"
-            [displayValue]="displayItemFn"
-            [formGroup]="formGroup">
-          </app-select>
-        </div>
-      </div>
+  <form [formGroup]="formGroup" #form="ngForm">
 
-      <mat-label>Reglas {{ (rules | fieldRequired) ? '*' : '' }}</mat-label>
-      <mat-form-field color="primary" appearance="outline">
-        <textarea
-          matInput
-          rows="6"
-          maxlength="500"
-          placeholder="Reglas de la actividad"
-          formControlName="rules"></textarea>
-        <mat-error>{{ 'rules' | errorMessage : formGroup }}</mat-error>
-      </mat-form-field>
-      
-      <p>Una vez finalizada la creación sera redireccionado a la pantalla de edición.</p>
-  
-      <button
-        mat-raised-button
-        color="primary"
-        [disabled]="!formGroup.valid"
-        (click)="submitForm()">
-        Crear
-      </button>
-    </form>
-  </div>
+    <h4 class="title-accent">Nueva Actividad</h4>
+
+    <mat-label>Nombre {{ (name | fieldRequired) ? '*' : '' }}</mat-label>
+    <mat-form-field appearance="outline">
+      <input matInput formControlName="name" placeholder="Nombre de la actividad">
+      <mat-error>{{ 'name' | errorMessage : formGroup }}</mat-error>
+    </mat-form-field>
+    
+    <div class="inline-content">
+      <div>
+        <mat-label>Puntos {{ (points | fieldRequired) ? '*' : '' }}</mat-label>
+        <mat-form-field appearance="outline">
+          <input matInput type="number" formControlName="points" placeholder="Puntos de la actividad" autocomplete="off">
+          <mat-error>{{ 'points' | errorMessage : formGroup }}</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <app-select
+          label="Tipo de actividad"
+          name="gameType"
+          placeholder="Tipo de actividad"
+          [items]="gameTypes"
+          [displayFn]="displayItemFn"
+          [formGroup]="formGroup">
+        </app-select>
+      </div>
+    </div>
+
+    <mat-label>Reglas {{ (rules | fieldRequired) ? '*' : '' }}</mat-label>
+    <mat-form-field color="primary" appearance="outline">
+      <textarea
+        matInput
+        rows="6"
+        maxlength="500"
+        placeholder="Reglas de la actividad"
+        formControlName="rules"></textarea>
+      <mat-error>{{ 'rules' | errorMessage : formGroup }}</mat-error>
+    </mat-form-field>
+    
+    <p>Una vez finalizada la creación sera redireccionado a la pantalla de edición.</p>
+
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!formGroup.valid"
+      (click)="submitForm()">
+      Crear
+    </button>
+  </form>
+</div>
