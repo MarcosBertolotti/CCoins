@@ -36,7 +36,10 @@ export class AuthService {
               this.saveToken(token.value);
               this.router.navigate([AppPaths.SIDENAV, AppPaths.BAR])
             },
-            error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.message),
+            error: (error: HttpErrorResponse) => {
+              const message = error.status === 503 ? 'Servicio momentáneamente no disponible' : error.error.message;
+              this.toastService.openErrorToast(message);
+            }
           }
           this.login(this.getSocialToken(socialType, socialUser), socialType.toLowerCase()).subscribe(socialLoginObserver);
         } else
