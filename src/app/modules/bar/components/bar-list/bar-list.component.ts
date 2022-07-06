@@ -18,13 +18,13 @@ import { ToastService } from 'src/app/shared/services/toast.services';
 export class BarListComponent implements OnInit, OnDestroy {
 
   initColumns: any[] = [
-    { name: 'detail', display: 'Detalle', show: true },
-    { name: 'tables', display: 'Mesas' , show: false },
+    { name: 'detail', display: 'Detalle', show: true},
+    { name: 'tables', display: 'Mesas' , show: false, routeTo: AppPaths.TABLES, icon: 'table_bar' },
+    { name: 'games', display: 'Actividades', show: false, routeTo: AppPaths.ACTIVITIES, icon: 'emoji_objects' },
+    { name: 'prizes', display: 'Premios', show: false, routeTo: AppPaths.PRIZES, icon: 'emoji_events' },
     { name: 'active', display: 'Activo', show: false },
     { name: 'name', display: 'Nombre', show: true },
     { name: 'address', display: 'Dirección', show: true },
-    { name: 'location', display: 'Localidad', show: false },
-    { name: 'menuLink', display: 'Link menu', show: false },
   ];
   displayedColumns: any[] = this.initColumns.map(col => col.name);
 

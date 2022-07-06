@@ -53,6 +53,8 @@ export class ActivityDetailComponent implements OnInit {
       points: [this.game.points, [Validators.required]],
       rules: [this.game.rules],
       gameType: [this.game.gameType, [Validators.required]],
+      openTime: [this.game.openTime],
+      closeTime: [this.game.closeTime],
     });
   }
 
@@ -98,6 +100,8 @@ export class ActivityDetailComponent implements OnInit {
         rules: this.rules.value.trim(),
         points: this.points.value,
         gameType: this.gameType.value,
+        openTime: this.openTime.value,
+        closeTime: this.closeTime.value,
         bar: this.bar.id,
         active: this.game.active,
       }
@@ -116,5 +120,7 @@ export class ActivityDetailComponent implements OnInit {
   get rules() { return this.formGroup.get('rules') as FormControl }
   get points() { return this.formGroup.get('points') as FormControl }
   get gameType() { return this.formGroup.get('gameType') as FormControl }
+  get openTime() { return this.formGroup.get('openTime') as FormControl }
+  get closeTime() { return this.formGroup.get('closeTime') as FormControl }
 
 }

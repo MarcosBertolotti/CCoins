@@ -31,6 +31,23 @@
       </div>
     </div>
 
+    <div class="inline-content">
+      <div>
+        <mat-label>Hora de apertura {{ (openTime | fieldRequired) ? '*' : '' }}</mat-label>
+        <mat-form-field appearance="outline">
+          <input matInput type="time" formControlName="openTime">
+          <mat-error>{{ 'openTime' | errorMessage : formGroup : 'mesas' }}</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-label>Hora de cierre {{ (closeTime | fieldRequired) ? '*' : '' }}</mat-label>
+        <mat-form-field appearance="outline">
+          <input matInput type="time" formControlName="closeTime">
+          <mat-error>{{ 'closeTime' | errorMessage : formGroup : 'mesas' }}</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
     <mat-label>Reglas {{ (rules | fieldRequired) ? '*' : '' }}</mat-label>
     <mat-form-field color="primary" appearance="outline">
       <textarea

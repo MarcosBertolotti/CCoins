@@ -48,6 +48,8 @@ export class ActivityCreateComponent implements OnInit {
       name: ['', [Validators.required]],
       points: ['', [Validators.required]],
       rules: [''],
+      openTime: [''],
+      closeTime: [''],
       gameType: [this.gameTypes, [Validators.required]],
     });
   }
@@ -83,6 +85,8 @@ export class ActivityCreateComponent implements OnInit {
         rules: this.rules.value.trim(),
         points: this.points.value,
         gameType: this.gameType.value,
+        openTime: this.openTime.value,
+        closeTime: this.closeTime.value,
         bar: this.bar.id,
         active: true,
       }
@@ -104,5 +108,7 @@ export class ActivityCreateComponent implements OnInit {
   get rules() { return this.formGroup.get('rules') as FormControl }
   get points() { return this.formGroup.get('points') as FormControl }
   get gameType() { return this.formGroup.get('gameType') as FormControl }
+  get openTime() { return this.formGroup.get('openTime') as FormControl }
+  get closeTime() { return this.formGroup.get('closeTime') as FormControl }
 
 }

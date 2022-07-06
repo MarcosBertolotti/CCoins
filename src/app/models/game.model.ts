@@ -9,6 +9,6 @@ export interface Game {
     bar?: number;
     gameType?: GameType;
     type?: string;
-    startDate?: Date;
-    endDate?: Date;
+    openTime?: string;
+    closeTime?: string;
   }

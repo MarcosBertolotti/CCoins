@@ -20,13 +20,13 @@
           </button>
         </ng-container>
 
-        <ng-container *ngIf="index === 1">
-          <button mat-icon-button [routerLink]="['../', item.id, appPaths.TABLES]">
-            <mat-icon fontSet="material-icons-outlined">table_bar</mat-icon>
+        <ng-container *ngIf="index > 0 && index < 4">
+          <button mat-icon-button [routerLink]="['../', item.id, column.routeTo]">
+            <mat-icon fontSet="material-icons-outlined">{{ column.icon }}</mat-icon>
           </button>
         </ng-container>
 
-        <ng-container *ngIf="index === 2">
+        <ng-container *ngIf="index === 4">
           <mat-checkbox 
             (click)="toggleActive(item.id)"
             [checked]="item.active"
@@ -34,7 +34,7 @@
           </mat-checkbox>
         </ng-container>
 
-        <ng-container *ngIf="index >= 3">{{ item[column.name] }}</ng-container>
+        <ng-container *ngIf="index > 4">{{ item[column.name] }}</ng-container>
       </mat-cell>
     </ng-container>
 

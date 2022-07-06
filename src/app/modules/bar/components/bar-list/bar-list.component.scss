@@ -16,6 +16,11 @@ button[mat-raised-button] {
     max-height: calc(100vh - 2rem - 159px - 48px - 1.5rem);
     border-radius: 10px 10px 0 0;
     overflow-y: overlay;
+
+    mat-header-cell:nth-child(-n+4),
+      mat-cell:nth-child(-n+4) {
+        flex: .5 !important;
+      }
   }
 }
 
