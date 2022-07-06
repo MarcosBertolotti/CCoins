@@ -32,8 +32,8 @@ export class GameService {
     return this.requestService.get(`${this.baseApiURL}/bar/${id}`);
   }
 
-  saveOrUpdate(table: GameDTO): Promise<Game> {
-    return this.requestService.post(`${this.baseApiURL}/save`, table);
+  saveOrUpdate(game: GameDTO): Promise<Game> {
+    return this.requestService.post(`${this.baseApiURL}/save`, game);
   }
 
   updateActive(id: number): Promise<Game> {

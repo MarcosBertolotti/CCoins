@@ -1,1 +1,46 @@
-<p>prize-list works!</p>
+<app-title title="Mis Premios" [titleCenter]="bar?.name"></app-title>
+
+<button
+  mat-raised-button
+  color="primary"
+  [routerLink]="appPaths.CREATE">
+  Crear
+  <mat-icon class="east">east</mat-icon>
+</button>
+
+<div class="container" *ngIf="prizes && prizes.length > 0; else notPrizes">
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <ng-container [matColumnDef]="column.name" *ngFor="let column of initColumns; index as index">
+      <mat-header-cell *matHeaderCellDef [ngClass]="{'hide': !column.show && (isSmallScreen$ | async)}"> {{ column.display }} </mat-header-cell>
+
+      <mat-cell *matCellDef="let item" [ngClass]="{'hide': !column.show && (isSmallScreen$ | async)}"> 
+        <ng-container *ngIf="index === 0">
+          <button mat-icon-button [routerLink]="[item.id]">
+            <mat-icon fontSet="material-icons-outlined">info</mat-icon>
+          </button>
+        </ng-container>
+
+        <ng-container *ngIf="index === 1">
+          <mat-checkbox 
+            (click)="toggleActive(item.id)"
+            [checked]="item.active"
+            color="primary">
+          </mat-checkbox>
+        </ng-container>
+
+        <ng-container *ngIf="index >= 2">{{ item[column.name] }}</ng-container>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+  </mat-table>
+</div>
+
+<ng-template #notPrizes>
+  <div class="not-content" *ngIf="prizes?.length === 0">
+      <h1>Aún no se ha creado ningún premio.</h1>
+  </div>
+</ng-template>

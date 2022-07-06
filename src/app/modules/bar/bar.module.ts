@@ -21,6 +21,9 @@ import { TableDetailComponent } from './components/table-detail/table-detail.com
 import { ActivityListComponent } from './components/activity-list/activity-list.component';
 import { ActivityDetailComponent } from './components/activity-detail/activity-detail.component';
 import { ActivityCreateComponent } from './components/activity-create/activity-create.component';
+import { PrizeListComponent } from './components/prize-list/prize-list.component';
+import { PrizeCreateComponent } from './components/prize-create/prize-create.component';
+import { PrizeDetailComponent } from './components/prize-detail/prize-detail.component';
 
 
 @NgModule({
@@ -33,6 +36,9 @@ import { ActivityCreateComponent } from './components/activity-create/activity-c
     ActivityListComponent,
     ActivityDetailComponent,
     ActivityCreateComponent,
+    PrizeListComponent,
+    PrizeCreateComponent,
+    PrizeDetailComponent,
   ],
   imports: [
     CommonModule,

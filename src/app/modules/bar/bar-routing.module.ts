@@ -10,6 +10,9 @@ import { TableDetailComponent } from './components/table-detail/table-detail.com
 import { ActivityListComponent } from './components/activity-list/activity-list.component';
 import { ActivityCreateComponent } from './components/activity-create/activity-create.component';
 import { ActivityDetailComponent } from './components/activity-detail/activity-detail.component';
+import { PrizeListComponent } from './components/prize-list/prize-list.component';
+import { PrizeCreateComponent } from './components/prize-create/prize-create.component';
+import { PrizeDetailComponent } from './components/prize-detail/prize-detail.component';
 
 const routes: Routes = [
   {
@@ -29,6 +32,9 @@ const routes: Routes = [
       { path: `:id/${AppPaths.ACTIVITIES}`, component: ActivityListComponent },
       { path: `:id/${AppPaths.ACTIVITIES}/${AppPaths.CREATE}`, component: ActivityCreateComponent },
       { path: `:id/${AppPaths.ACTIVITIES}/:idGame`, component: ActivityDetailComponent },
+      { path: `:id/${AppPaths.PRIZES}`, component: PrizeListComponent },
+      { path: `:id/${AppPaths.PRIZES}/${AppPaths.CREATE}`, component: PrizeCreateComponent },
+      { path: `:id/${AppPaths.PRIZES}/:idPrize`, component: PrizeDetailComponent },
     ]
   }
 ];
