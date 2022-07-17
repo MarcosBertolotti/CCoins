@@ -30,6 +30,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { DialogComponent } from './components/dialog/dialog.component';
 import { QrcodeDialogComponent } from './components/qrcode-dialog/qrcode-dialog.component';
 import { SelectComponent } from './components/select/select.component';
+import { ParseToDatePipe } from './pipes/parse-to-date.pipe';
+import { ParseArrayToDatePipe } from './pipes/parse-array-to-date';
 
 
 @NgModule({
@@ -46,6 +48,8 @@ import { SelectComponent } from './components/select/select.component';
     DialogComponent,
     QrcodeDialogComponent,
     SelectComponent,
+    ParseToDatePipe,
+    ParseArrayToDatePipe,
   ],
   imports: [
     CommonModule,
@@ -73,7 +77,9 @@ import { SelectComponent } from './components/select/select.component';
     PageNotFoundComponent,
     DialogComponent,
     QrcodeDialogComponent,
-    SelectComponent
+    SelectComponent,
+    ParseToDatePipe,
+    ParseArrayToDatePipe
   ],
 })
 export class SharedModule { }

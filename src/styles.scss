@@ -108,6 +108,7 @@ mat-form-field .mat-form-field-wrapper {
 .mat-form-field-appearance-outline .mat-form-field-outline {
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.05) !important;
   border-radius: 30px !important;
+  color: var(--black-alpha-42) !important;
 }
 mat-form-field .mat-form-field-outline-start {
   border-radius: 30px 0 0 30px !important;
@@ -126,12 +127,26 @@ mat-form-field mat-icon[matprefix] {
   margin-left: .25rem;
 }
 
+/* mat date picker */
+
+.mat-form-field-appearance-outline .mat-date-range-input-separator {
+  margin: 0 1rem 0 .5rem;
+  color: var(--black-alpha-42);
+}
+
+.mat-form-field-appearance-outline .mat-date-range-input-inner::placeholder {
+  color: var(--black-alpha-42);
+}
+
+/* mat error */
+
 mat-error {
   background-color: var(--danger-lighter-color);
   border-radius: 30px;
   text-align: center;
 }
 
+/* mat autocomplete */
 .mat-autocomplete-panel.custom-panel {
   padding-top: 1rem;
   margin-top: -1rem;

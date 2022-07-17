@@ -1,1 +1,48 @@
-<p>prize-create works!</p>
+<app-title title="Crear Premio" [titleCenter]="bar?.name"></app-title>
+
+<div class="container" *ngIf="formGroup">
+  <form [formGroup]="formGroup" #form="ngForm">
+
+    <h4 class="title-accent">Nuevo Premio</h4>
+
+    <mat-label>Nombre {{ (name | fieldRequired) ? '*' : '' }}</mat-label>
+    <mat-form-field appearance="outline">
+      <input matInput formControlName="name" placeholder="Nombre del premio">
+      <mat-error>{{ 'name' | errorMessage : formGroup }}</mat-error>
+    </mat-form-field>
+    
+    <mat-label>Puntos {{ (points | fieldRequired) ? '*' : '' }}</mat-label>
+    <mat-form-field appearance="outline">
+      <input matInput type="number" formControlName="points" placeholder="Puntos para obtener el premio" autocomplete="off">
+      <mat-error>{{ 'points' | errorMessage : formGroup }}</mat-error>
+    </mat-form-field>
+
+    <mat-label>Fecha</mat-label>
+    <mat-form-field class="date-field" appearance="outline" (click)="picker.open()">
+      <mat-date-range-input
+        matInput
+        name="date"
+        [min]="minDate"
+        [rangePicker]="picker">
+        <input matStartDate formControlName="startDate" placeholder="Fecha de apertura">
+        <input matEndDate formControlName="endDate" placeholder="Fecha de cierre">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker">
+        <mat-icon matDatepickerToggleIcon>
+          south
+        </mat-icon>
+      </mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+    
+    <p>Una vez finalizada la creación sera redireccionado a la pantalla de edición.</p>
+
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!formGroup.valid"
+      (click)="submitForm()">
+      Crear
+    </button>
+  </form>
+</div>

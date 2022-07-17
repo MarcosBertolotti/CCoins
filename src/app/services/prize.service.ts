@@ -26,8 +26,7 @@ export class PrizeService {
   }
 
   findAllByBar(id: number): Promise<ResponseList<Prize>> {
-    console.log("find all by bar", id);
-    return this.requestService.get(`${this.baseApiURL}/bar`, { id });
+    return this.requestService.post(`${this.baseApiURL}/bar`, { id });
   }
 
   saveOrUpdate(prize: prizeDTO): Promise<Prize> {

@@ -5,5 +5,5 @@ export interface Table {
     bar: number,
     qrCode: string,
     code: string,
-    startDate: any
+    startDate: any // Date | number[]
 }

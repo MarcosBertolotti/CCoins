@@ -6,12 +6,17 @@ import { BarRoutingModule } from './bar-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { QRCodeModule } from 'angularx-qrcode';
 
+import { ParseToDatePipe } from 'src/app/shared/pipes/parse-to-date.pipe';
+import { ParseArrayToDatePipe } from 'src/app/shared/pipes/parse-array-to-date';
+
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { BarCreateComponent } from './components/bar-create/bar-create.component';
 import { BarUpdateComponent } from './components/bar-update/bar-update.component';
@@ -53,6 +58,12 @@ import { PrizeDetailComponent } from './components/prize-detail/prize-detail.com
     MatTableModule,
     MatCheckboxModule,
     QRCodeModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+  ],
+  providers: [
+    ParseToDatePipe,
+    ParseArrayToDatePipe,
   ]
 })
 export class BarModule { }

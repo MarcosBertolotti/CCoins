@@ -1,9 +1,9 @@
 export interface Prize {
-  id: number,
+  id?: number,
   name: string,
   points: number,
-  startDate: Date,
-  endDate: Date,
+  startDate?: any // Date | number[]
+  endDate?: any // Date | number[]
   active: boolean,
   bar: number,
 }

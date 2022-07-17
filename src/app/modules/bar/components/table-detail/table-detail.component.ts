@@ -8,6 +8,7 @@ import { Table } from 'src/app/models/table.model';
 import { BarService } from 'src/app/services/bar.service';
 import { TableService } from 'src/app/services/table.service';
 import { DialogComponent } from 'src/app/shared/components/dialog/dialog.component';
+import { ParseArrayToDatePipe } from 'src/app/shared/pipes/parse-array-to-date';
 import { ToastService } from 'src/app/shared/services/toast.services';
 
 @Component({
@@ -27,6 +28,7 @@ export class TableDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private matDialog: MatDialog,
+    private parseArrayToDatePipe: ParseArrayToDatePipe,
   ) { }
 
   ngOnInit(): void {
@@ -61,7 +63,7 @@ export class TableDetailComponent implements OnInit {
         this.table = table;
         const date = table.startDate;
         if(table.startDate.length > 0) {
-          this.table.startDate = new Date(date.slice(0, 3));
+          this.table.startDate = this.parseArrayToDatePipe.transform(date);
           this.table.startDate.setHours(date[3], date[4], date[5]);
         }
       })
