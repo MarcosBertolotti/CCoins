@@ -1,7 +1,15 @@
 <app-title [title]="game?.name" [titleCenter]="bar?.name"></app-title>
 
 <div class="container" *ngIf="formGroup">
-  <form [formGroup]="formGroup" #form="ngForm">
+  <div class="left-content">
+    <app-slide-toggle 
+      [title]="game.active ? 'Habilitado' : 'Deshabilitado'" 
+      [value]="game.active!" 
+      (toggle)="toggleActive()">
+    </app-slide-toggle>
+  </div>
+
+  <form class="center-container" [formGroup]="formGroup" #form="ngForm">
 
     <h4 class="title-accent">Detalle Actividad</h4>
 
@@ -67,4 +75,6 @@
       Actualizar
     </button>
   </form>
+
+  <div class="right-content"></div>
 </div>

@@ -104,6 +104,17 @@ export class PrizeDetailComponent implements OnInit {
     }
   }
 
+
+  toggleActive(): void {
+    this.prizeService.updateActive(this.prize.id!)
+      .then((prize: Prize) => {
+        this.prize.active = prize.active;
+        const status = this.prize.active ? 'activado' : 'desactivado';
+        this.toastService.openSuccessToast(`Premio ${this.prize.name} ${status} exitosamente!`);
+      })
+      .catch(() => this.toastService.openErrorToast('Ocurrió un error al actualizar el premio'))
+  }
+
   displayItemFn(item?: any): string {
     return item?.name ? item.name : "";
   }

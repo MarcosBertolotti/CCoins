@@ -1,7 +1,15 @@
-<app-title title="Crear Premio" [titleCenter]="bar?.name"></app-title>
+<app-title [title]="prize?.name" [titleCenter]="bar?.name"></app-title>
 
-<div class="container" *ngIf="formGroup">
-  <form [formGroup]="formGroup" #form="ngForm">
+<div class="container">
+  <div class="left-content">
+    <app-slide-toggle 
+      [title]="prize.active ? 'Habilitado' : 'Deshabilitado'" 
+      [value]="prize.active!" 
+      (toggle)="toggleActive()">
+    </app-slide-toggle>
+  </div>
+
+  <form class="center-container" [formGroup]="formGroup" #form="ngForm">
 
     <h4 class="title-accent">Nuevo Premio</h4>
 
@@ -40,7 +48,9 @@
       color="primary"
       [disabled]="!formGroup.valid"
       (click)="submitForm()">
-      Crear
+      Actualizar
     </button>
   </form>
+
+  <div class="right-content"></div>
 </div>

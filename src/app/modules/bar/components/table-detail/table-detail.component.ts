@@ -73,8 +73,9 @@ export class TableDetailComponent implements OnInit {
   toggleActive(): void {
     this.tableService.updateActive(this.table.id)
       .then((table: Table) => {
-        const message = table.active ? `Mesa ${table.number} activada exitosamente!` : `Mesa ${table.number} desactivada exitosamente!`;
-        this.toastService.openSuccessToast(message);
+        this.table.active = table.active;
+        const status = this.table.active ? 'activada' : 'desactivada';
+        this.toastService.openSuccessToast(`Mesa ${this.table.number} ${status} exitosamente!`);
       })
       .catch(() => this.toastService.openErrorToast('Ocurrió un error al actualizar la mesa'))
   }

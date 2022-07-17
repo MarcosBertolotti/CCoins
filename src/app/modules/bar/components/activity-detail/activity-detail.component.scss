@@ -2,12 +2,21 @@
 	display: flex;
 	justify-content: center;
 	padding-bottom: 1rem;
+	flex-wrap: wrap;
+
+	> * 
+    {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
+      min-width: 25%;
+    }
 }
 
 form {
 	display: flex;
 	flex-direction: column;
-	width: 100%;
+	min-width: 50%;
 
 	mat-form-field {
 		width: 100%;
@@ -37,8 +46,8 @@ button[mat-raised-button] {
   margin-top: 1.25rem;
 }
 
-@media (min-width: 1280px) {
+@media (max-width: 600px) {
 	form {
-		width: 50%;
+		width: 100%;
 	}
 }

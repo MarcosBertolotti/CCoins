@@ -112,6 +112,16 @@ export class ActivityDetailComponent implements OnInit {
     }
   }
 
+  toggleActive(): void {
+    this.gameService.updateActive(this.game.id!)
+      .then((game: Game) => {
+        this.game.active = game.active;
+        const status = this.game.active ? 'activado' : 'desactivado';
+        this.toastService.openSuccessToast(`Actividad ${this.game.name} ${status} exitosamente!`);
+      })
+      .catch(() => this.toastService.openErrorToast('Ocurrió un error al actualizar el juego'))
+  }
+
   displayItemFn(item?: any): string {
     return item?.name ? item.name : "";
   }
