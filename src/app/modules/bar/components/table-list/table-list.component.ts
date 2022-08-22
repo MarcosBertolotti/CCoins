@@ -17,6 +17,8 @@ import { TableService } from 'src/app/services/table.service';
 import { DialogComponent } from 'src/app/shared/components/dialog/dialog.component';
 import { QrcodeDialogComponent } from 'src/app/shared/components/qrcode-dialog/qrcode-dialog.component';
 import { ToastService } from 'src/app/shared/services/toast.services';
+import { format } from 'date-fns';
+import esLocale from 'date-fns/locale/es';
 
 @Component({
   selector: 'app-table-list',
@@ -222,9 +224,20 @@ export class TableListComponent implements OnInit {
   downloadPDF(): void {
     const ids: number[] = this.barTables.map((table: Table) => table.id)
 
-    this.imagesService.generatePDFWithQRCodes(ids)
-      .then((response) => console.log("download PDF",response))
-      .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message))
+    const pdfObserver: PartialObserver<Blob> = {
+      next:(response: Blob) => {
+        const blob = new Blob([response], { type: 'application/pdf' });
+        const PDFUrl = window.URL.createObjectURL(blob);
+        const PDFLink = document.createElement('a');
+
+        PDFLink.href = PDFUrl;
+        window.open(PDFUrl, '_blank');
+        PDFLink.download = `${this.bar.name.replace(/ /g, "_")}_${format(new Date(), 'dd_MMMM_yyyy', { locale: esLocale })}.pdf`;
+        PDFLink.click();
+      },
+      error:((error: HttpErrorResponse) => { console.log(error); this.toastService.openErrorToast(error.error.message) })
+    }
+    this.imagesService.generatePDFWithQRCodes(ids).subscribe(pdfObserver);
   }
 
   async updateQuantity(quantity?: number): Promise<void> {
