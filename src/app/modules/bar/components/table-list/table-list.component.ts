@@ -302,7 +302,7 @@ export class TableListComponent implements OnInit {
       maxWidth: '350px',
       panelClass: 'custom-dialog-container',
       data: {
-        url: qrCode,
+        qrCode: qrCode,
         title: `Mesa ${tableNumber}`,
         closeMessage: "Cerrar",
         canCancel: true,

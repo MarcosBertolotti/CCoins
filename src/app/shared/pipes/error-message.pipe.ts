@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { AbstractControl, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { FIELD_ERROR_MESSAGES } from 'src/app/const/field-error-messages.const';
 
 
@@ -21,7 +21,10 @@ export class ErrorMessagePipe implements PipeTransform {
           message = FIELD_ERROR_MESSAGES.required;
           break;
         case "minlength":
-          message = FIELD_ERROR_MESSAGES.minlength8;
+          message = FIELD_ERROR_MESSAGES.minlength8; // cambiar
+          break;
+        case "maxlength":
+          message = `${FIELD_ERROR_MESSAGES.maxlength} ${abstractControl?.errors?.['maxlength'].requiredLength}`;
           break;
         case "email":
           message = FIELD_ERROR_MESSAGES.email;

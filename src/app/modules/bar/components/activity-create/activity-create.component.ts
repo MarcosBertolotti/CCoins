@@ -94,7 +94,7 @@ export class ActivityCreateComponent implements OnInit {
       this.gameService.saveOrUpdate(newGame)
       .then((game: Game) => {
         this.toastService.openSuccessToast('Actividad creada exitosamente!');
-        this.router.navigate([AppPaths.SIDENAV, AppPaths.BAR, this.bar.id, AppPaths.ACTIVITIES, game.id]);
+        this.router.navigate([AppPaths.ADMIN, AppPaths.BAR, this.bar.id, AppPaths.ACTIVITIES, game.id]);
       })
       .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message));
     }

@@ -1,0 +1,21 @@
+<h2>
+  Hola 
+  <span>{{ me.nickName }}!</span>
+</h2>
+
+<form [formGroup]="formGroup" (ngSubmit)="submitForm()">
+  <mat-form-field class="dark" floatLabel="always">
+    <mat-label>Cambiar nombre</mat-label>
+    <input matInput formControlName="nickname" placeholder="Ingresar nombre" autocomplete="off">
+    <mat-error>{{ 'nickname' | errorMessage : formGroup }}</mat-error>
+  </mat-form-field>
+
+  <button
+    mat-raised-button
+    type="submit"
+    class="rounded dark"
+    color="primary"
+    [disabled]="!formGroup.valid">
+    Continuar
+  </button>
+</form>

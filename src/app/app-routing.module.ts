@@ -9,10 +9,14 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: AppPaths.SIDENAV
+    redirectTo: AppPaths.CLIENT
   },
   {
-    path: AppPaths.SIDENAV,
+    path: AppPaths.CLIENT,
+    loadChildren: () => import("src/app/modules/client/client.module").then(m => m.ClientModule),
+  },
+  {
+    path: AppPaths.ADMIN,
     loadChildren: () => import("src/app/modules/layout/layout.module").then(m => m.LayoutModule),
     canActivate: [AuthGuard]
   },

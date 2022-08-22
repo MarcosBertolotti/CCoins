@@ -46,6 +46,7 @@ button[mat-raised-button] {
 
   span {
     margin: auto;
+    color: var(--dark-base-color);
   }
 
   .mat-button-wrapper {
@@ -304,5 +305,53 @@ input::-webkit-calendar-picker-indicator{
     mat-cell:last-of-type {
       padding-right: .5rem;
     }
+  }
+}
+
+/* start client styles */
+
+/* mat-dialog */
+.back-drop-dialog {
+  opacity: 0.05 !important;
+  background-color: white;
+}
+
+.custom-dialog-container-dark .mat-dialog-container {
+  border-radius: 20px !important;
+  background-color: var(--dark-base-color) !important;
+  color: white !important;
+  word-break: break-word;
+  box-shadow: 0 1rem 2rem hsl(0 0% 0% / 20%);
+}
+
+/* mat-form-field */
+
+.mat-form-field.dark {
+  width: 100%;
+
+  mat-label {
+    color: white;
+    font-size: 14px;
+  }
+
+  mat-error {
+    background-color: transparent;
+    text-align: left;
+  }
+
+  .mat-form-field-underline {
+    background-color: white !important;
+  }
+
+  .mat-input-element::placeholder{
+    color: var(--dark-lighter-color);
+  }
+}
+
+button[mat-raised-button].dark.mat-button-disabled {
+  background-color: #ffffff1f;
+
+  span {
+    color: #bbbbbb42;
   }
 }

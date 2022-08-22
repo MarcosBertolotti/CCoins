@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'psi-tools-qrcode-dialog',
@@ -12,7 +13,7 @@ export class QrcodeDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) data: any,
   ) {
-    this.url = data.url;
+    this.url = `${environment.PWA_URL}/login/${data.qrCode}`;
   }
 
   ngOnInit(): void {}

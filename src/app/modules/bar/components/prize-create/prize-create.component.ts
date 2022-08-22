@@ -78,7 +78,7 @@ export class PrizeCreateComponent implements OnInit {
       this.prizeService.saveOrUpdate(newPrize)
       .then((prize: Prize) => {
         this.toastService.openSuccessToast('Premio creado exitosamente!');
-        this.router.navigate([AppPaths.SIDENAV, AppPaths.BAR, this.bar.id, AppPaths.PRIZES, prize.id]);
+        this.router.navigate([AppPaths.ADMIN, AppPaths.BAR, this.bar.id, AppPaths.PRIZES, prize.id]);
       })
       .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message));
     }

@@ -74,7 +74,7 @@ export class BarCreateComponent implements OnInit, OnDestroy {
       if(barCreated) {
         this.ngForm['resetForm']();
         this.toastService.openSuccessToast('Bar creado exitosamente!');
-        this.router.navigate([AppPaths.SIDENAV, AppPaths.BAR, AppPaths.UPDATE, barCreated.id]);
+        this.router.navigate([AppPaths.ADMIN, AppPaths.BAR, AppPaths.UPDATE, barCreated.id]);
       }
     }
   }

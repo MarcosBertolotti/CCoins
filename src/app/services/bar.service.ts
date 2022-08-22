@@ -51,7 +51,7 @@ export class BarService {
     return this.getDetails(id);
   }
 
-  create(newBar: Bar): Promise<Bar > {
+  create(newBar: Bar): Promise<Bar> {
     return this.requestService.post(`${this.baseApiURL}/save`, newBar).then(
       (bar: Bar) => {
         if (!this.currentBarSubject)

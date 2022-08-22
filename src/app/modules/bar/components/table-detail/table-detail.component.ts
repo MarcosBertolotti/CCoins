@@ -10,6 +10,7 @@ import { TableService } from 'src/app/services/table.service';
 import { DialogComponent } from 'src/app/shared/components/dialog/dialog.component';
 import { ParseArrayToDatePipe } from 'src/app/shared/pipes/parse-array-to-date';
 import { ToastService } from 'src/app/shared/services/toast.services';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-table-detail',
@@ -20,6 +21,7 @@ export class TableDetailComponent implements OnInit {
 
   bar!: Bar;
   table!: Table;
+  QRURL!: string;
 
   constructor(
     private barService: BarService,
@@ -61,6 +63,7 @@ export class TableDetailComponent implements OnInit {
     this.tableService.findById(idTable)
       .then((table: Table) => { 
         this.table = table;
+        this.QRURL = `${environment.PWA_URL}/login/${table.code}`;
         const date = table.startDate;
         if(table.startDate.length > 0) {
           this.table.startDate = this.parseArrayToDatePipe.transform(date);

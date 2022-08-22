@@ -1,0 +1,22 @@
+:host {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  h2, span {
+    font-size: 20px;
+  }
+
+  span {
+    color: var(--accent-darker-color);
+  }
+
+  .mat-form-field {
+    margin-top: .5rem;
+  }
+
+  button[mat-raised-button] {
+    margin-top: 1rem;
+    color: black;
+  }
+}

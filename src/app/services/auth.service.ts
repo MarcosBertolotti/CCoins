@@ -7,6 +7,7 @@ import { Observable, PartialObserver } from 'rxjs';
 import { AccessToken } from '../models/access-token.model';
 import { environment } from 'src/environments/environment';
 import { ToastService } from '../shared/services/toast.services';
+import { ClientService } from '../modules/client/services/client.service';
 
 
 @Injectable({
@@ -21,6 +22,7 @@ export class AuthService {
     private http: HttpClient,
     private toastService: ToastService,
     private socialAuthService: SocialAuthService,
+    private clientService: ClientService,
   ) { }
   
   private login(token: string, socialType: string): Observable<AccessToken> {
@@ -34,7 +36,7 @@ export class AuthService {
           const socialLoginObserver: PartialObserver<AccessToken> = {
             next: (token: AccessToken) => {
               this.saveToken(token.value);
-              this.router.navigate([AppPaths.SIDENAV, AppPaths.BAR])
+              this.router.navigate([AppPaths.ADMIN, AppPaths.BAR])
             },
             error: (error: HttpErrorResponse) => {
               const message = error.status === 503 ? 'Servicio momentáneamente no disponible' : error.error.message;
@@ -83,5 +85,14 @@ export class AuthService {
 
   getToken(): string | null {
     return localStorage.getItem('id_token');
+  }
+
+  // only admins have tokens
+  isAdmin(): boolean {
+    return this.isAuthenticated();
+  }
+
+  isClient(): boolean {
+    return this.clientService.isAuthenticated();
   }
 }

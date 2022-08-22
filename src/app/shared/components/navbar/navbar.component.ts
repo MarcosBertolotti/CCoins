@@ -17,7 +17,7 @@ export class NavbarComponent implements OnInit {
   @Input()
   id?: number;
 
-  barPath = `/${AppPaths.SIDENAV}/${AppPaths.BAR}`;
+  barPath = `/${AppPaths.ADMIN}/${AppPaths.BAR}`;
 
   barItems!: any[];
 
