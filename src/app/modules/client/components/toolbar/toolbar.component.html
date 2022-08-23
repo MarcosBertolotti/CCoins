@@ -1,0 +1,13 @@
+<mat-toolbar class="mat-elevation-z2" > <!-- *ngIf="(isHandset$ | async)" -->
+  <mat-toolbar-row>
+    <p class="wrap-text">{{ nickName$ | async }}</p>
+
+    <div class="content-center">
+      <h1 class="wrap-text ellipsis-second-line">{{ 'Los mini sonvicos' }}</h1>
+    </div>
+
+    <div class="content-right">
+      <p>{{ '150p' }}</p>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

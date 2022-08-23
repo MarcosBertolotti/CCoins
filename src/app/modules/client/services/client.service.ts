@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, of, PartialObserver } from "rxjs";
-import { RequestService } from "src/app/services/request.service";
+import { BehaviorSubject, Observable, of, PartialObserver } from "rxjs";
+import { tap } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { ClientTableDTO } from "../models/client-table.dto";
 
@@ -16,6 +16,20 @@ export class ClientService {
     
   apiURL: string = `${environment.API_URL}/clients`;
 
+  private nickNameSubject = new BehaviorSubject<string>('');
+
+  get nickName$(): Observable<string> {
+    return this.nickNameSubject.asObservable();
+  }
+
+  get nickName(): string {
+    return this.nickNameSubject.value;
+  }
+
+  set nickName(nickName: string) {
+    this.nickNameSubject.next(nickName);
+  }
+
   constructor(
     //private requestService: RequestService,
     private http: HttpClient,
@@ -26,8 +40,13 @@ export class ClientService {
   }
 
   get clientTable(): ClientTableDTO {
-    const clientTable = localStorage.getItem("client-table");
-    return clientTable ? JSON.parse(clientTable) : undefined;
+    const clientTable = localStorage.getItem("client-table")!;
+    const me = clientTable ? JSON.parse(clientTable) : undefined;
+
+    if(!this.nickName && me?.nickName)
+      this.nickName = me.nickName;
+
+    return me;
   }
 
   set clientTable(clientTable: ClientTableDTO) {
@@ -40,11 +59,14 @@ export class ClientService {
   }
 
   login(tableCode: string, clientIp: string): Observable<ClientTableDTO> {
-    return this.http.post<ClientTableDTO>(`${this.apiURL}/login`, { tableCode, clientIp });
+    return this.http.post<ClientTableDTO>(`${this.apiURL}/login`, { tableCode, clientIp })
+    .pipe(tap((response: ClientTableDTO) => {
+      if(response?.nickName)
+        this.nickName = response.nickName;
+    }));
   }
 
   changeName(nickName: string): Observable<void> {
-    const { clientIp: ip } = this.clientTable;
-    return this.http.put<void>(`${this.apiURL}/name`, { nickName, ip });
+    return this.http.put<void>(`${this.apiURL}/name`, { nickName });
   }
 }

@@ -34,7 +34,7 @@ export class WelcomeComponent implements OnInit {
 
   buildForm(): void {
     this.formGroup = this.formBuilder.group({
-      nickname: [this.me.nickName, [Validators.required, Validators.maxLength(25)]],
+      nickname: [this.me.nickName, [Validators.required, Validators.maxLength(20)]],
     })
   }
 
@@ -51,10 +51,14 @@ export class WelcomeComponent implements OnInit {
     const clientObserver: PartialObserver<void> = {
       next:() => {
         this.me.nickName = nickname;
+        this.clientService.nickName = nickname;
         this.clientService.clientTable = this.me;
         this.matDialog.close();
       },
-      error:(error: HttpErrorResponse) => this.toastService.openErrorToast("Ha ocurrido un error al intentar cambiar el nombre.")
+      error:(error: HttpErrorResponse) => {
+        this.toastService.openErrorToast("Ha ocurrido un error al intentar cambiar el nombre.");
+        this.matDialog.close();
+      }
     }
     this.clientService.changeName(nickname).subscribe(clientObserver);
   }
