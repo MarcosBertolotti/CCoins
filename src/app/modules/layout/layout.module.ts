@@ -39,6 +39,9 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     MatListModule,
     MatBadgeModule,
     MatDividerModule,
-  ]
+  ]/*,
+  exports: [
+    SidenavComponent,
+  ]*/
 })
 export class LayoutModule { }

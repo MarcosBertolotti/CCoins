@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { ClientTableDTO } from '../../models/client-table.dto';
 import { ClientService } from '../../services/client.service';
+import { PartyService } from '../../services/party.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -23,14 +24,17 @@ export class ToolbarComponent implements OnInit {
 
   me!: ClientTableDTO;
   nickName$!: Observable<string>;
+  partyName$!: Observable<string>;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
     private clientService: ClientService,
+    private partyService: PartyService,
   ) { }
 
   ngOnInit(): void {
     this.nickName$ = this.clientService.nickName$;
+    this.partyName$ = this.partyService.partyName$;
   }
 
 }

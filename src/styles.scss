@@ -22,6 +22,20 @@ p {
   font-weight: 300;
 }
 
+.ellipsis-second-line {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.wrap-text {
+  line-height: normal;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
 /* Scroll bar */
 
 ::-webkit-scrollbar {
@@ -61,12 +75,24 @@ button[mat-stroked-button] {
   border-style: solid;
   font-weight: 500;
 
+  span {
+    color: white;
+  }
+
   &[color='accent'] {
     border-color: var(--accent-base-color);
+
+    span {
+      color: var(--accent-base-color);;
+    }
   }
 
   &[color='primary'] {
     border-color: var(--primary-base-color);
+    
+    span {
+      color:  var(--primary-base-color);
+    }
   }
 }
 
@@ -109,7 +135,10 @@ mat-form-field .mat-form-field-wrapper {
 .mat-form-field-appearance-outline .mat-form-field-outline {
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.05) !important;
   border-radius: 30px !important;
-  color: var(--black-alpha-42) !important;
+  //color: var(--black-alpha-42) !important;
+}
+.mat-form-field-appearance-outline:not(:hover,:focus-within, .mat-form-field-invalid) .mat-form-field-outline-thick {
+  opacity: 0.15 !important;
 }
 mat-form-field .mat-form-field-outline-start {
   border-radius: 30px 0 0 30px !important;
@@ -316,12 +345,17 @@ input::-webkit-calendar-picker-indicator{
   background-color: white;
 }
 
+.custom-dialog-container-dark {
+  /*min-width: 400px;*/
+  max-width: 600px !important;
+}
+
 .custom-dialog-container-dark .mat-dialog-container {
   border-radius: 20px !important;
   background-color: var(--dark-base-color) !important;
   color: white !important;
   word-break: break-word;
-  box-shadow: 0 1rem 2rem hsl(0 0% 0% / 20%);
+  box-shadow: 0 1rem 2rem hsl(0 0% 0% / 20%);  
 }
 
 /* mat-form-field */

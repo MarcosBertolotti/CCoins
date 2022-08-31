@@ -50,7 +50,7 @@ export class ClientService {
   }
 
   set clientTable(clientTable: ClientTableDTO) {
-    localStorage.setItem("client-table", JSON.stringify(clientTable)); // session storage?
+    localStorage.setItem("client-table", JSON.stringify(clientTable));
   }
 
   isAuthenticated(): boolean {

@@ -8,13 +8,14 @@ import { GoogleLoginProvider, SocialLoginModule, SocialAuthServiceConfig, Facebo
 import { AppRoutingModule } from './app-routing.module';
 
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { SpinnerInterceptor } from './interceptors/spinner.interceptor';
+import { ClientInterceptor } from './interceptors/client.interceptor';
 
 import { environment } from 'src/environments/environment';
 
 import { AppComponent } from './app.component';
 import { ToastService } from './shared/services/toast.services';
 import { SharedModule } from './shared/shared.module';
-import { SpinnerInterceptor } from './interceptors/spinner.interceptor';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { SpinnerInterceptor } from './interceptors/spinner.interceptor';
       } as SocialAuthServiceConfig,
     },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ClientInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
