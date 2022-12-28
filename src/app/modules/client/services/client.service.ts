@@ -1,7 +1,8 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, of, PartialObserver } from "rxjs";
 import { tap } from "rxjs/operators";
+import { RequestService } from "src/app/services/request.service";
 import { environment } from "src/environments/environment";
 import { ClientTableDTO } from "../models/client-table.dto";
 
@@ -31,7 +32,7 @@ export class ClientService {
   }
 
   constructor(
-    //private requestService: RequestService,
+    private requestService: RequestService,
     private http: HttpClient,
   ) { }
 
@@ -49,7 +50,7 @@ export class ClientService {
     return me;
   }
 
-  set clientTable(clientTable: ClientTableDTO) {
+  set clientTable(clientTable: Partial<ClientTableDTO>) {
     localStorage.setItem("client-table", JSON.stringify(clientTable));
   }
 
@@ -59,7 +60,9 @@ export class ClientService {
   }
 
   login(tableCode: string, clientIp: string): Observable<ClientTableDTO> {
-    return this.http.post<ClientTableDTO>(`${this.apiURL}/login`, { tableCode, clientIp })
+    this.clientTable = { tableCode, clientIp };
+
+    return this.http.post<ClientTableDTO>(`${this.apiURL}/login`, { })
     .pipe(tap((response: ClientTableDTO) => {
       if(response?.nickName)
         this.nickName = response.nickName;

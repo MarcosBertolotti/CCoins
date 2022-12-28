@@ -1,9 +1,6 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { PartialObserver } from 'rxjs';
 import { ClientTableDTO } from '../../models/client-table.dto';
-import { PartyService } from '../../services/party.service';
 import { ClientService } from '../../services/client.service';
 import { WelcomeComponent } from '../welcome/welcome.component';
 
@@ -19,7 +16,6 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private matDialog: MatDialog,
-    private partyService: PartyService,
     private clientService: ClientService,
   ) { 
     this.me = this.clientService.clientTable;
@@ -27,8 +23,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkWelcomeDialog();
-    this.getPartyCoins();
-    this.getPartyInfo();
   }
 
   checkWelcomeDialog(): void {
@@ -48,25 +42,5 @@ export class HomeComponent implements OnInit {
         this.me = this.clientService.clientTable;
       });
     }
-  }
-
-  getPartyCoins(): void {
-    const partyObserver: PartialObserver<any> = {
-      next:(response: any) => {
-        console.log(response);
-      },
-      error:(error: HttpErrorResponse) => console.error(error.error.message)
-    }
-    this.partyService.getCoins(this.me.partyId).subscribe(partyObserver);
-  }
-
-  getPartyInfo(): void {
-    const partyObserver: PartialObserver<any> = {
-      next:(response: any) => {
-        console.log(response);
-      },
-      error:(error: HttpErrorResponse) => console.error(error.error.message)
-    }
-    this.partyService.getInfo(this.me.partyId).subscribe(partyObserver);
   }
 }

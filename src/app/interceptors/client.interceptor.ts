@@ -28,6 +28,7 @@ export class ClientInterceptor implements HttpInterceptor {
       request = request.clone({
         setHeaders: {
           client: me.clientIp,
+          code: me.tableCode,
         }
       });
     }

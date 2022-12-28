@@ -16,6 +16,8 @@ import { environment } from 'src/environments/environment';
 import { AppComponent } from './app.component';
 import { ToastService } from './shared/services/toast.services';
 import { SharedModule } from './shared/shared.module';
+import { DISABLED_SPINNER_PATHS } from './tokens/disabled-spinner-paths.token';
+import { DISABLED_SPINNER_ENDPOINTS } from './const/disabled-spinner-endpoints.const';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,7 @@ import { SharedModule } from './shared/shared.module';
             id: FacebookLoginProvider.PROVIDER_ID,
             provider: new FacebookLoginProvider(
               environment.AUTH_FACEBOOK_APPLICATION_ID,
-              { scope: "email", plugin_name:'App Name that you used in google developer console API' }
+              { scope: "email", plugin_name:'App Name that you used in facebook developer console API' }
             )
           }
         ],
@@ -60,6 +62,7 @@ import { SharedModule } from './shared/shared.module';
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ClientInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
+    { provide: DISABLED_SPINNER_PATHS, useValue: DISABLED_SPINNER_ENDPOINTS },
   ],
   bootstrap: [AppComponent]
 })

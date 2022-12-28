@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { tap } from "rxjs/operators";
+import { Value } from "src/app/models/dto/value.dto";
 import { environment } from "src/environments/environment";
 
 @Injectable({
@@ -65,11 +66,11 @@ export class PartyService {
     }));
   }
 
-  getCoins(idParty: string): Observable<number> {
-    return this.http.get<number>(`${this.apiURL}/${idParty}/coins/quantity`)
-    .pipe(tap((response: number) => {
+  getCoins(idParty: string): Observable<Value> {
+    return this.http.get<Value>(`${this.apiURL}/${idParty}/coins/quantity`)
+    .pipe(tap((response: Value) => {
       if(response)
-        this.coins = response;
+        this.coins = response.value;
     }));
   }
 }

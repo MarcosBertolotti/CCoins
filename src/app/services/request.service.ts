@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -8,11 +8,29 @@ import { environment } from 'src/environments/environment';
 export class RequestService {
 
   apiURL: string = environment.API_URL;
+  headers: any;
 
   constructor(private http: HttpClient) { }
 
   private getUrl(urlEndpoint: string): string {
     return this.apiURL + urlEndpoint
+  }
+
+  getHeaders(customHeaders: any): HttpHeaders {
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    const token = localStorage.getItem("id_token");
+    if(token)
+      this.headers = this.headers.append('Authorization', 'Bearer ' + token);
+
+    //custom headers override default if the key exists
+    Object.entries(customHeaders).forEach(([key, value]) =>
+      this.headers = this.headers.set(key, String(value))
+    );
+
+    return this.headers;
   }
 
   parseUrlQueryParams(url: string, options: {}): string {
