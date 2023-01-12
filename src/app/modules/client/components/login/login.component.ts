@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
   }
 
   handleLoginError(): void {
+    localStorage.clear();
     this.toastService.openErrorToast("Ha ocurrido un error al intentar ingresar a la mesa.");
     this.router.navigate([ClientPaths.WARNING_LOGIN]);
   }
