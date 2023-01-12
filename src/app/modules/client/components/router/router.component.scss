@@ -1,8 +1,19 @@
+:host {
+  position: relative;
+  top: 56px;
+}
+
 ::ng-deep body {
   background-color: var(--dark-base-color);
   overflow-y: overlay;
 
   p, h1, h2, h3, h4, h5, b, span {
     color: white;
+  }
+}
+
+@media (min-width: 960px) {
+  :host {
+    top: 64px;
   }
 }

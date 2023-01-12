@@ -3,6 +3,7 @@ mat-toolbar {
   top: 0;
   background-color: var(--danger-darker-color);
   justify-content: space-between;
+  z-index: 100;
 }
 
 mat-toolbar mat-icon {

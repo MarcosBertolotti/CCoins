@@ -72,4 +72,19 @@ export class ClientService {
   changeName(nickName: string): Observable<void> {
     return this.http.put<void>(`${this.apiURL}/name`, { nickName });
   }
+
+  getBarMenu(): Observable<{ text: string }> {
+    return this.http.get<{ text: string}>(`${this.apiURL}/menu`);
+  }
+
+  logout(): Observable<void> {
+    const customHeaders = {
+      client: this.clientTable.clientId
+    }
+    this.requestService.getHeaders(customHeaders);
+    return this.http.get<void>(`${this.apiURL}/logout`)
+    .pipe(
+      tap(() => localStorage.clear())
+    );
+  }
 }

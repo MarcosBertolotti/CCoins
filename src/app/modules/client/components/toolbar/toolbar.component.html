@@ -3,10 +3,11 @@
     <p class="wrap-text">{{ nickName$ | async }}</p>
 
     <button
+      *ngIf="currentParty"
       mat-raised-button
       class="content-center"
-      (click)="goToParty()">
-      <h1 class="wrap-text ellipsis-second-line">{{ partyName$ | async }}</h1>
+      (click)="goToTableInfo()">
+      <h1 class="wrap-text ellipsis-second-line">{{ currentParty.name }}</h1>
     </button>
 
     <div class="content-right">

@@ -21,6 +21,8 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
 import { RouterComponent } from './components/router/router.component';
 import { HomeComponent } from './components/home/home.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { BarTableInfoComponent } from './components/bar-table-info/bar-table-info.component';
+import { BarPrizesComponent } from './components/bar-prizes/bar-prizes.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     WelcomeComponent,
     RouterComponent,
     ToolbarComponent,
+    BarTableInfoComponent,
+    BarPrizesComponent,
   ],
   imports: [
     CommonModule,

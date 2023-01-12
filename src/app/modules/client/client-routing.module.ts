@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BarPrizesComponent } from './components/bar-prizes/bar-prizes.component';
+import { BarTableInfoComponent } from './components/bar-table-info/bar-table-info.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginWarningComponent } from './components/login-warning/login-warning.component';
 import { LoginComponent } from './components/login/login.component';
@@ -20,6 +22,8 @@ const routes: Routes = [
         redirectTo: ClientPaths.HOME
       },
       { path: ClientPaths.HOME, component: HomeComponent },
+      { path: ClientPaths.BAR_TABLE, component: BarTableInfoComponent },
+      { path: ClientPaths.BAR_PRIZES, component: BarPrizesComponent },
     ]
   },
   { path: `${ClientPaths.LOGIN}/:code`, component: LoginComponent },

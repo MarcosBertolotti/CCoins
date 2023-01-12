@@ -2,9 +2,12 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
+import { Router } from '@angular/router';
 import { interval, Observable, PartialObserver, Subscription } from 'rxjs';
 import { map, shareReplay, tap } from 'rxjs/operators';
+import { ClientPaths } from '../../enums/client-paths.eum';
 import { ClientTableDTO } from '../../models/client-table.dto';
+import { Party } from '../../models/party.model';
 import { ClientService } from '../../services/client.service';
 import { PartyService } from '../../services/party.service';
 
@@ -25,15 +28,16 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   me!: ClientTableDTO;
   nickName$!: Observable<string>;
-  partyName$!: Observable<string>;
   partyCoins$!: Observable<number>;
+  currentParty!: Party;
 
   subscription: Subscription = new Subscription();
-  coinsInterval$ = interval(5000).pipe(
+  coinsInterval$ = interval(10000).pipe(
     tap(() => this.getPartyCoins())
   );
 
   constructor(
+    private router: Router,
     private breakpointObserver: BreakpointObserver,
     private clientService: ClientService,
     private partyService: PartyService,
@@ -41,7 +45,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.nickName$ = this.clientService.nickName$;
-    this.partyName$ = this.partyService.partyName$;
     this.partyCoins$ = this.partyService.coins$;
 
     this.me = this.clientService.clientTable;
@@ -60,16 +63,19 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   }
 
   getPartyInfo(): void {
-    const partyObserver: PartialObserver<any> = {
-      next:(response: any) => {
-        console.log("[Home] getPartyInfo: ", response);
+    const partyObserver: PartialObserver<Party> = {
+      next:(partyInfo: Party) => {
+        this.currentParty = partyInfo;
       },
       error:(error: HttpErrorResponse) => console.error(error.error.message)
     }
     this.partyService.getInfo(this.me.partyId).subscribe(partyObserver);
   }
 
-  goToParty(): void {
-    
+  goToTableInfo(): void {
+    if(window.location.pathname == `/${ClientPaths.BAR_TABLE}`)
+      this.router.navigate([ClientPaths.HOME]);
+    else
+      this.router.navigate([ClientPaths.BAR_TABLE]);
   }
 }
