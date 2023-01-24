@@ -21,11 +21,27 @@ export class BarService {
   private currentBarSubject!: BehaviorSubject<Bar>;
 
   get currentBar$(): Observable<Bar> {
-    return this.currentBarSubject.asObservable();
+    return this.currentBarSubject?.asObservable();
   }
 
   get currentBar(): Bar {
-    return this.currentBarSubject?.value;
+    if(this.currentBarSubject?.value)
+      return this.currentBarSubject?.value;
+      
+    let currentBar: any = localStorage.getItem("bar");
+    currentBar = currentBar ? JSON.parse(currentBar) : null;
+
+    if (currentBar && !this.currentBarSubject)
+      this.currentBarSubject = new BehaviorSubject<Bar>(currentBar);
+    else if(currentBar)
+      this.currentBarSubject.next(currentBar);
+
+    return currentBar;
+  }
+
+  set currentBar(bar: Bar) {
+    localStorage.setItem("bar", JSON.stringify(bar));
+    this.currentBarSubject.next(bar);
   }
 
   constructor(
@@ -36,10 +52,11 @@ export class BarService {
   public getDetails(id: number): Observable<Bar> {
     return this.http.post<Bar>(`${this.URL}/id`, { id }).pipe(
       tap((bar: Bar) => {
-        if (!this.currentBarSubject)
+        if (!this.currentBarSubject) {
           this.currentBarSubject = new BehaviorSubject<Bar>(bar);
-        else
-          this.currentBarSubject.next(bar);
+          localStorage.setItem("bar", JSON.stringify(bar));
+        } else
+          this.currentBar = bar;
       })
     );
   }
@@ -54,10 +71,12 @@ export class BarService {
   create(newBar: Bar): Promise<Bar> {
     return this.requestService.post(`${this.baseApiURL}/save`, newBar).then(
       (bar: Bar) => {
-        if (!this.currentBarSubject)
+        if (!this.currentBarSubject) {
           this.currentBarSubject = new BehaviorSubject<Bar>(bar);
-        else
-          this.currentBarSubject.next(bar);
+          localStorage.setItem("bar", JSON.stringify(bar));
+        } else
+          this.currentBar = bar;
+
         return bar;
       }
     );

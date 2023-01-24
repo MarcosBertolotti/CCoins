@@ -59,6 +59,9 @@ export class BarListComponent implements OnInit, OnDestroy {
         this.bars = response.list;
         this.dataSource = new MatTableDataSource<Bar>(this.bars);
       }
+      if(this.bars?.length === 1) {
+        this.barsService.currentBar = this.bars[0];
+      }
     })
     .catch((error: HttpErrorResponse) => {})
   }

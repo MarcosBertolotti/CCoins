@@ -7,6 +7,7 @@ import { tap } from 'rxjs/operators';
 import { AppPaths } from 'src/app/enums/app-paths.enum';
 import { SpotifyPlayer } from 'src/app/models/spotify-player-model';
 import { AuthService } from 'src/app/services/auth.service';
+import { BarService } from 'src/app/services/bar.service';
 import { SpotifyService } from 'src/app/services/spotify.service';
 
 @Component({
@@ -52,6 +53,7 @@ export class SidenavListComponent implements OnInit {
     private matIconRegistry: MatIconRegistry,
     private authService: AuthService,
     private spotifyService: SpotifyService,
+    public barService: BarService,
   ) { 
     this.registerIcons();
   }

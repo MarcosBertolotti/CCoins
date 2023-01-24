@@ -61,6 +61,9 @@ export class SpotifyService {
 
   sendSong(spotifyPlayer: SpotifyPlayer): void {
     const currentBar: Bar = this.barService.currentBar;
+
+    console.log("spotifyservice: ", currentBar);
+
     if(currentBar) {
 
       const body = {
