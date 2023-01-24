@@ -1,8 +1,10 @@
 <app-layout>
-  <div sidenav>
-    <div class="logo">
-      <app-logo></app-logo>
-    </div>
+  <div sidenav [ngClass]="{'playing': spotifyPlayer}">
+
+    <app-spotify-player
+      [spotifyPlayer]="spotifyPlayer">
+    </app-spotify-player>
+
     <mat-nav-list>
       <div>
         <mat-list-item
@@ -15,7 +17,10 @@
           <p matLine>{{ item.title }}</p> 
         </mat-list-item>
       </div>
+
       <div class="bottom-items">
+        <img class="ribbon-logo" src="/assets/chopp_coins_cinta.png" alt="">
+
         <mat-divider></mat-divider>
         <mat-list-item>
           <mat-icon matListIcon>settings</mat-icon>

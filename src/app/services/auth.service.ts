@@ -8,6 +8,8 @@ import { AccessToken } from '../models/access-token.model';
 import { environment } from 'src/environments/environment';
 import { ToastService } from '../shared/services/toast.services';
 import { ClientService } from '../modules/client/services/client.service';
+import { SpotifyService } from './spotify.service';
+import { SpotifyCredentials } from '../models/spotify-credentials.model';
 
 
 @Injectable({
@@ -23,6 +25,7 @@ export class AuthService {
     private toastService: ToastService,
     private socialAuthService: SocialAuthService,
     private clientService: ClientService,
+    private spotifyService: SpotifyService,
   ) { }
   
   private login(token: string, socialType: string): Observable<AccessToken> {
@@ -36,7 +39,7 @@ export class AuthService {
           const socialLoginObserver: PartialObserver<AccessToken> = {
             next: (token: AccessToken) => {
               this.saveToken(token.value);
-              this.router.navigate([AppPaths.ADMIN, AppPaths.BAR])
+              this.spotifyLogin();
             },
             error: (error: HttpErrorResponse) => {
               const message = error.status === 503 ? 'Servicio momentáneamente no disponible' : error.error.message;
@@ -56,6 +59,14 @@ export class AuthService {
 
   private getSocialToken(socialType: string, socialUser: SocialUser): string {
     return socialType === GoogleLoginProvider.PROVIDER_ID ? socialUser.idToken : socialUser.authToken;
+  }
+
+  spotifyLogin(): void {
+    this.spotifyService.getCredentials()
+    .then((response: SpotifyCredentials) =>
+      this.spotifyService.redirectToAuthorize(response)
+    )
+    .catch((error: HttpErrorResponse) => console.log(error));
   }
 
   logOut(): void {

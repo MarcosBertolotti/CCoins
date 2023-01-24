@@ -45,7 +45,13 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   private addHeaders(request: HttpRequest<any>): HttpRequest<any> {
-    const token = this.authService.getToken();
+    let token: string | null;
+
+    if(request.url.includes('https://api.spotify.com/v1')) {
+      const hash = localStorage.getItem('hash');
+      token = hash ? JSON.parse(hash)?.access_token : null;
+    } else 
+      token = this.authService.getToken();
 
     if(token) {
       request = request.clone({

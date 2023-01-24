@@ -1,0 +1,14 @@
+<div class="logo" [ngClass]="{'playing': spotifyPlayer}">
+  <app-logo name="chopp_coins_2" [ngClass]="{'playing': spotifyPlayer?.is_playing}"></app-logo>
+  <div class="spotify" *ngIf="spotifyPlayer">
+    <div class="player">
+      <img [src]="spotifyPlayer.item.album.images[0].url ? spotifyPlayer.item.album.images[0].url : null" alt=""/>
+      <div class="detail">
+        <h1>{{ spotifyPlayer.item.name ? spotifyPlayer.item.name : "No hay ningun tema en reproducción." }}</h1>
+        <h2>{{ spotifyPlayer.item.artists[0].name ? spotifyPlayer.item.artists[0].name : "" }}</h2>
+        <p>{{ spotifyPlayer.is_playing ? "Sonando" : "Pausado"}}</p>
+        <mat-progress-bar mode="determinate" [value]="spotifyPlayer.progress_ms * 100 / spotifyPlayer.item.duration_ms"></mat-progress-bar>
+      </div>
+    </div>
+  </div>
+</div>

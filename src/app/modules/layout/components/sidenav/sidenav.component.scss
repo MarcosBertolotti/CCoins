@@ -5,7 +5,7 @@ mat-sidenav-container {
 
 mat-sidenav-container mat-sidenav {
   background-color: var(--dark-base-color);
-  width: 200px;
+  width: auto;
 }
 
 mat-sidenav-container mat-sidenav-content {

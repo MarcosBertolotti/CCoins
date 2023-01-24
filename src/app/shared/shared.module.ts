@@ -32,6 +32,8 @@ import { QrcodeDialogComponent } from './components/qrcode-dialog/qrcode-dialog.
 import { SelectComponent } from './components/select/select.component';
 import { ParseToDatePipe } from './pipes/parse-to-date.pipe';
 import { ParseArrayToDatePipe } from './pipes/parse-array-to-date';
+import { SpotifyPlayerComponent } from './components/spotify-player/spotify-player.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -50,6 +52,7 @@ import { ParseArrayToDatePipe } from './pipes/parse-array-to-date';
     SelectComponent,
     ParseToDatePipe,
     ParseArrayToDatePipe,
+    SpotifyPlayerComponent,
   ],
   imports: [
     CommonModule,
@@ -65,6 +68,7 @@ import { ParseArrayToDatePipe } from './pipes/parse-array-to-date';
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
+    MatProgressBarModule,
   ],
   exports: [
     RouterComponent,
@@ -79,7 +83,8 @@ import { ParseArrayToDatePipe } from './pipes/parse-array-to-date';
     QrcodeDialogComponent,
     SelectComponent,
     ParseToDatePipe,
-    ParseArrayToDatePipe
+    ParseArrayToDatePipe,
+    SpotifyPlayerComponent,
   ],
 })
 export class SharedModule { }

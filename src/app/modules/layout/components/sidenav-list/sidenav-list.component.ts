@@ -1,8 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { interval, Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { AppPaths } from 'src/app/enums/app-paths.enum';
+import { SpotifyPlayer } from 'src/app/models/spotify-player-model';
 import { AuthService } from 'src/app/services/auth.service';
+import { SpotifyService } from 'src/app/services/spotify.service';
 
 @Component({
   selector: 'app-sidenav-list',
@@ -36,15 +41,40 @@ export class SidenavListComponent implements OnInit {
 
   paths = AppPaths;
 
+  spotifyPlayer!: SpotifyPlayer;
+  subscription: Subscription = new Subscription();
+  spotifyPlayerInterval$ = interval(5000).pipe(
+    tap(() => this.getMeSpotifyPlayer())
+  );
+
   constructor(
     private domSanitizer: DomSanitizer,
     private matIconRegistry: MatIconRegistry,
     private authService: AuthService,
+    private spotifyService: SpotifyService,
+    private changeDetectorRef: ChangeDetectorRef,
   ) { 
     this.registerIcons();
   }
 
   ngOnInit(): void {
+    this.getMeSpotifyPlayer();
+    this.subscription.add(this.spotifyPlayerInterval$.subscribe());
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  getMeSpotifyPlayer(): void {
+    const hash = this.spotifyService.getHashUrlParam();
+
+    this.spotifyService.mePlayer(hash?.token)
+    .then((response: SpotifyPlayer) => {
+      this.spotifyPlayer = response;
+      this.changeDetectorRef.detectChanges();
+    })
+    .catch((error: HttpErrorResponse) => console.error(error));
   }
 
   registerIcons(): void {

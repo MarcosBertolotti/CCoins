@@ -1,12 +1,14 @@
 div[sidenav] {
+  width: 200px;
   height: 100%;
 }
-  
-.logo {
-  height: 150px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+div[sidenav].playing {
+  width: 300px;
+
+  mat-nav-list {
+    height: calc(100% - 280px);
+  }
 }
   
 mat-nav-list {
@@ -48,11 +50,16 @@ p {
 
 .bottom-items {
   padding-bottom: 1rem;
-}
 
-.mat-divider {
-  border-top-color: var(--gold-darker-color);
-  padding-top: 1.5rem;
+  .ribbon-logo {
+    max-width: calc(100% - 1rem);
+    margin: 0 0.5rem 0.5rem;
+  }
+
+  .mat-divider {
+    border-top-color: var(--gold-darker-color);
+    padding-top: 1.5rem;
+  }
 }
 
 mat-icon {
