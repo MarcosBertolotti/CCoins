@@ -7,11 +7,13 @@ import { FIELD_ERROR_MESSAGES } from 'src/app/const/field-error-messages.const';
 import { AppPaths } from 'src/app/enums/app-paths.enum';
 import { Bar } from 'src/app/models/bar-model';
 import { Game } from 'src/app/models/game.model';
+import { Prize } from 'src/app/models/prize.model';
 import { ResponseList } from 'src/app/models/response-list.model';
 import { Table } from 'src/app/models/table.model';
 import { BarService } from 'src/app/services/bar.service';
 import { GameService } from 'src/app/services/game.service';
 import { NavigationService } from 'src/app/services/navigation.service';
+import { PrizeService } from 'src/app/services/prize.service';
 import { TableService } from 'src/app/services/table.service';
 import { ToastService } from 'src/app/shared/services/toast.services';
 
@@ -29,6 +31,7 @@ export class BarUpdateComponent implements OnInit, OnDestroy {
   formGroup!: FormGroup;
 
   games: Game[] = [];
+  prizes: Prize[] = [];
 
   fieldErrors = FIELD_ERROR_MESSAGES;
   appPaths = AppPaths;
@@ -42,6 +45,7 @@ export class BarUpdateComponent implements OnInit, OnDestroy {
     private tableService: TableService,
     private navigationService: NavigationService,
     private gameService: GameService,
+    private prizeService: PrizeService,
   ) { 
     this.navigationService.showNavbar();
   }
@@ -55,6 +59,7 @@ export class BarUpdateComponent implements OnInit, OnDestroy {
 
     this.getBar();
     this.getGames();
+    this.getPrizes();
   }
 
   private getBar(): void {
@@ -83,6 +88,15 @@ export class BarUpdateComponent implements OnInit, OnDestroy {
     .then(({ list }: ResponseList<Game>) => {
       if(list && list.length > 0)
         this.games = list;
+    })
+    .catch((error: HttpErrorResponse) =>  this.toastService.openErrorToast(error.error.message));
+  }
+
+  private getPrizes(): void {
+    this.prizeService.findAllByBar(this.idBar)
+    .then(({ list }: ResponseList<Prize>) => {
+      if(list && list.length > 0)
+        this.prizes = list;
     })
     .catch((error: HttpErrorResponse) =>  this.toastService.openErrorToast(error.error.message));
   }

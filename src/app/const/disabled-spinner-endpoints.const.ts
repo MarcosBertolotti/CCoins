@@ -5,4 +5,5 @@
 export const DISABLED_SPINNER_ENDPOINTS = [
     //new RegExp(/^\/bff-app\/parties\/([^/]+)\/coins\/quantity$/),
     new RegExp(/^\/bff-app\/parties\/coins\/quantity$/),
+    new RegExp(/^\/bff-app\/spotify\/actualSongs\/bar$/),
 ];

@@ -2,7 +2,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Bar } from '../models/bar-model';
 import { SpotifyCredentials } from '../models/spotify-credentials.model';
+import { SpotifyPlayer } from '../models/spotify-player-model';
+import { BarService } from './bar.service';
 import { RequestService } from './request.service';
 
 @Injectable({
@@ -17,6 +20,7 @@ export class SpotifyService {
   constructor(
     private http: HttpClient,
     private requestService: RequestService,
+    private barService: BarService,
     ) { }
 
   getHeaders(token: string, customHeaders?: any): HttpHeaders {
@@ -53,6 +57,26 @@ export class SpotifyService {
       headers = this.getHeaders(accessToken);
     
     return this.http.get<any>(`${this.spotifyApiURL}me/player`, { headers }).toPromise();
+  }
+
+  sendSong(spotifyPlayer: SpotifyPlayer): void {
+    const currentBar: Bar = this.barService.currentBar;
+    if(currentBar) {
+
+      const body = {
+        id: currentBar.id,
+        token: this.getHashUrlParam()?.access_token,
+        playback: {
+          progress_ms: spotifyPlayer.progress_ms,
+          is_playing: spotifyPlayer.is_playing,
+          item: spotifyPlayer.item,
+          context: spotifyPlayer.context,
+          shuffle_state: spotifyPlayer.shuffle_state,
+        }
+      }
+
+      this.requestService.post('/spotify/actualSongs/bar', body);
+    }
   }
 
   getHashUrlParam(): any {

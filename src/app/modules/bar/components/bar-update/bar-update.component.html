@@ -32,11 +32,11 @@
       </div>
 
       <div class="table-container bubble-gray">
-        <h3>Total 0 Premios</h3>
+        <h3>Total {{ prizes?.length }} Premios</h3>
         <button 
           mat-raised-button
           color="accent"
-          routerLink="#">
+          [routerLink]="['../../', bar.id, appPaths.PRIZES]">
           Ver Premios
         </button>
       </div>
