@@ -19,7 +19,7 @@
       </div>
 
       <div class="bottom-items">
-        <p class="current-bar" *ngIf="barService?.currentBar$">Bar Actual: {{ (barService.currentBar$ | async)?.name }}</p>
+        <p class="current-bar" *ngIf="barService?.currentBar">Bar Actual: {{ (barService.currentBar$ | async)?.name }}</p>
         <img class="ribbon-logo" src="/assets/chopp_coins_cinta.png" alt="">
 
         <mat-divider></mat-divider>

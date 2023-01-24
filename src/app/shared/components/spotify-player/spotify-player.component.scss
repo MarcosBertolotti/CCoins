@@ -9,20 +9,17 @@
 .logo.playing {
   height: 280px;
 
-  app-logo {
+  app-logo ::ng-deep img {
     animation: spin 6s linear infinite;
     animation-play-state: paused;
-  }
-  
-  app-logo.playing {
-    animation: spin 6s linear infinite;
-  }
-  
-  app-logo ::ng-deep img {
     width: 110px;
     height: 110px;
   }
   
+  app-logo.playing ::ng-deep img {
+    animation: spin 6s linear infinite;
+  }
+
   @keyframes spin {
     from {
       transform: rotate(0deg);

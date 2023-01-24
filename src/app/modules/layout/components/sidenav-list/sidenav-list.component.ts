@@ -2,9 +2,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { interval, Subscription } from 'rxjs';
+import { interval, PartialObserver, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AppPaths } from 'src/app/enums/app-paths.enum';
+import { Bar } from 'src/app/models/bar-model';
 import { SpotifyPlayer } from 'src/app/models/spotify-player-model';
 import { AuthService } from 'src/app/services/auth.service';
 import { BarService } from 'src/app/services/bar.service';
@@ -42,9 +43,10 @@ export class SidenavListComponent implements OnInit {
 
   paths = AppPaths;
 
+  currentBar!: Bar;
   spotifyPlayer!: SpotifyPlayer;
   subscription: Subscription = new Subscription();
-  spotifyPlayerInterval$ = interval(10000).pipe(
+  spotifyPlayerInterval$ = interval(2000).pipe(
     tap(() => this.getMeSpotifyPlayer())
   );
 
