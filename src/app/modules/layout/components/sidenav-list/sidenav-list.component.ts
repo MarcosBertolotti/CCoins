@@ -46,7 +46,7 @@ export class SidenavListComponent implements OnInit {
   currentBar!: Bar;
   spotifyPlayer!: SpotifyPlayer;
   subscription: Subscription = new Subscription();
-  spotifyPlayerInterval$ = interval(2000).pipe(
+  spotifyPlayerInterval$ = interval(5000).pipe(
     tap(() => this.getMeSpotifyPlayer())
   );
 

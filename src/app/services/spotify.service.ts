@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Bar } from '../models/bar-model';
 import { SpotifyCredentials } from '../models/spotify-credentials.model';
 import { SpotifyPlayer } from '../models/spotify-player-model';
+import { SpotifySong } from '../modules/client/models/spotifySong.model';
 import { BarService } from './bar.service';
 import { RequestService } from './request.service';
 
@@ -15,7 +16,7 @@ export class SpotifyService {
 
   baseApiURL = '/spotify';
   spotifyApiURL = 'https://api.spotify.com/v1/';
-  headers: any;
+  headers!: HttpHeaders;
 
   constructor(
     private http: HttpClient,

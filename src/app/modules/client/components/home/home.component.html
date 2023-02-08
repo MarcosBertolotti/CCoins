@@ -1,4 +1,15 @@
 <div class="container">
+  <div class="card-container spotify">
+    <app-spotify-player
+      *ngIf="currentSong else notSong"
+      [spotifyPlayer]="currentSong"
+      [showAppLogo]="false">
+    </app-spotify-player>
+    <ng-template #notSong>
+      <h2>No hay ningún tema en reproducción.</h2>
+    </ng-template>
+  </div>
+
   <div class="card-container bg-img">
     <button
       mat-icon-button
@@ -6,6 +17,7 @@
       <img src="assets/img/menu_2.jpg" alt="menu">
     </button>
   </div>
+
   <div class="card-container bg-img">
     <button
       mat-icon-button
@@ -14,6 +26,7 @@
       <img src="assets/img/prizes.jpg" alt="menu">
     </button>
   </div>
+
   <div class="card-container"></div>
   <div class="card-container"></div>
   <div class="card-container"></div>
