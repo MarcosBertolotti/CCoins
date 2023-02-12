@@ -24,6 +24,10 @@ export class SpotifyService {
     private barService: BarService,
     ) { }
 
+  get testRequest(): any {
+    return this.requestService.get(`${this.baseApiURL}/spotify/config`);
+  }
+
   getHeaders(token: string, customHeaders?: any): HttpHeaders {
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
