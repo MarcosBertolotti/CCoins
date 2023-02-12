@@ -18,7 +18,7 @@ export class RouterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.spotifyService2.testRequest();
+    this.spotifyService2.getTestRequest().then(() => {});
 
     this.sseService.getServerSentEvent().subscribe((event: Partial<MessageEvent<any>>) => {
       if(event?.type === SseEvents.ACTUAL_SONG_SPTF && event.data) {

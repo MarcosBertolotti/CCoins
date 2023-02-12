@@ -24,7 +24,7 @@ export class SpotifyService {
     private barService: BarService,
     ) { }
 
-  get testRequest(): any {
+  getTestRequest(): Promise<any> {
     return this.requestService.get(`${this.baseApiURL}/spotify/config`);
   }
 
