@@ -25,7 +25,7 @@ export class SpotifyService {
     ) { }
 
   getTestRequest(): Promise<any> {
-    return this.requestService.get(`${this.baseApiURL}/spotify/config`);
+    return this.requestService.get(`${this.baseApiURL}/config`);
   }
 
   getHeaders(token: string, customHeaders?: any): HttpHeaders {
