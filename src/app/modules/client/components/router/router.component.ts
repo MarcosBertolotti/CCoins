@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { SseEvents } from '../../enums/sse-events.enum';
 import { SpotifyService } from '../../services/spotify.service';
 import { SseService } from '../../services/sse.service';
-import { SpotifyService as SpotifyService2} from 'src/app/services/spotify.service';
 
 @Component({
   selector: 'app-router',
@@ -14,12 +13,9 @@ export class RouterComponent implements OnInit {
   constructor(
     private sseService: SseService,
     private spotifyService: SpotifyService,
-    private spotifyService2: SpotifyService2,
   ) { }
 
   ngOnInit(): void {
-    this.spotifyService2.getTestRequest().then(() => {});
-
     this.sseService.getServerSentEvent().subscribe((event: Partial<MessageEvent<any>>) => {
       if(event?.type === SseEvents.ACTUAL_SONG_SPTF && event.data) {
         this.spotifyService.currentSong = JSON.parse(event.data);
