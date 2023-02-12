@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SpotifyService } from 'src/app/services/spotify.service';
 import { WarningType } from '../../enums/warning-type.enum';
 
 @Component({
@@ -19,12 +18,9 @@ export class LoginWarningComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private spotifyService: SpotifyService,
   ) { }
 
   ngOnInit(): void {
-    this.spotifyService.getTestRequest().then(() => {});
-
     localStorage.clear();
     this.route.queryParams.subscribe((params: any) => {
       const warningType: string = params?.type;
