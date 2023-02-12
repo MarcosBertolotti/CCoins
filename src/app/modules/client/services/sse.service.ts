@@ -1,6 +1,7 @@
 import { Injectable, NgZone } from "@angular/core";
 import { EMPTY, Observable, Observer, Subject } from "rxjs";
 import { environment } from "src/environments/environment";
+import { SseEvents } from "../enums/sse-events.enum";
 import { ClientService } from "./client.service";
 
 @Injectable({
@@ -35,7 +36,19 @@ export class SseService {
     return new Observable((observer: Observer<Partial<MessageEvent<any>>>) => {
       const eventSource = this.getEventSource(`${this.baseApiURl}/subscribe?partyId=${me?.partyId}&client=${me?.clientIp}`);
 
-      eventSource.addEventListener("ACTUAL_SONG_SPTF", event => {
+      eventSource.addEventListener(SseEvents.ACTUAL_SONG_SPTF, event => {
+        observer.next(event);
+      });
+
+      eventSource.addEventListener(SseEvents.ACTUAL_VOTES_SPTF, event => {
+        observer.next(event);
+      });
+
+      eventSource.addEventListener(SseEvents.NEW_WINNER_SPTF, event => {
+        observer.next(event);
+      });
+
+      eventSource.addEventListener(SseEvents.YOU_WIN_SONG_VOTE_SPTF, event => {
         observer.next(event);
       });
 
