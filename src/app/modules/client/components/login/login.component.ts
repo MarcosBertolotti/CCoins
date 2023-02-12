@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PartialObserver } from 'rxjs';
@@ -35,7 +36,7 @@ export class LoginComponent implements OnInit {
         this.clientService.clientTable = response;
         this.router.navigate([ClientPaths.HOME]);
       },
-      error: () => this.handleLoginError()
+      error: (error: HttpErrorResponse) => this.handleLoginError(error)
     }
     this.clientService.getIPAddress()
     .pipe(
@@ -49,9 +50,10 @@ export class LoginComponent implements OnInit {
     .subscribe(loginObserver);
   }
 
-  handleLoginError(): void {
+  handleLoginError(error?: HttpErrorResponse): void {
     localStorage.clear();
-    this.toastService.openErrorToast("Ha ocurrido un error al intentar ingresar a la mesa.");
+    const message = error?.error?.message || "Ha ocurrido un error al intentar ingresar a la mesa."
+    this.toastService.openErrorToast(message);
     this.router.navigate([ClientPaths.WARNING_LOGIN]);
   }
 
