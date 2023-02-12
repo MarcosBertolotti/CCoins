@@ -21,7 +21,7 @@ export class LoginWarningComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    localStorage.clear();
     this.route.queryParams.subscribe((params: any) => {
       const warningType: string = params?.type;
 
