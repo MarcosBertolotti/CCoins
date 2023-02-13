@@ -15,6 +15,7 @@ import { WinnerSong } from '../../models/winner-song.model';
 import { ClientService } from '../../services/client.service';
 import { PartyService } from '../../services/party.service';
 import { PlayerService } from '../../services/player.service';
+import { VotingComponent } from '../voting/voting.component';
 import { WelcomeComponent } from '../welcome/welcome.component';
 
 @Component({
@@ -117,5 +118,18 @@ export class HomeComponent implements OnInit, OnDestroy {
       error: (error: HttpErrorResponse) => console.error(error.error?.message)
     };
     this.partyService.getBarGames().subscribe(gamesObserver);
+  }
+
+  openVotingDialog(): void {
+    const dialogRef = this.matDialog.open(VotingComponent, {
+      width: '90%',
+      backdropClass: 'back-drop-dialog',
+      panelClass: 'custom-dialog-container-dark',
+      data: this.currentVoting,
+    });
+
+    dialogRef.beforeClosed().subscribe(() => {
+      
+    });
   }
 }

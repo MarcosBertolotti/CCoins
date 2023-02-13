@@ -1,0 +1,31 @@
+h1 {
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 0 1.5rem;
+}
+
+mat-radio-button {
+  margin-bottom: 1rem;
+}
+
+mat-radio-button ::ng-deep .mat-radio-label-content {
+  width: 100%;
+  font-weight: 400;
+  white-space: normal;
+}
+
+.not-voting {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.actions-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.actions-container button {
+  height: 40px;
+}

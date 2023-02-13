@@ -1,0 +1,36 @@
+<form [formGroup]="formGroup" (ngSubmit)="vote()">
+  <ng-container *ngIf="currentVoting && currentVoting.length > 0; else notVoting">
+    <h1>Votación actual</h1>
+    <mat-radio-group #radioGroup="matRadioGroup" formControlName="optionVote" color="primary" class="fill">
+      <ng-container *ngFor="let voteOption of currentVoting">
+      <mat-radio-button [value]="voteOption.id">
+        {{ voteOption.name }} ({{ voteOption.votes}} {{ voteOption.votes === 1 ? 'voto' : 'votos'}})
+      </mat-radio-button>
+      </ng-container>
+    </mat-radio-group>
+  </ng-container>
+
+  <ng-template #notVoting>
+    <p class="not-voting">Lo sentimos! La votación aún no ha empezado</p>
+  </ng-template>
+
+  <div class="actions-container">
+    <button
+      mat-stroked-button
+      mat-dialog-close
+      type="button"
+      color="accent"
+      (click)="close()">
+      {{ !currentVoting || currentVoting.length === 0 ? 'Regresar' : 'Cancelar' }}
+    </button>
+    <button
+      *ngIf="currentVoting && currentVoting.length > 0"
+      mat-raised-button
+      type="submit"
+      color="primary"
+      class="dark"
+      [disabled]="!formGroup.valid">
+      Votar
+    </button>
+  </div>
+</form>

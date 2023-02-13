@@ -9,7 +9,8 @@
       <button
         *ngIf="voteGame && currentVoting && currentVoting.length > 0"
         mat-stroked-button
-        color="accent">
+        color="accent"
+        (click)="openVotingDialog()">
         Vota la siguiente y ganá {{ voteGame.points }} puntos
       </button>
       <div class="winner" *ngIf="currentWinnerSong">

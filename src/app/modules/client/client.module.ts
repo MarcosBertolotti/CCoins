@@ -13,7 +13,9 @@ import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/mat
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatToolbar, MatToolbarModule } from '@angular/material/toolbar';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { LoginComponent } from './components/login/login.component';
 import { LoginWarningComponent } from './components/login-warning/login-warning.component';
@@ -23,6 +25,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { BarTableInfoComponent } from './components/bar-table-info/bar-table-info.component';
 import { BarPrizesComponent } from './components/bar-prizes/bar-prizes.component';
+import { VotingComponent } from './components/voting/voting.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,7 @@ import { BarPrizesComponent } from './components/bar-prizes/bar-prizes.component
     ToolbarComponent,
     BarTableInfoComponent,
     BarPrizesComponent,
+    VotingComponent,
   ],
   imports: [
     CommonModule,
@@ -46,6 +50,8 @@ import { BarPrizesComponent } from './components/bar-prizes/bar-prizes.component
     MatIconModule,
     MatToolbarModule,
     SharedModule,
+    MatRadioModule,
+    MatDividerModule,
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { floatLabel: 'always' } },
