@@ -7,6 +7,8 @@ import { GoogleLoginProvider, SocialLoginModule, SocialAuthServiceConfig, Facebo
 
 import { AppRoutingModule } from './app-routing.module';
 
+import { MatDialogConfig, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { SpinnerInterceptor } from './interceptors/spinner.interceptor';
 import { ClientInterceptor } from './interceptors/client.interceptor';
@@ -63,6 +65,14 @@ import { DISABLED_SPINNER_ENDPOINTS } from './const/disabled-spinner-endpoints.c
     { provide: HTTP_INTERCEPTORS, useClass: ClientInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
     { provide: DISABLED_SPINNER_PATHS, useValue: DISABLED_SPINNER_ENDPOINTS },
+    {
+      provide: MAT_DIALOG_DEFAULT_OPTIONS,
+      useValue: {
+        ...new MatDialogConfig(),
+        autoFocus: false,
+        restoreFocus: false,
+      } as MatDialogConfig,
+    }
   ],
   bootstrap: [AppComponent]
 })

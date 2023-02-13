@@ -6,7 +6,6 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginWarningComponent } from './components/login-warning/login-warning.component';
 import { LoginComponent } from './components/login/login.component';
 import { RouterComponent } from './components/router/router.component';
-import { WelcomeComponent } from './components/welcome/welcome.component';
 import { ClientPaths } from './enums/client-paths.eum';
 import { AuthClientGuard } from './guards/auth-client.guard';
 
