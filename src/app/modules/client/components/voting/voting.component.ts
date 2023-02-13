@@ -39,7 +39,7 @@ export class VotingComponent implements OnInit {
 
   vote(): void {
     const voteObserver: PartialObserver<void> = {
-      next: (response: any) => {
+      next: () => {
         this.toastService.openSuccessToast("Su voto ha sido registrado exitosamente!");
         this.matDialog.close();
       },

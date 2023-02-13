@@ -30,7 +30,7 @@ export class ClientInterceptor implements HttpInterceptor {
     
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 401) {
+        if (error.status === 401 && this.clientService.clientTable) {
           this.openDialog();
         }
         return throwError(error);
@@ -62,7 +62,7 @@ export class ClientInterceptor implements HttpInterceptor {
       disableClose: true,
       data: {
         title: 'La sesión ha terminado!',
-        messages: ['Por favor, vuelva a iniciar sesión dentro del horario del bar.'],
+        messages: ['Por favor, vuelva a iniciar sesión dentro del horario establecido por el bar.'],
         canCancel: false,
         actions: [
           {

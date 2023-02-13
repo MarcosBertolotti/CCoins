@@ -60,9 +60,9 @@ export class ClientService {
   }
 
   login(tableCode: string, clientIp: string): Observable<ClientTableDTO> {
-    this.clientTable = { tableCode, clientIp };
+    const headers = this.requestService.getHeaders({ code: tableCode, client: clientIp })
 
-    return this.http.post<ClientTableDTO>(`${this.apiURL}/login`, { })
+    return this.http.post<ClientTableDTO>(`${this.apiURL}/login`, {}, { headers })
     .pipe(tap((response: ClientTableDTO) => {
       if(response?.nickName)
         this.nickName = response.nickName;
