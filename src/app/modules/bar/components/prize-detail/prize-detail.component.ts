@@ -69,7 +69,7 @@ export class PrizeDetailComponent implements OnInit {
         this.getPrize();
       },
       error: (error: HttpErrorResponse) => { 
-        this.toastService.openErrorToast(error.error.message);
+        this.toastService.openErrorToast(error.error?.message);
         this.goToHome();
       },
     };
@@ -83,7 +83,7 @@ export class PrizeDetailComponent implements OnInit {
         this.prize = prize;
       this.buildForm();
     })
-    .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message))
+    .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message))
   }
 
   submitForm(): void {
@@ -100,7 +100,7 @@ export class PrizeDetailComponent implements OnInit {
 
       this.prizeService.saveOrUpdate(updatedPrize)
       .then((prize: Prize) => this.toastService.openSuccessToast('Premio actualizado exitosamente!'))
-      .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message));
+      .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message));
     }
   }
 

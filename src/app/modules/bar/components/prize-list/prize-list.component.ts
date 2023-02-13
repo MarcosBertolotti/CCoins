@@ -68,7 +68,7 @@ export class PrizeListComponent implements OnInit {
         this.getPrizes(idBar);
       },
       error: (error: HttpErrorResponse) => { 
-        this.toastService.openErrorToast(error.error.message);
+        this.toastService.openErrorToast(error.error?.message);
         this.goToHome();
       },
     };
@@ -83,7 +83,7 @@ export class PrizeListComponent implements OnInit {
           this.dataSource = new MatTableDataSource<Prize>(this.prizes);
         }
       })
-      .catch((error: HttpErrorResponse) =>  this.toastService.openErrorToast(error.error.message));
+      .catch((error: HttpErrorResponse) =>  this.toastService.openErrorToast(error.error?.message));
   }
 
   toggleActive(id: number): void {

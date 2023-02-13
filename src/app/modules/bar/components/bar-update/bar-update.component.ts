@@ -66,7 +66,7 @@ export class BarUpdateComponent implements OnInit, OnDestroy {
     const barObserver: PartialObserver<Bar> = {
       next: async (bar: Bar) => {
         const tables: any = await this.tableService.findAllByBar(this.idBar)
-          .catch((error: HttpErrorResponse) => console.error(error.error.message));
+          .catch((error: HttpErrorResponse) => console.error(error.error?.message));
   
         if(tables && tables.list?.length > 0) {
           this.barTables = tables.list;
@@ -76,7 +76,7 @@ export class BarUpdateComponent implements OnInit, OnDestroy {
         this.buildForm();
       },
       error: (error: HttpErrorResponse) => { 
-        this.toastService.openErrorToast(error.error.message);
+        this.toastService.openErrorToast(error.error?.message);
         this.goToHome();
       },
     };
@@ -89,7 +89,7 @@ export class BarUpdateComponent implements OnInit, OnDestroy {
       if(list && list.length > 0)
         this.games = list;
     })
-    .catch((error: HttpErrorResponse) =>  this.toastService.openErrorToast(error.error.message));
+    .catch((error: HttpErrorResponse) =>  this.toastService.openErrorToast(error.error?.message));
   }
 
   private getPrizes(): void {
@@ -98,7 +98,7 @@ export class BarUpdateComponent implements OnInit, OnDestroy {
       if(list && list.length > 0)
         this.prizes = list;
     })
-    .catch((error: HttpErrorResponse) =>  this.toastService.openErrorToast(error.error.message));
+    .catch((error: HttpErrorResponse) =>  this.toastService.openErrorToast(error.error?.message));
   }
 
   private goToHome(): void {
@@ -133,7 +133,7 @@ export class BarUpdateComponent implements OnInit, OnDestroy {
       const barCreated = this.barService.create(updateBar)
         .catch((error: HttpErrorResponse) => {
           //const message = error.error?.name === ApiErrorResponses.EXISTING_OBJECT ? 'Ya existe un Bar' : error.message;
-          this.toastService.openErrorToast(error.error.message);
+          this.toastService.openErrorToast(error.error?.message);
         });
       
       let quantityToUpdate = (this.tables.value - this.tableQuantity);
@@ -154,7 +154,7 @@ export class BarUpdateComponent implements OnInit, OnDestroy {
     .then(() => this.tableQuantity = this.tables.value)
     .catch((error: HttpErrorResponse) => {
       //const message = error.error?.name === ApiErrorResponses.EXISTING_OBJECT ? 'Ya existe un Bar' : error.message;
-      this.toastService.openErrorToast(error.error.message);
+      this.toastService.openErrorToast(error.error?.message);
     });
   }
 
@@ -163,7 +163,7 @@ export class BarUpdateComponent implements OnInit, OnDestroy {
     .then(() => this.tableQuantity = this.tables.value)
     .catch((error: HttpErrorResponse) => {
       //const message = error.error?.name === ApiErrorResponses.EXISTING_OBJECT ? 'Ya existe un Bar' : error.message;
-      this.toastService.openErrorToast(error.error.message);
+      this.toastService.openErrorToast(error.error?.message);
     });
   }
 
@@ -176,7 +176,7 @@ export class BarUpdateComponent implements OnInit, OnDestroy {
     })
     .catch((error: HttpErrorResponse) => {
       //const message = error.error?.name === ApiErrorResponses.EXISTING_OBJECT ? 'Ya existe un Bar' : error.message;
-      this.toastService.openErrorToast(error.error.message);
+      this.toastService.openErrorToast(error.error?.message);
     });
   }
 

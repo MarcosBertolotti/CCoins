@@ -67,7 +67,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
       next:(partyInfo: Party) => {
         this.currentParty = partyInfo;
       },
-      error:(error: HttpErrorResponse) => console.error(error.error.message)
+      error:(error: HttpErrorResponse) => console.error(error.error?.message)
     }
     this.partyService.getInfo(this.me.partyId).subscribe(partyObserver);
   }

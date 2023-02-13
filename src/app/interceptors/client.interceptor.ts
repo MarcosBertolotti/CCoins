@@ -7,6 +7,7 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ClientService } from '../modules/client/services/client.service';
+import { ClientTableDTO } from '../modules/client/models/client-table.dto';
 
 @Injectable()
 export class ClientInterceptor implements HttpInterceptor {
@@ -22,13 +23,14 @@ export class ClientInterceptor implements HttpInterceptor {
   }
 
   private addHeaders(request: HttpRequest<any>): HttpRequest<any> {
-    const me = this.clientService.clientTable;
+    const me: ClientTableDTO = this.clientService.clientTable;
 
     if(me && me.clientIp) {
       request = request.clone({
         setHeaders: {
           client: me.clientIp,
           code: me.tableCode,
+          partyId: `${me.partyId}`,
         }
       });
     }

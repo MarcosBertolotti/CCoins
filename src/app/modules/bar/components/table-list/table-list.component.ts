@@ -80,7 +80,7 @@ export class TableListComponent implements OnInit {
         this.getTables(idBar);
       },
       error: (error: HttpErrorResponse) => { 
-        this.toastService.openErrorToast(error.error.message);
+        this.toastService.openErrorToast(error.error?.message);
         this.goToHome();
       },
     };
@@ -89,7 +89,7 @@ export class TableListComponent implements OnInit {
 
   private async getTables(idBar: number): Promise<void> {
     const tables: any = await this.tableService.findAllByBar(idBar)
-      .catch((error: HttpErrorResponse) =>  this.toastService.openErrorToast(error.error.message));
+      .catch((error: HttpErrorResponse) =>  this.toastService.openErrorToast(error.error?.message));
 
     if(tables && tables.list?.length > 0) {
       this.barTables = tables.list;
@@ -210,7 +210,7 @@ export class TableListComponent implements OnInit {
   generateQRCodes(ids: number[]): void {
     this.tableService.generateCodesByList(ids)
     .then(() => this.toastService.openSuccessToast(`${ids.length} códigos QRs actualizados exitosamente!`))
-    .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message))
+    .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message))
     .finally(() => this.selectionQR.clear())
   }
 
@@ -235,7 +235,7 @@ export class TableListComponent implements OnInit {
         PDFLink.download = `${this.bar.name.replace(/ /g, "_")}_${format(new Date(), 'dd_MMMM_yyyy', { locale: esLocale })}.pdf`;
         PDFLink.click();
       },
-      error:((error: HttpErrorResponse) => { console.log(error); this.toastService.openErrorToast(error.error.message) })
+      error:((error: HttpErrorResponse) => { console.log(error); this.toastService.openErrorToast(error.error?.message) })
     }
     this.imagesService.generatePDFWithQRCodes(ids).subscribe(pdfObserver);
   }
@@ -266,7 +266,7 @@ export class TableListComponent implements OnInit {
         this.toastService.openSuccessToast(message);
       }
     })
-    .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message));
+    .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message));
   }
 
   private removeTables(quantity: number): Promise<any> {
@@ -278,7 +278,7 @@ export class TableListComponent implements OnInit {
       const message = quantity === 1 ? 'Se ha eliminado 1 mesa' : `Se han eliminado ${quantity} mesas`;
       this.toastService.openSuccessToast(message);
     })
-    .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message));
+    .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message));
   }
 
   toggleActive(id: number): void {
@@ -306,7 +306,7 @@ export class TableListComponent implements OnInit {
       const status = response.data[0].active === true ? 'activado' : 'desactivado';
       this.toastService.openSuccessToast(`Se han ${status} ${response.data.length} mesas`);
     })
-    .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message))
+    .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message))
   }
 
   public openQRDialog(qrCode: string, tableNumber: string) {

@@ -37,7 +37,7 @@ export class BarTableInfoComponent implements OnInit {
       next: (clients: ResponseList<Client>) => {
         this.clients = clients?.list;
       },
-      error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message)
+      error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message)
     };
     this.partyService.getInfoClients(this.me.partyId).subscribe(partyClientsObserver);
 
@@ -45,7 +45,7 @@ export class BarTableInfoComponent implements OnInit {
       next: (partyInfo: Party) => {
         this.party = partyInfo;
       },
-      error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message)
+      error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message)
     };
     this.partyService.getInfo(this.me.partyId).subscribe(partyObserver);
   }
@@ -55,7 +55,7 @@ export class BarTableInfoComponent implements OnInit {
       next: () => this.router.navigate([ClientPaths.WARNING_LOGIN], { queryParams: {
         type: WarningType.LOGOUT
       }}),
-      error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message)
+      error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message)
     };
     this.clientService.logout().subscribe(clientsObserver);
   }

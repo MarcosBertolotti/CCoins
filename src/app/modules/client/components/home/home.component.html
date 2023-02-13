@@ -1,10 +1,22 @@
 <div class="container">
-  <div class="card-container spotify">
-    <app-spotify-player
-      *ngIf="currentSong else notSong"
-      [spotifyPlayer]="currentSong"
-      [showAppLogo]="false">
-    </app-spotify-player>
+
+  <div class="card-container player">
+    <ng-container *ngIf="currentSong else notSong">
+      <app-spotify-player
+        [spotifyPlayer]="currentSong"
+        [showAppLogo]="false">
+      </app-spotify-player>
+      <button
+        *ngIf="voteGame && currentVoting && currentVoting.length > 0"
+        mat-stroked-button
+        color="accent">
+        Vota la siguiente y ganá {{ voteGame.points }} puntos
+      </button>
+      <div class="winner" *ngIf="currentWinnerSong">
+        <h1>Última canción ganadora ({{ currentWinnerSong.votes}} {{ currentWinnerSong.votes === 1 ? 'voto' : 'votos' }}):</h1>
+        <p>{{ currentWinnerSong.name }}</p>
+      </div>
+    </ng-container>
     <ng-template #notSong>
       <h2>No hay ningún tema en reproducción.</h2>
     </ng-template>

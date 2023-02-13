@@ -69,7 +69,7 @@ export class ActivityListComponent implements OnInit {
         this.getGames(idBar);
       },
       error: (error: HttpErrorResponse) => { 
-        this.toastService.openErrorToast(error.error.message);
+        this.toastService.openErrorToast(error.error?.message);
         this.goToHome();
       },
     };
@@ -85,7 +85,7 @@ export class ActivityListComponent implements OnInit {
           this.dataSource = new MatTableDataSource<Game>(this.games);
         }
       })
-      .catch((error: HttpErrorResponse) =>  this.toastService.openErrorToast(error.error.message));
+      .catch((error: HttpErrorResponse) =>  this.toastService.openErrorToast(error.error?.message));
   }
 
   toggleActive(id: number): void {

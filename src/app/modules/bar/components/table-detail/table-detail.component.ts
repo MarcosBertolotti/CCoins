@@ -52,7 +52,7 @@ export class TableDetailComponent implements OnInit {
         this.getTable(idTable);
       },
       error: (error: HttpErrorResponse) => { 
-        this.toastService.openErrorToast(error.error.message);
+        this.toastService.openErrorToast(error.error?.message);
         this.goToHome();
       },
     };
@@ -70,7 +70,7 @@ export class TableDetailComponent implements OnInit {
           this.table.startDate.setHours(date[3], date[4], date[5]);
         }
       })
-      .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message));
+      .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message));
   }
 
   toggleActive(): void {
@@ -108,6 +108,6 @@ export class TableDetailComponent implements OnInit {
   generateQRCode(): void {
     this.tableService.generateCodesByList([this.table.id])
     .then(() => this.toastService.openSuccessToast(`Código QR de mesa ${this.table.number} actualizado exitosamente!`))
-    .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message))
+    .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message))
   }
 }

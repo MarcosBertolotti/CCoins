@@ -57,7 +57,7 @@ export class PrizeCreateComponent implements OnInit {
         this.buildForm();
       },
       error: (error: HttpErrorResponse) => { 
-        this.toastService.openErrorToast(error.error.message);
+        this.toastService.openErrorToast(error.error?.message);
         this.goToHome();
       },
     };
@@ -81,7 +81,7 @@ export class PrizeCreateComponent implements OnInit {
         //this.router.navigate([AppPaths.ADMIN, AppPaths.BAR, this.bar.id, AppPaths.PRIZES, prize.id]);
         this.router.navigate([AppPaths.ADMIN, AppPaths.BAR, this.bar.id, AppPaths.PRIZES]);
       })
-      .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message));
+      .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message));
     }
   }
 

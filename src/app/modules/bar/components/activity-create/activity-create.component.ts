@@ -61,7 +61,7 @@ export class ActivityCreateComponent implements OnInit {
         this.getGameTypes();
       },
       error: (error: HttpErrorResponse) => { 
-        this.toastService.openErrorToast(error.error.message);
+        this.toastService.openErrorToast(error.error?.message);
         this.goToHome();
       },
     };
@@ -75,7 +75,7 @@ export class ActivityCreateComponent implements OnInit {
         this.gameTypes = list
       this.buildForm();
     })
-    .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message))
+    .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message))
   }
 
   submitForm(): void {
@@ -97,7 +97,7 @@ export class ActivityCreateComponent implements OnInit {
         //this.router.navigate([AppPaths.ADMIN, AppPaths.BAR, this.bar.id, AppPaths.ACTIVITIES, game.id]);
         this.router.navigate([AppPaths.ADMIN, AppPaths.BAR, this.bar.id, AppPaths.ACTIVITIES]);
       })
-      .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message));
+      .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message));
     }
   }
 

@@ -65,7 +65,7 @@ export class ActivityDetailComponent implements OnInit {
         this.getGameTypes();
       },
       error: (error: HttpErrorResponse) => { 
-        this.toastService.openErrorToast(error.error.message);
+        this.toastService.openErrorToast(error.error?.message);
         this.goToHome();
       },
     };
@@ -79,7 +79,7 @@ export class ActivityDetailComponent implements OnInit {
         this.gameTypes = list;
       this.getGame();
     })
-    .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message))
+    .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message))
   }
 
   private getGame(): void {
@@ -89,7 +89,7 @@ export class ActivityDetailComponent implements OnInit {
         this.game = game;
       this.buildForm();
     })
-    .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message))
+    .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message))
   }
 
   submitForm(): void {
@@ -108,7 +108,7 @@ export class ActivityDetailComponent implements OnInit {
 
       this.gameService.saveOrUpdate(updatedGame)
       .then((game: Game) => this.toastService.openSuccessToast('Actividad actualizada exitosamente!'))
-      .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message));
+      .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message));
     }
   }
 

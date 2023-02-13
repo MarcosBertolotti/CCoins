@@ -26,7 +26,7 @@ export class BarPrizesComponent implements OnInit {
         this.prizes = prizes?.list;
         console.log(this.prizes);
       },
-      error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error.message)
+      error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message)
     };
     this.partyService.getBarPrizes().subscribe(prizesObserver);
   }

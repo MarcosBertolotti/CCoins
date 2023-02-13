@@ -3,8 +3,10 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { tap } from "rxjs/operators";
 import { Value } from "src/app/models/dto/value.dto";
+import { Game } from "src/app/models/game.model";
 import { Prize } from "src/app/models/prize.model";
 import { ResponseList } from "src/app/models/response-list.model";
+import { RequestService } from "src/app/services/request.service";
 import { environment } from "src/environments/environment";
 import { Client } from "../models/client.model";
 import { Party } from "../models/party.model";
@@ -50,6 +52,7 @@ export class PartyService {
 
   constructor(
     private http: HttpClient,
+    private requestService: RequestService,
   ) { }
 
   getCurrentParty(idParty: string): Observable<Party> {
@@ -82,5 +85,9 @@ export class PartyService {
 
   getBarPrizes(): Observable<ResponseList<Prize>> {
     return this.http.get<ResponseList<Prize>>(`${this.apiURL}/bar-prizes`);
+  }
+
+  getBarGames(): Observable<ResponseList<Game>> {
+    return this.http.get<any>(`${this.apiURL}/bar/games`);
   }
 }

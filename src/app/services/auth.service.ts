@@ -42,7 +42,7 @@ export class AuthService {
               this.spotifyLogin();
             },
             error: (error: HttpErrorResponse) => {
-              const message = error.status === 503 ? 'Servicio momentáneamente no disponible' : error.error.message;
+              const message = error.status === 503 ? 'Servicio momentáneamente no disponible' : error.error?.message;
               this.toastService.openErrorToast(message);
             }
           }
