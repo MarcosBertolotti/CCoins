@@ -1,0 +1,67 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+app-spotify-player {
+  width: 100%;
+}
+
+app-spotify-player ::ng-deep .player img {
+  border-radius: 5px;
+}
+
+button[mat-stroked-button] {
+  margin-top: 1rem;
+  width: calc(100% - 2rem);
+  border-radius: 30px;
+  font-size: 16px;
+  height: 40px;
+}
+
+h1, p {
+  text-align: left;
+  font-size: 16px;
+  margin-top: 0;
+}
+
+.voting {
+  margin: 1rem 1rem 0;
+
+  p {
+    margin-bottom: .5rem;
+    padding-left: 1rem;
+    text-indent: -1rem;
+  }
+
+  p span {
+    font-weight: 400;
+  }
+}
+
+mat-divider {
+  border-top-color: #ffffff80;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.winner {
+  margin: 1rem 1rem 0;
+  width: calc(100% - 2rem);
+
+  h1 {
+    margin-bottom: 0.25rem;
+  }
+
+  p {
+    margin-left: .5rem;
+  }
+}
+
+h2 {
+  text-align: center;
+  font-size: 18px;
+  width: 100%;
+}

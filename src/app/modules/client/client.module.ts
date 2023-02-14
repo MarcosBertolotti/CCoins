@@ -26,6 +26,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { BarTableInfoComponent } from './components/bar-table-info/bar-table-info.component';
 import { BarPrizesComponent } from './components/bar-prizes/bar-prizes.component';
 import { VotingComponent } from './components/voting/voting.component';
+import { PlayerComponent } from './components/player/player.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { VotingComponent } from './components/voting/voting.component';
     BarTableInfoComponent,
     BarPrizesComponent,
     VotingComponent,
+    PlayerComponent,
   ],
   imports: [
     CommonModule,
