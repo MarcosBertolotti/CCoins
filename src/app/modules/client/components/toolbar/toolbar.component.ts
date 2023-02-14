@@ -1,6 +1,7 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { interval, Observable, PartialObserver, Subscription } from 'rxjs';
@@ -10,6 +11,7 @@ import { ClientTableDTO } from '../../models/client-table.dto';
 import { Party } from '../../models/party.model';
 import { ClientService } from '../../services/client.service';
 import { PartyService } from '../../services/party.service';
+import { WelcomeComponent } from '../welcome/welcome.component';
 
 @Component({
   selector: 'app-toolbar',
@@ -38,6 +40,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
+    private matDialog: MatDialog,
     private breakpointObserver: BreakpointObserver,
     private clientService: ClientService,
     private partyService: PartyService,
@@ -84,5 +87,19 @@ export class ToolbarComponent implements OnInit, OnDestroy {
       this.router.navigate([ClientPaths.HOME]);
     else
       this.router.navigate([ClientPaths.PARTY_COINS]);
+  }
+
+  openChangeNameDialog(): void {
+    const dialogRef = this.matDialog.open(WelcomeComponent, {
+      width: '80%',
+      backdropClass: 'back-drop-dialog',
+      panelClass: 'custom-dialog-container-dark',
+      disableClose: true,
+      data: this.me,
+    });
+
+    dialogRef.beforeClosed().subscribe(() => {
+      this.me = this.clientService.clientTable;
+    });
   }
 }

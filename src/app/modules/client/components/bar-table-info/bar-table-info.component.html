@@ -10,7 +10,7 @@
 
     <div class="content me">
       <mat-icon>circle</mat-icon>
-      <h1>{{ me.nickName }} (Tú)</h1>
+      <h1>{{ nickName$ | async }} (Tú)</h1>
     </div>
 
     <ng-container *ngFor="let client of clients">

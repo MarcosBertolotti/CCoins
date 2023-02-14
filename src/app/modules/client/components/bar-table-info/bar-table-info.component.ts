@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PartialObserver } from 'rxjs';
+import { Observable, PartialObserver } from 'rxjs';
 import { ResponseList } from 'src/app/models/response-list.model';
 import { ToastService } from 'src/app/shared/services/toast.services';
 import { ClientPaths } from '../../enums/client-paths.eum';
@@ -20,9 +20,11 @@ import { PartyService } from '../../services/party.service';
 export class BarTableInfoComponent implements OnInit {
 
   me!: ClientTableDTO;
+  nickName$!: Observable<string>;
+
   party!: Party;
   clients!: Client[];
-
+  
   constructor(
     private router: Router,
     private toastService: ToastService,
@@ -32,6 +34,7 @@ export class BarTableInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.me = this.clientService.clientTable;
+    this.nickName$ = this.clientService.nickName$;
 
     const partyClientsObserver: PartialObserver<ResponseList<Client>> = {
       next: (clients: ResponseList<Client>) => {
