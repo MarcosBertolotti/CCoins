@@ -27,6 +27,7 @@ import { BarTableInfoComponent } from './components/bar-table-info/bar-table-inf
 import { BarPrizesComponent } from './components/bar-prizes/bar-prizes.component';
 import { VotingComponent } from './components/voting/voting.component';
 import { PlayerComponent } from './components/player/player.component';
+import { PartyCoinsComponent } from './components/party-coins/party-coins.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { PlayerComponent } from './components/player/player.component';
     BarPrizesComponent,
     VotingComponent,
     PlayerComponent,
+    PartyCoinsComponent,
   ],
   imports: [
     CommonModule,

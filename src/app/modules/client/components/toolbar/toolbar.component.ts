@@ -78,4 +78,11 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     else
       this.router.navigate([ClientPaths.BAR_TABLE]);
   }
+
+  goToCoinsInfo(): void {
+    if(window.location.pathname == `/${ClientPaths.PARTY_COINS}`)
+      this.router.navigate([ClientPaths.HOME]);
+    else
+      this.router.navigate([ClientPaths.PARTY_COINS]);
+  }
 }

@@ -1,6 +1,6 @@
 <mat-toolbar class="mat-elevation-z2" > <!-- *ngIf="(isHandset$ | async)" -->
   <mat-toolbar-row>
-    <p class="wrap-text">{{ nickName$ | async }}</p>
+    <p class="wrap-text ellipsis-second-line">{{ nickName$ | async }}</p>
 
     <button
       *ngIf="currentParty"
@@ -11,7 +11,12 @@
     </button>
 
     <div class="content-right">
-      <p>{{ (partyCoins$ | async) || '0' }}p</p>
+      <button
+        *ngIf="currentParty"
+        mat-raised-button
+        (click)="goToCoinsInfo()">
+        <p class="ellipsis">{{ (partyCoins$ | async) || '0' }}p</p>
+      </button>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>

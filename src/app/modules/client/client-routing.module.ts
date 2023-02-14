@@ -5,6 +5,7 @@ import { BarTableInfoComponent } from './components/bar-table-info/bar-table-inf
 import { HomeComponent } from './components/home/home.component';
 import { LoginWarningComponent } from './components/login-warning/login-warning.component';
 import { LoginComponent } from './components/login/login.component';
+import { PartyCoinsComponent } from './components/party-coins/party-coins.component';
 import { RouterComponent } from './components/router/router.component';
 import { ClientPaths } from './enums/client-paths.eum';
 import { AuthClientGuard } from './guards/auth-client.guard';
@@ -23,6 +24,7 @@ const routes: Routes = [
       { path: ClientPaths.HOME, component: HomeComponent },
       { path: ClientPaths.BAR_TABLE, component: BarTableInfoComponent },
       { path: ClientPaths.BAR_PRIZES, component: BarPrizesComponent },
+      { path: ClientPaths.PARTY_COINS, component: PartyCoinsComponent },
     ]
   },
   { path: `${ClientPaths.LOGIN}/:code`, component: LoginComponent },
