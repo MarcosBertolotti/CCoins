@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
 
 import { LoginComponent } from './components/login/login.component';
 import { LoginWarningComponent } from './components/login-warning/login-warning.component';
@@ -56,6 +57,7 @@ import { PartyCoinsComponent } from './components/party-coins/party-coins.compon
     SharedModule,
     MatRadioModule,
     MatDividerModule,
+    MatListModule,
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { floatLabel: 'always' } },

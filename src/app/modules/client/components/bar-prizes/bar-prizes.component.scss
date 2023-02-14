@@ -9,67 +9,40 @@
       margin-top: .5rem;
 
       h3 {
-        float: left;
+        text-align: left;
         margin: 0;
         font-size: 18px;
         font-weight: 400;
       }
-  
-      h2 {
-        margin: 0;
-        font-size: 20px;
-        font-weight: 500;
-        text-align: right;
-      }
     }
 
-    .clients {
+    .list-container {
       margin-top: 1.25rem;
       border-radius: 30px;
       border: 1px solid white;
-      padding: 1rem;
+      padding: 1rem 0;
 
-      h2 {
-        text-align: center;
-      }
-
-      .party {
-        color: var(--danger-darker-color);
-        margin: 0 0 1rem;
+      mat-list-item {
+        height: 65px;
       }
 
       .title {
         margin: 0 0 .5rem;
+        text-align: center;
       }
 
-      .content {
-        display: flex;
-        align-items: center;
-        margin-bottom: .25rem;
+      p[matLine] {
+        font-size: 12px;
+        font-weight: 300;
+      }
 
-        h1 {
-          margin: 0;
-          font-size: 18px;
-          font-weight: 400;
-        }
-
-        .mat-icon {
-          font-size: 16px;
-          height: auto;
-        }
+      button[mat-stroked-button] {
+        height: 40px;
+        min-width: 100px;
+        width: auto;
       }
     }
 
-    .btn-logout {
-      margin-top: 1rem;
-      width: 100%;
-    }
-
-    .btn-logout ::ng-deep .mat-button-wrapper {
-      color: var(--danger-darker-color) !important;
-      font-weight: 300;
-      text-decoration: underline;
-    }
   }
 }
 

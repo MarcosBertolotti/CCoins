@@ -14,6 +14,7 @@ import { PartyService } from '../../services/party.service';
 export class BarPrizesComponent implements OnInit {
 
   prizes: Prize[] = [];
+  loading = false;
 
   constructor(
     private toastService: ToastService,
@@ -21,9 +22,15 @@ export class BarPrizesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getPrizes();
+  }
+
+  getPrizes(): void {
+    this.loading = true;
     const prizesObserver: PartialObserver<ResponseList<Prize>> = {
       next: (prizes: ResponseList<Prize>) => {
         this.prizes = prizes?.list;
+        this.loading = false;
         console.log(this.prizes);
       },
       error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message)
@@ -31,4 +38,7 @@ export class BarPrizesComponent implements OnInit {
     this.partyService.getBarPrizes().subscribe(prizesObserver);
   }
 
+  redeemPrize(): void {
+
+  }
 }
