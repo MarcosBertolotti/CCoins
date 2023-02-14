@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { PartialObserver } from 'rxjs';
 import { ToastService } from 'src/app/shared/services/toast.services';
+import { CoinsReport } from '../../models/coins-report.model';
 import { CoinsService } from '../../services/coins.service';
 
 @Component({
@@ -21,8 +22,8 @@ export class PartyCoinsComponent implements OnInit {
   }
 
   getPartyCoinsReport(): void {
-    const gamesObserver: PartialObserver<any> = {
-      next: (response: any) => {
+    const gamesObserver: PartialObserver<CoinsReport> = {
+      next: (response: CoinsReport) => {
         console.log(response);
       },
       error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message)

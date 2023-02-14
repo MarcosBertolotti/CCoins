@@ -75,6 +75,14 @@ button[mat-raised-button] {
   }
 }
 
+button[mat-raised-button].dark.mat-button-disabled {
+  background-color: #ffffff1f;
+
+  span {
+    color: #bbbbbb42;
+  }
+}
+
 button[mat-stroked-button] {
   border-width: 1px;
   border-style: solid;
@@ -97,6 +105,16 @@ button[mat-stroked-button] {
     
     span {
       color:  var(--primary-base-color);
+    }
+  }
+}
+
+button[mat-stroked-button].dark.mat-button-disabled {
+  &[color='primary'] {
+    border-color: #ffffff1f;
+
+    span {
+      color:#bbbbbb42;
     }
   }
 }
@@ -384,13 +402,5 @@ input::-webkit-calendar-picker-indicator{
 
   .mat-input-element::placeholder{
     color: var(--dark-lighter-color);
-  }
-}
-
-button[mat-raised-button].dark.mat-button-disabled {
-  background-color: #ffffff1f;
-
-  span {
-    color: #bbbbbb42;
   }
 }

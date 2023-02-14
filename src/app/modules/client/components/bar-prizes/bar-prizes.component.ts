@@ -31,7 +31,6 @@ export class BarPrizesComponent implements OnInit {
       next: (prizes: ResponseList<Prize>) => {
         this.prizes = prizes?.list;
         this.loading = false;
-        console.log(this.prizes);
       },
       error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message)
     };

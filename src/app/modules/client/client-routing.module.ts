@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BarGamesComponent } from './components/bar-games/bar-games.component';
 import { BarPrizesComponent } from './components/bar-prizes/bar-prizes.component';
 import { BarTableInfoComponent } from './components/bar-table-info/bar-table-info.component';
 import { HomeComponent } from './components/home/home.component';
@@ -24,6 +25,7 @@ const routes: Routes = [
       { path: ClientPaths.HOME, component: HomeComponent },
       { path: ClientPaths.BAR_TABLE, component: BarTableInfoComponent },
       { path: ClientPaths.BAR_PRIZES, component: BarPrizesComponent },
+      { path: ClientPaths.BAR_GAMES, component: BarGamesComponent },
       { path: ClientPaths.PARTY_COINS, component: PartyCoinsComponent },
     ]
   },

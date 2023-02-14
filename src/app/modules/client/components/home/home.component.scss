@@ -46,7 +46,20 @@
 
       .img-title {
         position: absolute;
-        text-shadow: -10px -5px 3px #532909
+        text-shadow: -10px -5px 3px #532909;
+      }
+    }
+  }
+
+  .card-container.games {
+    button {
+      .img-title {
+        text-shadow: -10px -5px 3px #532909;
+        z-index: 1;
+      }
+
+      img {
+        filter: brightness(80%);
       }
     }
   }

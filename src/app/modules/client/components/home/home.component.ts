@@ -79,6 +79,10 @@ export class HomeComponent implements OnInit {
     this.router.navigate([ClientPaths.BAR_PRIZES]);
   }
 
+  goToBarGames(): void {
+    this.router.navigate([ClientPaths.BAR_GAMES]);
+  }
+
   getBarGames(): void {
     const gamesObserver: PartialObserver<any> = {
       next: (response: ResponseList<Game>) => {

@@ -5,5 +5,6 @@ export enum ClientPaths {
   WELCOME = 'welcome',
   BAR_TABLE = 'bar_table',
   BAR_PRIZES = 'bar_prizes',
-  PARTY_COINS = 'party-coins'
+  BAR_GAMES = 'bar_games',
+  PARTY_COINS = 'party_coins'
 }
