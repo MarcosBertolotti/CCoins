@@ -94,7 +94,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
       width: '80%',
       backdropClass: 'back-drop-dialog',
       panelClass: 'custom-dialog-container-dark',
-      disableClose: true,
       data: this.me,
     });
 
