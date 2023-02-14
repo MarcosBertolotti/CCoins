@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.currentVoting = this.playerService.currentVoting;
     this.subscription.add(this.playerService.currentVoting$.subscribe((value: Voting[]) =>
-      this.currentVoting = value
+      this.currentVoting = value.sort((a, b) => b.votes - a.votes)
     ));
 
     this.currentWinnerSong = this.playerService.winnerSong;

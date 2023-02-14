@@ -6,13 +6,21 @@
         [spotifyPlayer]="currentSong"
         [showAppLogo]="false">
       </app-spotify-player>
-      <button
-        *ngIf="voteGame && currentVoting && currentVoting.length > 0"
-        mat-stroked-button
-        color="accent"
-        (click)="openVotingDialog()">
-        Vota la siguiente y ganá {{ voteGame.points }} puntos
-      </button>
+      <ng-container *ngIf="voteGame && currentVoting && currentVoting.length > 0">
+        <button
+          mat-stroked-button
+          color="accent"
+          (click)="openVotingDialog()">
+          Vota la siguiente y ganá {{ voteGame.points }} puntos
+        </button>
+        <div class="voting">
+          <h1>Votación actual:</h1>
+          <ng-container *ngFor="let voteOption of currentVoting; index as index">
+            <p><span>{{index + 1}}. ({{ voteOption.votes}} {{ voteOption.votes === 1 ? 'voto' : 'votos'}})</span> {{ voteOption.name }}</p>
+          </ng-container>
+          <mat-divider *ngIf="currentWinnerSong"></mat-divider>
+        </div>
+      </ng-container>
       <div class="winner" *ngIf="currentWinnerSong">
         <h1>Última canción ganadora ({{ currentWinnerSong.votes}} {{ currentWinnerSong.votes === 1 ? 'voto' : 'votos' }}):</h1>
         <p>{{ currentWinnerSong.name }}</p>
