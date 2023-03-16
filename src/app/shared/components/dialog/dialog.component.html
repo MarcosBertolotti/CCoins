@@ -10,7 +10,7 @@
     mat-stroked-button
     *ngIf="data.canCancel"
     (click)="cancel()">
-    {{ data.closeMessage ? (data.closeMessage) : "dialog_close" }}
+    {{ data.closeMessage ? (data.closeMessage) : "Cerrar" }}
   </button>
   <button
     mat-raised-button
@@ -18,7 +18,7 @@
     cdkFocusInitial
     *ngFor="let button of data.actions;"
     (click)="execute(button.action)">
-    {{button.message }}
+    {{button.message || 'Aceptar' }}
     <ng-content select="[icon]"></ng-content>
   </button>
 </div>

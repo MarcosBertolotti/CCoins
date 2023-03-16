@@ -22,7 +22,9 @@ export class DialogComponent implements OnInit {
   }
 
   execute(action: () => void){
-    action()
+    if(action)
+      action();
+      
     if(this.data.canClose)
       this.dialogRef.close()
   }

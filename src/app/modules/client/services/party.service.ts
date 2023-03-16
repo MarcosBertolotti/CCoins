@@ -55,6 +55,7 @@ export class PartyService {
     private requestService: RequestService,
   ) { }
 
+  // REVISAR retorno
   getCurrentParty(idParty: string): Observable<Party> {
     const partyInfo = localStorage.getItem("party")!;
     const party = partyInfo ? JSON.parse(partyInfo) : undefined;
@@ -83,11 +84,22 @@ export class PartyService {
     }));
   }
 
+  getCurrentCoins(idParty: string): Observable<Value | number> {
+    if(this.coins)
+      return this.coins$;
+    
+    return this.getCoins(idParty);
+  }
+
   getBarPrizes(): Observable<ResponseList<Prize>> {
     return this.http.get<ResponseList<Prize>>(`${this.apiURL}/bar-prizes`);
   }
 
   getBarGames(): Observable<ResponseList<Game>> {
     return this.http.get<any>(`${this.apiURL}/bar/games`);
+  }
+
+  redeemPrize(idPrize: number): Observable<{ code: number, message: string }> {
+    return this.http.post<{ code: number, message: string }>(`${this.apiURL}/prizes/buy`, { id: idPrize });
   }
 }
