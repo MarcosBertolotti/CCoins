@@ -1,11 +1,15 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
+import { PartialObserver, Subscription } from 'rxjs';
 import { Game } from 'src/app/models/game.model';
+import { NotificationService } from 'src/app/shared/services/notification.service';
+import { ToastService } from 'src/app/shared/services/toast.services';
 import { SpotifySong } from '../../models/spotifySong.model';
 import { Voting } from '../../models/voting.model';
 import { WinnerSong } from '../../models/winner-song.model';
 import { PlayerService } from '../../services/player.service';
+import { VoteService } from '../../services/vote.service';
 import { VotingComponent } from '../voting/voting.component';
 
 @Component({
@@ -25,7 +29,10 @@ export class PlayerComponent implements OnInit {
   
   constructor(
     private matDialog: MatDialog,
+    private voteService: VoteService,
+    private toastService: ToastService,
     private playerService: PlayerService,
+    private notificationService: NotificationService,
   ) { }
 
   ngOnInit(): void {
@@ -47,6 +54,23 @@ export class PlayerComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  checkCanVote(): void {
+    const voteObservable: PartialObserver<any> = {
+      next: (response: any) => {
+        console.log("esta todo bien, ", response);
+        this.openVotingDialog();
+      },
+      error: (error: HttpErrorResponse) => {
+        const message = error.error?.message;
+        if(message)
+          this.notificationService.openWarningDialog([message]);
+        else
+          this.toastService.openErrorToast();
+      }
+    }
+    this.voteService.checkCanVote().subscribe(voteObservable);
   }
 
   openVotingDialog(): void {

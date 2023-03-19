@@ -19,4 +19,8 @@ export class VoteService {
     return this.http.post<void>(`${this.apiURL}`, { id: idSong });
   }
 
+  checkCanVote(): Observable<any> {
+    return this.http.get<void>(`${this.apiURL}/check-vote`);
+  }
+
 }
