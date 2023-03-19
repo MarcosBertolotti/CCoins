@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { ResponseData } from "src/app/models/response-data.model";
 import { environment } from "src/environments/environment";
 
 
@@ -19,8 +20,8 @@ export class VoteService {
     return this.http.post<void>(`${this.apiURL}`, { id: idSong });
   }
 
-  checkCanVote(): Observable<any> {
-    return this.http.get<void>(`${this.apiURL}/check-vote`);
+  checkCanVote(): Observable<ResponseData<void>> {
+    return this.http.get<ResponseData<void>>(`${this.apiURL}/check-vote`);
   }
 
 }

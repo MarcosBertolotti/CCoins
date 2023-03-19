@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PartialObserver, Subscription } from 'rxjs';
 import { Game } from 'src/app/models/game.model';
+import { ResponseData } from 'src/app/models/response-data.model';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { ToastService } from 'src/app/shared/services/toast.services';
 import { SpotifySong } from '../../models/spotifySong.model';
@@ -57,11 +58,8 @@ export class PlayerComponent implements OnInit {
   }
 
   checkCanVote(): void {
-    const voteObservable: PartialObserver<any> = {
-      next: (response: any) => {
-        console.log("esta todo bien, ", response);
-        this.openVotingDialog();
-      },
+    const voteObservable: PartialObserver<ResponseData<void>> = {
+      next: (response: ResponseData<void>) => this.openVotingDialog(),
       error: (error: HttpErrorResponse) => {
         const message = error.error?.message;
         if(message)
