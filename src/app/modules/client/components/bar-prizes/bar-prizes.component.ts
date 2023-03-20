@@ -41,11 +41,9 @@ export class BarPrizesComponent implements OnInit {
   getPrizes(): void {
     this.loading = true;
     const prizesObserver: PartialObserver<ResponseList<Prize>> = {
-      next: (prizes: ResponseList<Prize>) => {
-        this.prizes = prizes?.list;
-        this.loading = false;
-      },
-      error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message)
+      next: (prizes: ResponseList<Prize>) => this.prizes = prizes?.list,
+      error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message),
+      complete: () => this.loading = false
     };
     this.partyService.getBarPrizes().subscribe(prizesObserver);
   }
