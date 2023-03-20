@@ -4,7 +4,7 @@
   </div>
 
   <div class="list-container">
-    <h2 class="title">Registro de coins</h2>
+    <h2 class="title">Coins del último registro: {{ coinsReport.totalCoins || 0 }}</h2>
 
     <mat-nav-list>
       <ng-container *ngFor="let detail of coinsReport.report; last as last">

@@ -25,5 +25,7 @@
 </div>
 
 <ng-template #notGames>
-  <h1 *ngIf="!loading">Lo sentimos, no hay actividades disponibles</h1>
+  <div class="empty-response" *ngIf="!loading">
+    <h1>Lo sentimos, no hay actividades disponibles</h1>
+  </div>
 </ng-template>

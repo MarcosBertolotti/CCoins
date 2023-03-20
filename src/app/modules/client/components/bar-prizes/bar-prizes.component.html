@@ -22,5 +22,7 @@
 </div>
 
 <ng-template #notPrizes>
-  <h1 *ngIf="!loading">Lo sentimos, no hay premios disponibles para canjear</h1>
+  <div class="empty-response" *ngIf="!loading">
+    <h1>Lo sentimos, no hay premios disponibles para canjear</h1>
+  </div>
 </ng-template>
