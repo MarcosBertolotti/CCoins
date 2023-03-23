@@ -34,10 +34,13 @@ export class PartyCoinsComponent implements OnInit {
     const gamesObserver: PartialObserver<CoinsReport> = {
       next: (response: CoinsReport) => {
         this.coinsReport = response;
+        this.loading = false;
         console.log(response);
       },
-      error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message),
-      complete: () => this.loading = false
+      error: (error: HttpErrorResponse) => {
+        this.toastService.openErrorToast(error.error?.message);
+        this.loading = false;
+      },   
     };
     this.coinsService.partyReport().subscribe(gamesObserver);
   }

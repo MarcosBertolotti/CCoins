@@ -9,7 +9,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class DialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<DialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { messages: string[], title: string, closeMessage: string, canCancel: boolean, canClose: boolean, actions: any }) 
+    @Inject(MAT_DIALOG_DATA) public data: { messages: string[], title: string, closeMessage: string, canCancel: boolean, canClose: boolean, actions: { action?: () => void , message?: string }[] }) 
     {
       this.data.canClose = this.data.canClose ?? true
     }
@@ -18,7 +18,7 @@ export class DialogComponent implements OnInit {
   }
 
   cancel(){
-    this.dialogRef.close()
+    this.dialogRef.close(false)
   }
 
   execute(action: () => void){
@@ -26,7 +26,7 @@ export class DialogComponent implements OnInit {
       action();
       
     if(this.data.canClose)
-      this.dialogRef.close()
+      this.dialogRef.close(true)
   }
 
 }

@@ -43,7 +43,10 @@ export class VotingComponent implements OnInit {
         this.toastService.openSuccessToast("Su voto ha sido registrado exitosamente!");
         this.matDialog.close();
       },
-      error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message)
+      error: (error: HttpErrorResponse) => {
+        const message = error.error?.message?.includes('[403]') ? 'Lo sentimos, Ya has votado en esta sesión, espera a la siguiente para volver a votar!' : error.error?.message;
+        this.toastService.openErrorToast(message)
+      }
     };    
     this.voteService.voteNextSong(this.optionVote.value).subscribe(voteObserver);
   }

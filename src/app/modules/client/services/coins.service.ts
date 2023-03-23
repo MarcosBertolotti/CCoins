@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { RequestService } from "src/app/services/request.service";
 import { environment } from "src/environments/environment";
 import { CoinsReport } from "../models/coins-report.model";
 
@@ -13,10 +14,12 @@ export class CoinsService {
 
   constructor(
     private http: HttpClient,
+    private requestService: RequestService,
   ) { }
 
-  partyReport(): Observable<CoinsReport> {
-    return this.http.get<CoinsReport>(`${this.apiURL}/party/report`);
+  partyReport(page = 0, size = 10, sort = 'id,desc'): Observable<CoinsReport> {
+    const url = this.requestService.parseUrlQueryParams(`${this.apiURL}/party/report`, { page, size, sort });
+    return this.http.get<CoinsReport>(url);
   }
 
 }

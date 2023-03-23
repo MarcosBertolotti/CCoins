@@ -41,11 +41,36 @@ export class BarPrizesComponent implements OnInit {
   getPrizes(): void {
     this.loading = true;
     const prizesObserver: PartialObserver<ResponseList<Prize>> = {
-      next: (prizes: ResponseList<Prize>) => this.prizes = prizes?.list,
-      error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message),
-      complete: () => this.loading = false
+      next: (prizes: ResponseList<Prize>) => {
+        this.prizes = prizes?.list;
+        this.loading = false;
+      },
+      error: (error: HttpErrorResponse) => {
+        this.toastService.openErrorToast(error.error?.message);
+        this.loading = false;
+      }
     };
     this.partyService.getBarPrizes().subscribe(prizesObserver);
+  }
+
+  openReedemPrizeDialog(prize: Prize): void {
+    this.matDialog.open(DialogComponent, {
+      panelClass: 'custom-dialog-container',
+      width: '80%',
+      maxWidth: '350px',
+      data: {
+        title: 'Atención!',
+        messages: [`Deseas canjear '${prize.name}'?`, `Se le descontarán ${prize.points} coins a tu party.`],
+        canCancel: true,
+        closeMessage: 'Cancelar',
+        actions: [{
+          message: 'Canjear'
+        }],
+      },
+    }).beforeClosed().subscribe((response) => {
+      if(response)
+        this.redeemPrize(prize);
+    });
   }
 
   redeemPrize(prize: Prize): void {
@@ -82,7 +107,7 @@ export class BarPrizesComponent implements OnInit {
           const messages = ['No tienes suficientes puntos para canjear el premio. Participá en las votaciones y demas actividades del bar para conseguir mas coins.'];
           this.notificationService.openWarningDialog(messages);
         } else 
-          this.redeemPrize(prize);
+          this.openReedemPrizeDialog(prize);
       },
       error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message)
     };

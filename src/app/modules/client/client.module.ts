@@ -30,6 +30,7 @@ import { VotingComponent } from './components/voting/voting.component';
 import { PlayerComponent } from './components/player/player.component';
 import { PartyCoinsComponent } from './components/party-coins/party-coins.component';
 import { BarGamesComponent } from './components/bar-games/bar-games.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { BarGamesComponent } from './components/bar-games/bar-games.component';
     MatRadioModule,
     MatDividerModule,
     MatListModule,
+    MatPaginatorModule,
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { floatLabel: 'always' } },
