@@ -82,17 +82,10 @@ export class BarPrizesComponent implements OnInit {
           this.notificationService.openWarningDialog([response.message]);
       },
       error: (error: HttpErrorResponse) => {
-       if(error.error?.code && error.error.code >= 0 && error.error.message) {
-        if(error.error.code === "0052")
-          this.notificationService.openWarningDialog([
-            'Lo sentimos, el premio no esta disponible en este momento.', 
-            `Fecha de validez: ${moment(prize.startDate).format('DD/MM/YYYY')} a ${moment(prize.endDate).format('DD/MM/YYYY')}.`
-          ]);
-        else
+        if(error.status === 400 && error.error.code === "0052" && error.error.message)
           this.notificationService.openWarningDialog([error.error.message]);
-       }
-       else
-        this.toastService.openErrorToast(error.error?.message)
+        else
+          this.toastService.openErrorToast(error.error?.message)
       }
     };
     this.partyService.redeemPrize(prize.id!).subscribe(redeemPrizeObserver);
