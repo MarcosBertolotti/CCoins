@@ -77,7 +77,7 @@ export class BarPrizesComponent implements OnInit {
     const redeemPrizeObserver: PartialObserver<{ code: number, message: string }> = {
       next: (response: { code: number, message: string }) => {
         if(response.code == 0)
-          this.openSuccessfullReddemPrizeDialog(prize)
+          this.openSuccessfullReedemPrizeDialog(prize)
         else
           this.notificationService.openWarningDialog([response.message]);
       },
@@ -114,14 +114,14 @@ export class BarPrizesComponent implements OnInit {
     this.partyService.getCurrentCoins(this.me.partyId).pipe(take(1)).subscribe(coinsObserver);
   }
 
-  openSuccessfullReddemPrizeDialog(prize: Prize): void {
+  openSuccessfullReedemPrizeDialog(prize: Prize): void {
     this.matDialog.open(DialogComponent, {
       panelClass: 'custom-dialog-container',
       width: '80%',
       maxWidth: '350px',
       data: {
         title: 'Felicitaciones!',
-        messages: [`Acabas de ganar: ${prize.name}.`, 'Espero que disfrutes tu premio!'],
+        messages: [`Acabas de ganar: '${prize.name}'.`, 'Espero que disfrutes tu premio!'],
         canCancel: false,
         actions: [{}],
       },
