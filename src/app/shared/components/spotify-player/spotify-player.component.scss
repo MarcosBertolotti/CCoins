@@ -34,6 +34,18 @@
   height: auto;
 }
 
+.logo.open-link {
+  cursor: pointer;
+}
+
+.logo.open-link:hover {
+  background-color: #1b161666;// 40%
+}
+
+.logo.open-link:active {
+  background-color: #1b1616B3 // 70%
+}
+
 .spotify {
   width: 100%;
 
@@ -72,7 +84,7 @@
       }
   
       ::ng-deep .mat-progress-bar-fill::after {
-        background-color: #1E457C;
+        background-color: var(--primary-darker-color); // #1E457C
       }
       
       ::ng-deep .mat-progress-bar-buffer {

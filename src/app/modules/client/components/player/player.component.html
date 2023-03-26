@@ -1,7 +1,8 @@
 <ng-container *ngIf="currentSong else notSong">
   <app-spotify-player
     [spotifyPlayer]="currentSong"
-    [showAppLogo]="false">
+    [showAppLogo]="false"
+    [openSongLink]="true">
   </app-spotify-player>
   <ng-container *ngIf="voteGame && currentVoting && currentVoting.length > 0">
     <button

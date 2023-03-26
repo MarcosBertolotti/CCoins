@@ -10,14 +10,27 @@ import { SpotifySong } from 'src/app/modules/client/models/spotifySong.model';
 export class SpotifyPlayerComponent implements OnInit {
 
   @Input()
-  spotifyPlayer!: SpotifyPlayer | SpotifySong;
+  spotifyPlayer!: SpotifyPlayer | SpotifySong; // SpotifyPlayer = Spotify Api response. SpotifySong = SSE response
 
   @Input()
   showAppLogo = true;
 
+  @Input()
+  openSongLink = false;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  openSpotifySong(): void {
+    if(this.openSongLink) {
+      const songLink = (this.spotifyPlayer as SpotifySong)?.songLink;
+
+      if(songLink) {
+        window.open(songLink, '_blank');
+      }
+    }
   }
 
 }

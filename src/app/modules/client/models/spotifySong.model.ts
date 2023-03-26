@@ -17,4 +17,5 @@ export interface SpotifySong {
   }
   progress_ms: number,
   shuffle_state: boolean,
+  songLink: string,
 }
