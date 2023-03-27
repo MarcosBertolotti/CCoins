@@ -12,12 +12,25 @@ mat-radio-group {
   flex-direction: column;
   margin-bottom: 1rem;
 }
+/*
+mat-radio-group.not-checked ::ng-deep .mat-radio-button {
+  border: 1px solid gray;
+}
+*/
 
-mat-radio-button {
+.mat-radio-button {
+  background-color: transparent;
+  border: 1px solid var(--danger-base-color);
+  border-radius: 15px;
+  padding: .375rem .5rem;
   margin-bottom: 1rem;
 }
 
-mat-radio-button ::ng-deep .mat-radio-label-content {
+.mat-radio-button.mat-radio-checked {
+  border: 1px solid var(--primary-base-color);
+}
+
+.mat-radio-button ::ng-deep .mat-radio-label-content {
   width: 100%;
   font-weight: 400;
   white-space: normal;

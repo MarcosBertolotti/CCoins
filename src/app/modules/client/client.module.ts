@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { ErrorStateMatcher, MatRippleModule } from '@angular/material/core';
 
 import { ShowOnDirtyTouchedOrSubmittedErrorStateMatcher } from 'src/app/shared/config/error-state-matcher.config';
 

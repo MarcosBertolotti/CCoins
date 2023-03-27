@@ -30,7 +30,7 @@ export class ClientInterceptor implements HttpInterceptor {
     
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 401 && this.clientService.clientTable) {
+        if (error.status === 401 && error.error?.code === "0043" && this.clientService.clientTable) {
           this.openDialog();
         }
         return throwError(error);

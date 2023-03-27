@@ -18,11 +18,11 @@ export class VotingComponent implements OnInit {
   currentVoting: Voting[];
 
   constructor(
-    private matDialog: MatDialogRef<VotingComponent>,
+    public matDialog: MatDialogRef<VotingComponent>,
     private toastService: ToastService,
     private formBuilder: FormBuilder,
     private voteService: VoteService,
-    @Inject(MAT_DIALOG_DATA) data: Voting[],
+    @Inject(MAT_DIALOG_DATA) public data: Voting[],
   ) { 
     this.currentVoting = data;
   }

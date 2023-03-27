@@ -14,7 +14,7 @@
     <div class="voting">
       <h1>Votación actual:</h1>
       <ng-container *ngFor="let voteOption of currentVoting; index as index">
-        <p><span>{{index + 1}}. ({{ voteOption.votes}} {{ voteOption.votes === 1 ? 'voto' : 'votos'}})</span> {{ voteOption.name }}</p>
+        <p><span>{{index + 1}}. </span> {{ voteOption.name }}</p>
       </ng-container>
       <mat-divider *ngIf="currentWinnerSong"></mat-divider>
     </div>

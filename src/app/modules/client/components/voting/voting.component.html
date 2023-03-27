@@ -1,11 +1,11 @@
 <form [formGroup]="formGroup" (ngSubmit)="vote()">
   <ng-container *ngIf="currentVoting && currentVoting.length > 0; else notVoting">
-    <h1>Votación actual</h1>
-    <mat-radio-group #radioGroup="matRadioGroup" formControlName="optionVote" color="primary" class="fill">
+    <h1>¿Qué canción te gustaría escuchar?</h1>
+    <mat-radio-group #radioGroup="matRadioGroup" formControlName="optionVote" color="primary" class="fill" [ngClass]="{'not-checked': !optionVote.value}">
       <ng-container *ngFor="let voteOption of currentVoting">
-      <mat-radio-button [value]="voteOption.id">
-        {{ voteOption.name }} ({{ voteOption.votes}} {{ voteOption.votes === 1 ? 'voto' : 'votos'}})
-      </mat-radio-button>
+        <mat-radio-button [value]="voteOption.id" mat-stroked-button>
+          {{ voteOption.name }}
+        </mat-radio-button>
       </ng-container>
     </mat-radio-group>
   </ng-container>
