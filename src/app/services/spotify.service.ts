@@ -60,8 +60,6 @@ export class SpotifyService {
   sendSong(spotifyPlayer: SpotifyPlayer): void {
     const currentBar: Bar = this.barService.currentBar;
 
-    console.log("spotifyservice: ", currentBar);
-
     if(currentBar) {
 
       const body = {
@@ -73,6 +71,7 @@ export class SpotifyService {
           item: spotifyPlayer.item,
           context: spotifyPlayer.context,
           shuffle_state: spotifyPlayer.shuffle_state,
+          repeat_state: spotifyPlayer.repeat_state,
         }
       }
 

@@ -1,7 +1,7 @@
 <app-toolbar
-  *ngIf="(!isHandset && !sidenav.drawer?.opened) || isHandset"
+  *ngIf="(!isHandset && !sidenav?.drawer?.opened) || isHandset"
   [isHandset$]="isHandset$"
-  [drawer]="sidenav.drawer">
+  [drawer]="sidenav?.drawer!">
 </app-toolbar>
 <app-sidenav
   #sidenav

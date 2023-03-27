@@ -1,6 +1,6 @@
 <div 
   class="logo" 
-  [ngClass]="{'playing': spotifyPlayer, 'hide-logo': !showAppLogo, 'open-link': $any(spotifyPlayer).songLink}" 
+  [ngClass]="{'playing': spotifyPlayer, 'hide-logo': !showAppLogo, 'open-link': openSongLink}" 
   (click)="openSpotifySong()">
 
   <app-logo name="chopp_coins_2" [ngClass]="{'playing': spotifyPlayer?.is_playing}" *ngIf="showAppLogo"></app-logo>
