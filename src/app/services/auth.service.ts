@@ -63,9 +63,10 @@ export class AuthService {
 
   spotifyLogin(): void {
     this.spotifyService.getCredentials()
-    .then((response: SpotifyCredentials) =>
+    .then((response: SpotifyCredentials) => {
+      this.spotifyService.spotifyCredentials = response;
       this.spotifyService.redirectToAuthorize(response)
-    )
+    })
     .catch((error: HttpErrorResponse) => console.log(error));
   }
 

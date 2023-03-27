@@ -11,12 +11,14 @@ import { AuthService } from '../services/auth.service';
 import { catchError, tap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../shared/components/dialog/dialog.component';
+import { SpotifyService } from '../services/spotify.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
   constructor(
     private authService: AuthService,
+    private spotifyService: SpotifyService,
     private matDialog: MatDialog,
   ) { }
 
@@ -47,10 +49,11 @@ export class AuthInterceptor implements HttpInterceptor {
   private addHeaders(request: HttpRequest<any>): HttpRequest<any> {
     let token: string | null;
 
-    if(request.url.includes('https://api.spotify.com/v1')) {
-      const hash = localStorage.getItem('hash');
-      token = hash ? JSON.parse(hash)?.access_token : null;
-    } else 
+    if(request.url.includes('https://accounts.spotify.com/api/token'))
+      token = null;
+    else if(request.url.includes('https://api.spotify.com/v1'))
+      token = this.spotifyService.getAccessTokenFromStorage();
+    else 
       token = this.authService.getToken();
 
     if(token) {

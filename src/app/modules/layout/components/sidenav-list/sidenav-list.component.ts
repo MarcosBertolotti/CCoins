@@ -2,10 +2,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { interval, PartialObserver, Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { interval, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AppPaths } from 'src/app/enums/app-paths.enum';
 import { Bar } from 'src/app/models/bar-model';
+import { SpotifyCredentials } from 'src/app/models/spotify-credentials.model';
 import { SpotifyPlayer } from 'src/app/models/spotify-player-model';
 import { AuthService } from 'src/app/services/auth.service';
 import { BarService } from 'src/app/services/bar.service';
@@ -51,6 +53,8 @@ export class SidenavListComponent implements OnInit {
   );
 
   constructor(
+    private router: Router,
+    private route: ActivatedRoute,
     private domSanitizer: DomSanitizer,
     private matIconRegistry: MatIconRegistry,
     private authService: AuthService,
@@ -61,7 +65,7 @@ export class SidenavListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getMeSpotifyPlayer();
+    this.handleSpotifyLogin();
     this.subscription.add(this.spotifyPlayerInterval$.subscribe());
   }
 
@@ -69,21 +73,40 @@ export class SidenavListComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
-  getMeSpotifyPlayer(): void {
-    const hash = this.spotifyService.getHashUrlParam();
+  handleSpotifyLogin(): void {
+    this.route.queryParams.subscribe((params) => {
+      const code = params['code'];
 
-    this.spotifyService.mePlayer(hash?.token)
+      if (code && !this.spotifyService.isLoggedIn()) { 
+        this.getCredentials(code);
+        // remove code from params
+        const newUrl = this.router.createUrlTree([], { queryParams: {} }).toString();
+        window.history.replaceState({}, '', newUrl);
+      } else 
+        this.getMeSpotifyPlayer();
+    });
+  }
+
+  getCredentials(code: string): void {
+    this.spotifyService.getCredentials()
+    .then((response: SpotifyCredentials) => {
+      this.spotifyService.spotifyCredentials = response;
+      this.spotifyService.getAccessToken(code).subscribe((response) => {
+        this.spotifyService.saveTokens(response.access_token, response.expires_in, response.refresh_token);
+        this.getMeSpotifyPlayer();
+      });
+    })
+    .catch((error: HttpErrorResponse) => console.log(error));
+  }
+
+  getMeSpotifyPlayer(): void {
+    this.spotifyService.mePlayer()
     .then((response: SpotifyPlayer) => {
       this.spotifyPlayer = response;
       if(response)
         this.spotifyService.sendSong(response);
     })
-    .catch((error: HttpErrorResponse) => {
-      if(error.status === 401) {
-        console.error("token expirado: WIP refresh token");
-      }
-      console.error(error.error?.message);
-    });
+    .catch((error: HttpErrorResponse) => console.error(error.error?.message));
   }
 
   registerIcons(): void {
