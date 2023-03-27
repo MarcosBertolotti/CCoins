@@ -1,6 +1,6 @@
 <mat-toolbar class="mat-elevation-z2" > <!-- *ngIf="(isHandset$ | async)" -->
   <mat-toolbar-row>
-    <p class="wrap-text ellipsis-second-line" (click)="openChangeNameDialog()">{{ nickName$ | async }}</p>
+    <p class="nickname wrap-text ellipsis-second-line" (click)="openChangeNameDialog()">{{ nickName$ | async }}</p>
 
     <button
       *ngIf="currentParty"

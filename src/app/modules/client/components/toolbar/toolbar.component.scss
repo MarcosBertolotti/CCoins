@@ -22,6 +22,10 @@ p {
   width: 100%;
 }
 
+p.nickname {
+  cursor: pointer;
+}
+
 button[mat-raised-button] {
   background-color: #760000;
   border-radius: 30px;
