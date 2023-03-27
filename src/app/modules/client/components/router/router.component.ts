@@ -1,10 +1,5 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { PartialObserver } from 'rxjs';
-import { Game } from 'src/app/models/game.model';
-import { ResponseList } from 'src/app/models/response-list.model';
 import { NotificationService } from 'src/app/shared/services/notification.service';
-import { ToastService } from 'src/app/shared/services/toast.services';
 import { SseEvents } from '../../enums/sse-events.enum';
 import { ClientTableDTO } from '../../models/client-table.dto';
 import { ClientService } from '../../services/client.service';
@@ -23,7 +18,6 @@ export class RouterComponent implements OnInit {
   
   constructor(
     private sseService: SseService,
-    private toastService: ToastService,
     private partyService: PartyService,
     private playerService: PlayerService,
     private clientService: ClientService,
@@ -52,35 +46,21 @@ export class RouterComponent implements OnInit {
         //  this.playerService.newVoting = true;
       } 
       else if(event?.type === SseEvents.YOU_WIN_SONG_VOTE_SPTF) {
-        this.getVoteGame();
+        const messages = JSON.parse(event.data);
+        if(messages?.list && messages.list.length > 0) {
+          this.openWinSongVoteDialog(messages.list);
+          this.getPartyCoins();
+        }
       }
     });
   }
 
-  openWinSongVoteDialog(gamePoints: number = 0): void {
+  openWinSongVoteDialog(messages: string[]): void {
     this.notificationService.openDialog(
-      [
-        `Su party ha ganado la votación, recibirán ${gamePoints} coins de recompensa!`, 
-        'Pueden seguir participando para canjear la recompensa que mas les guste.'
-      ],
+      messages,
       'Felicitaciones!',
       false,
     );
-  }
-
-  getVoteGame(): void {
-    const gamesObserver: PartialObserver<ResponseList<Game>> = {
-      next: (games: ResponseList<Game>) => {
-        const game = games?.list?.find((game: Game) => game.gameType?.name === 'VOTE');
-
-        if(game && game.points > 0) {
-          this.openWinSongVoteDialog(game.points);
-          this.getPartyCoins();
-        }
-      },
-      error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message)
-    };
-    this.partyService.getBarGames().subscribe(gamesObserver);
   }
 
   getPartyCoins(): void {

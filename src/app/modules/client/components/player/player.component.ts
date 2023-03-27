@@ -52,7 +52,7 @@ export class PlayerComponent implements OnInit {
     this.subscription.add(this.playerService.currentWinnerSong$.subscribe((winnerSong: WinnerSong) => {
       this.currentWinnerSong = winnerSong;
 
-      if(this.dialogRef) {
+      if(this.dialogRef && this.dialogRef.getState() != 2) {
         this.dialogRef.close();
         this.toastService.openToast("La votación ha finalizado.");
         this.dialogRef = undefined;
@@ -84,6 +84,6 @@ export class PlayerComponent implements OnInit {
       backdropClass: 'back-drop-dialog',
       panelClass: 'custom-dialog-container-dark',
       data: this.currentVoting,
-    });
+    })
   }
 }
