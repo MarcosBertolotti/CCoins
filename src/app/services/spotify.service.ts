@@ -107,7 +107,7 @@ export class SpotifyService {
 
     if(currentBar) {
       const { type, uri } = spotifyPlayer?.context;
-      const { artists, album, duration_ms, track_number } = spotifyPlayer?.item;
+      const { artists, album, duration_ms, track_number, id, name, uri: uriItem } = spotifyPlayer?.item;
 
       const body = {
         id: currentBar.id,
@@ -115,7 +115,7 @@ export class SpotifyService {
         playback: {
           progress_ms: spotifyPlayer.progress_ms,
           is_playing: spotifyPlayer.is_playing,
-          item: { artists, album, duration_ms, track_number },
+          item: { artists, album, duration_ms, track_number, id, name, uri: uriItem },
           context: { type, uri },
           shuffle_state: spotifyPlayer.shuffle_state,
           repeat_state: spotifyPlayer.repeat_state,
