@@ -70,7 +70,7 @@ export class SpotifyService {
 
     if(!accessToken || !tokenExpirationTime) return true;
 
-    return new Date(this.tokenExpirationTime) < new Date();
+    return new Date(+tokenExpirationTime) < new Date();
   }
 
   isLoggedIn(): boolean {
@@ -106,6 +106,8 @@ export class SpotifyService {
     const currentBar: Bar = this.barService.currentBar;
 
     if(currentBar) {
+      const { type, uri } = spotifyPlayer?.context;
+
       const body = {
         id: currentBar.id,
         token: this.getAccessTokenFromStorage(),
@@ -113,7 +115,7 @@ export class SpotifyService {
           progress_ms: spotifyPlayer.progress_ms,
           is_playing: spotifyPlayer.is_playing,
           item: spotifyPlayer.item,
-          context: spotifyPlayer.context,
+          context: { type, uri },
           shuffle_state: spotifyPlayer.shuffle_state,
           repeat_state: spotifyPlayer.repeat_state,
         }

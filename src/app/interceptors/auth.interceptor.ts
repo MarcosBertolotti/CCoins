@@ -39,6 +39,7 @@ export class AuthInterceptor implements HttpInterceptor {
       }),
       catchError((error) => {
         if (this.authService.getToken() && !this.authService.isAuthenticated() && error.status === 401) {
+          this.authService.logOut();
           this.openDialog();
         }
         return throwError(error);
@@ -80,9 +81,7 @@ export class AuthInterceptor implements HttpInterceptor {
         actions: [
           {
             message: 'Aceptar',
-            action: () => {
-              this.authService.logOut();
-            },
+            action: () => {} 
           },
         ],
       },
