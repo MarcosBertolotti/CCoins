@@ -43,8 +43,8 @@
     }
 
     mat-table {
-      // 56px = toolbar // 1rem = padding top // 104px = app title // // 63px = form field  48px = button // 3rem = margin button
-      max-height: calc(100vh - 56px - 1rem - 104px - 63px - 48px - 2rem);
+      // 56px = toolbar // 1rem = padding top // 52px = app title // // 63px = form field  48px = button // 3rem = margin button
+      max-height: calc(100vh - 56px - 1rem - 52px - 63px - 48px - 2rem);
       overflow-y: overlay;
     }
 

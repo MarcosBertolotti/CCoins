@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PartialObserver } from 'rxjs';
+import { PartialObserver, Subscription } from 'rxjs';
 import { Bar } from 'src/app/models/bar-model';
 import { Prize } from 'src/app/models/prize.model';
 import { BarService } from 'src/app/services/bar.service';
@@ -15,13 +15,15 @@ import { ToastService } from 'src/app/shared/services/toast.services';
   templateUrl: './prize-detail.component.html',
   styleUrls: ['./prize-detail.component.scss']
 })
-export class PrizeDetailComponent implements OnInit {
+export class PrizeDetailComponent implements OnInit, OnDestroy {
 
   bar!: Bar;
   idPrize!: number;
   prize!: Prize;
   formGroup!: FormGroup;
   minDate = new Date();
+
+  subscription = new Subscription();
 
   constructor(
     private route: ActivatedRoute,
@@ -42,17 +44,20 @@ export class PrizeDetailComponent implements OnInit {
     this.getCurrentBar(idBar);
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   private goToHome(): void {
     this.router.navigate(['/']);
   }
 
   buildForm() {
-    if(this.prize.startDate) {
+    if(this.prize.startDate)
       this.prize.startDate = this.parseArrayToDatePipe.transform(this.prize.startDate)
-    }
-    if(this.prize.endDate) {
+
+    if(this.prize.endDate)
       this.prize.endDate = this.parseArrayToDatePipe.transform(this.prize.endDate)
-    }
 
     this.formGroup = this.formBuilder.group({
       name: [this.prize.name, [Validators.required]],
@@ -73,7 +78,7 @@ export class PrizeDetailComponent implements OnInit {
         this.goToHome();
       },
     };
-    this.barService.getCurrentBar(idBar).subscribe(barObserver);  
+    this.subscription.add(this.barService.getCurrentBar(idBar).subscribe(barObserver));  
   }
 
   private getPrize(): void {

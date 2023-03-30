@@ -16,12 +16,12 @@ h2 {
 .title-center {
   margin: 0 auto;
   text-align: center;
-  padding-bottom: 1rem;
-  
+  display: none;
+
   img {
     padding-top: .5rem;
     width: 250px;
-    display: none;
+   
     height: auto;
   }
 }
@@ -29,8 +29,6 @@ h2 {
 @media (min-width: 960px) {
   .title-center {
     padding-bottom: 0;
-    img {
-      display: initial;
-    }
+    display: initial;
   }
 }

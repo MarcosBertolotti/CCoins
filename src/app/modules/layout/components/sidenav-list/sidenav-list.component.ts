@@ -13,6 +13,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { BarService } from 'src/app/services/bar.service';
 import { SpotifyService } from 'src/app/services/spotify.service';
 
+const { BAR, TABLES, PRIZES, ACTIVITIES, UPDATE, LIST } = AppPaths;
+
 @Component({
   selector: 'app-sidenav-list',
   templateUrl: './sidenav-list.component.html',
@@ -20,30 +22,7 @@ import { SpotifyService } from 'src/app/services/spotify.service';
 })
 export class SidenavListComponent implements OnInit {
 
-  items = [
-    {
-      route: AppPaths.BAR,
-      title: 'Mis bares',
-      icon: 'grid_view', // dashboard
-    },
-    {
-      route: '#',
-      title: 'Sección 2',
-      icon: 'article',
-    },
-    {
-      route: '#',
-      title: 'Sección 3',
-      icon: 'article',
-    },
-    {
-      route: '#',
-      title: 'Sección 4',
-      icon: 'article',
-    },
-  ];
-
-  paths = AppPaths;
+  items: { route: string, title: string, icon: string, display: boolean }[] = [];
 
   currentBar!: Bar;
   spotifyPlayer!: SpotifyPlayer;
@@ -65,12 +44,59 @@ export class SidenavListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getCurrentBar();
+    this.buildPaths();
     this.handleSpotifyLogin();
     this.subscription.add(this.spotifyPlayerInterval$.subscribe());
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  getCurrentBar(): void {
+    this.currentBar = this.barService.currentBar;
+    this.subscription.add(this.barService.currentBar$?.subscribe((currentBar: Bar) => {
+      if(currentBar) {
+        this.currentBar = currentBar;
+        this.buildPaths();
+      }
+    }));
+  }
+
+  buildPaths(): void {
+    this.items = [
+      {
+        route: `${BAR}/${LIST}`,
+        title: 'Dashboard',
+        icon: 'grid_view', // dashboard
+        display: true
+      },
+      {
+        route: `${BAR}/${UPDATE}/${this.currentBar?.id}`,
+        title: this.currentBar?.name,
+        icon: 'local_bar', // info
+        display: !!this.currentBar?.id
+      },
+      {
+        route: `${BAR}/${this.currentBar?.id}/${TABLES}`,
+        title: 'Mesas',
+        icon: 'table_bar',
+        display: !!this.currentBar?.id
+      },
+      {
+        route: `${BAR}/${this.currentBar?.id}/${ACTIVITIES}`,
+        title: 'Actividades',
+        icon: 'emoji_objects',
+        display: !!this.currentBar?.id
+      },
+      {
+        route: `${BAR}/${this.currentBar?.id}/${PRIZES}`,
+        title: 'Premios',
+        icon: 'emoji_events',
+        display: !!this.currentBar?.id
+      }
+    ];
   }
 
   handleSpotifyLogin(): void {
@@ -96,7 +122,7 @@ export class SidenavListComponent implements OnInit {
         this.getMeSpotifyPlayer();
       });
     })
-    .catch((error: HttpErrorResponse) => console.log(error));
+    .catch((error: HttpErrorResponse) => console.error(error));
   }
 
   getMeSpotifyPlayer(): void {

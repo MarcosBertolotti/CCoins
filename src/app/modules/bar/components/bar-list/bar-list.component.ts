@@ -1,4 +1,4 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
@@ -30,11 +30,7 @@ export class BarListComponent implements OnInit, OnDestroy {
 
   dataSource!: MatTableDataSource<Bar>;
 
-  isSmallScreen$: Observable<boolean> = this.breakpointObserver.observe('(max-width: 960px)')
-   .pipe(
-     map(result => result.matches),
-     shareReplay()
-   );
+  isSmallScreen$!: Observable<boolean>;
  
   bars: Bar[] = [];
   appPaths = AppPaths;
@@ -46,10 +42,7 @@ export class BarListComponent implements OnInit, OnDestroy {
     private navigationService: NavigationService,
   ) { 
     this.navigationService.showNavbar();
-  }
-
-  ngOnDestroy(): void {
-    this.navigationService.hideNavbar();
+    this.subscribeBreakpointObserver();
   }
 
   async ngOnInit(): Promise<void> {
@@ -59,11 +52,14 @@ export class BarListComponent implements OnInit, OnDestroy {
         this.bars = response.list;
         this.dataSource = new MatTableDataSource<Bar>(this.bars);
       }
-      if(this.bars?.length === 1) {
+      if(!this.barsService.currentBar && this.bars?.length === 1)
         this.barsService.currentBar = this.bars[0];
-      }
     })
     .catch((error: HttpErrorResponse) => {})
+  }
+
+  ngOnDestroy(): void {
+    this.navigationService.hideNavbar();
   }
 
   toggleActive(id: number): void {
@@ -73,6 +69,14 @@ export class BarListComponent implements OnInit, OnDestroy {
         this.toastService.openSuccessToast(message);
       })
       .catch(() => this.toastService.openErrorToast('Ocurrió un error al actualizar el bar'))
+  }
+
+  subscribeBreakpointObserver() {
+    this.isSmallScreen$ = this.breakpointObserver.observe('(max-width: 960px)')
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
   }
 }
 

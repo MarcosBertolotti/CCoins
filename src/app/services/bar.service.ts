@@ -18,7 +18,7 @@ export class BarService {
     return `${this.apiURL}${this.baseApiURL}`;
   }
 
-  private currentBarSubject!: BehaviorSubject<Bar>;
+  private currentBarSubject: BehaviorSubject<any> = new BehaviorSubject(null);
 
   get currentBar$(): Observable<Bar> {
     return this.currentBarSubject?.asObservable();
@@ -41,7 +41,11 @@ export class BarService {
 
   set currentBar(bar: Bar) {
     localStorage.setItem("bar", JSON.stringify(bar));
-    this.currentBarSubject.next(bar);
+
+    if (!this.currentBarSubject)
+      this.currentBarSubject = new BehaviorSubject<Bar>(bar);
+    else
+      this.currentBarSubject.next(bar);
   }
 
   constructor(

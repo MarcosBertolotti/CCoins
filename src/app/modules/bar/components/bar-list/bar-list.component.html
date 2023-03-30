@@ -1,12 +1,14 @@
-<app-title title="Mis bares" titleCenter="Listado"></app-title>
+<app-title title="Dashboard"></app-title>
 <app-navbar [sectionPath]="appPaths.BAR"></app-navbar>
 <button
   mat-raised-button
   color="primary"
-  routerLink="../create">
-  Crear
+  routerLink="../create"
+  [disabled]="bars && bars.length > 0">
+  Crear bar
   <mat-icon class="east">east</mat-icon>
 </button>
+<small *ngIf="bars && bars.length > 0">Como owner solo puedes administrar un bar</small>
 
 <div class="container" *ngIf="bars && bars.length > 0; else notBars">
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8">

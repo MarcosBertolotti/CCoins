@@ -17,6 +17,10 @@
     align-items: center;
   }
 
+  .card-container:last-of-type {
+    padding-bottom: 1rem;
+  }
+
   .card-container.player {
     border: none;
     background-color: var(--dark-darker-color);

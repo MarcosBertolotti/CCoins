@@ -114,7 +114,7 @@ export class BarPrizesComponent implements OnInit {
       maxWidth: '350px',
       data: {
         title: 'Felicitaciones!',
-        messages: [`Acabas de ganar: '${prize.name}'.`, 'Espero que disfrutes tu premio!'],
+        messages: [`Acabas de ganar: '${prize.name}'.`, 'Comuníquese con un empleado o administrativo del bar para solicitar su premio!'],
         canCancel: false,
         actions: [{}],
       },
