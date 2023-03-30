@@ -34,6 +34,7 @@ export class BarListComponent implements OnInit, OnDestroy {
  
   bars: Bar[] = [];
   appPaths = AppPaths;
+  loading = true;
 
   constructor(
     private barsService: BarService,
@@ -54,8 +55,10 @@ export class BarListComponent implements OnInit, OnDestroy {
       }
       if(!this.barsService.currentBar && this.bars?.length === 1)
         this.barsService.currentBar = this.bars[0];
+        
+      this.loading = false;
     })
-    .catch((error: HttpErrorResponse) => {})
+    .catch(() => this.loading = false)
   }
 
   ngOnDestroy(): void {

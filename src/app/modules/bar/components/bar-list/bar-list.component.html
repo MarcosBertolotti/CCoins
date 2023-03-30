@@ -4,7 +4,7 @@
   mat-raised-button
   color="primary"
   routerLink="../create"
-  [disabled]="bars && bars.length > 0">
+  [disabled]="loading || (bars && bars.length > 0)">
   Crear bar
   <mat-icon class="east">east</mat-icon>
 </button>
