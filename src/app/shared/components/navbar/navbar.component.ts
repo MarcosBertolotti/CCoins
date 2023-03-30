@@ -25,12 +25,19 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    this.buildPaths();
+  }
+
+  ngOnChanges() {
+    this.buildPaths();
+  }
+
+  buildPaths(): void {
     this.barItems = [
       {
         name: "Detalle",
         path: `${this.barPath}/${AppPaths.UPDATE}/${this.id}`,
-        display: this.display(AppPaths.UPDATE),
+        display: this.id, //this.display(AppPaths.UPDATE),
       },
       /*{
         name: 'Crear',
