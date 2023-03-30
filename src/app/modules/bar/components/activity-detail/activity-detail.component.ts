@@ -2,7 +2,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, of, PartialObserver } from 'rxjs';
+import { combineLatest, Observable, of, PartialObserver } from 'rxjs';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { AppPaths } from 'src/app/enums/app-paths.enum';
 import { Bar } from 'src/app/models/bar-model';
 import { GameType } from 'src/app/models/game-type.model';
@@ -24,7 +25,7 @@ export class ActivityDetailComponent implements OnInit {
   game!: Game;
   formGroup!: FormGroup;
   gameTypes!: GameType[];
-  //gameTypes: Observable<any[]> = of();
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -56,6 +57,40 @@ export class ActivityDetailComponent implements OnInit {
       openTime: [this.game.openTime],
       closeTime: [this.game.closeTime],
     });
+
+    this.openTime.valueChanges.pipe(
+      distinctUntilChanged(),
+      debounceTime(0),
+      tap((openTimeValue) => {
+        if (openTimeValue || this.closeTime.value) {
+          this.openTime.setValidators(Validators.required);
+          this.closeTime.setValidators(Validators.required);
+        } else {
+          this.openTime.clearValidators();
+          this.closeTime.clearValidators();
+        }
+        this.openTime.updateValueAndValidity();
+        this.closeTime.updateValueAndValidity();
+      }),
+    )
+    .subscribe();
+
+    this.closeTime.valueChanges.pipe(
+      distinctUntilChanged(),
+      debounceTime(0),
+      tap((closeTimeValue) => {
+        if (closeTimeValue || this.openTime.value) {
+          this.openTime.setValidators(Validators.required);
+          this.closeTime.setValidators(Validators.required);
+        } else {
+          this.openTime.clearValidators();
+          this.closeTime.clearValidators();
+        }
+        this.openTime.updateValueAndValidity();
+        this.closeTime.updateValueAndValidity();
+      }),
+    )
+    .subscribe();
   }
 
   private getCurrentBar(idBar: number): void {

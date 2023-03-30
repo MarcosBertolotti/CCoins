@@ -12,9 +12,10 @@
 
 .navbar .navbar-container {
   display: flex;
-  justify-content: space-between;
-  width: 280px;
-  padding-right: 1rem
+  /*justify-content: space-between;
+  width: 280px;*/
+  padding-right: 1rem;
+  gap: 2.5rem;
 }
 
 .navbar .navbar-container .navbar-content {

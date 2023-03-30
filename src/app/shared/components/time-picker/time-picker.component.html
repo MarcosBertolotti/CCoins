@@ -1,0 +1,16 @@
+<div class="inline-content" *ngIf="formGroup" [formGroup]="formGroup">
+  <div>
+    <mat-label>Hora de apertura {{ (openTime | fieldRequired) ? '*' : '' }}</mat-label>
+    <mat-form-field appearance="outline">
+      <input matInput type="time" formControlName="openTime">
+      <mat-error>{{ 'openTime' | errorMessage : formGroup }}</mat-error>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-label>Hora de cierre {{ (closeTime | fieldRequired) ? '*' : '' }}</mat-label>
+    <mat-form-field appearance="outline">
+      <input matInput type="time" formControlName="closeTime">
+      <mat-error>{{ 'closeTime' | errorMessage : formGroup }}</mat-error>
+    </mat-form-field>
+  </div>
+</div>

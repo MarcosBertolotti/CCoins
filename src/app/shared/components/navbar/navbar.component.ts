@@ -32,11 +32,11 @@ export class NavbarComponent implements OnInit {
         path: `${this.barPath}/${AppPaths.UPDATE}/${this.id}`,
         display: this.display(AppPaths.UPDATE),
       },
-      {
+      /*{
         name: 'Crear',
         path: `${this.barPath}/${AppPaths.CREATE}`,
         display: true,
-      },
+      },*/
       {
         name: 'Listar',
         path: `${this.barPath}/${AppPaths.LIST}`,

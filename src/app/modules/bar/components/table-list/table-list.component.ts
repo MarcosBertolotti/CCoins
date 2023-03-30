@@ -235,7 +235,7 @@ export class TableListComponent implements OnInit {
         PDFLink.download = `${this.bar.name.replace(/ /g, "_")}_${format(new Date(), 'dd_MMMM_yyyy', { locale: esLocale })}.pdf`;
         PDFLink.click();
       },
-      error:((error: HttpErrorResponse) => { console.log(error); this.toastService.openErrorToast(error.error?.message) })
+      error:((error: HttpErrorResponse) => { console.error(error); this.toastService.openErrorToast(error.error?.message) })
     }
     this.imagesService.generatePDFWithQRCodes(ids).subscribe(pdfObserver);
   }

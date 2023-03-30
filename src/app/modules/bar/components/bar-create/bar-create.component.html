@@ -30,22 +30,7 @@
       <mat-error>{{ 'menuLink' | errorMessage : formGroup }}</mat-error>
     </mat-form-field>
 
-    <div class="inline-content">
-      <div>
-        <mat-label>Hora de apertura {{ (openTime | fieldRequired) ? '*' : '' }}</mat-label>
-        <mat-form-field appearance="outline">
-          <input matInput type="time" formControlName="openTime" placeholder="00:00">
-          <mat-error>{{ 'openTime' | errorMessage : formGroup : 'mesas' }}</mat-error>
-        </mat-form-field>
-      </div>
-      <div>
-        <mat-label>Hora de cierre {{ (closeTime | fieldRequired) ? '*' : '' }}</mat-label>
-        <mat-form-field appearance="outline">
-          <input matInput type="time" formControlName="closeTime">
-          <mat-error>{{ 'closeTime' | errorMessage : formGroup : 'mesas' }}</mat-error>
-        </mat-form-field>
-      </div>
-    </div>
+    <app-time-picker [formGroup]="formGroup"></app-time-picker>
     
     <p>Una vez finalizada la creación sera redireccionado a la pantalla de edición.</p>
 

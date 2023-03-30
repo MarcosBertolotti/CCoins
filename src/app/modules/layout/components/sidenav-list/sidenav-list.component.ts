@@ -68,7 +68,7 @@ export class SidenavListComponent implements OnInit {
     this.items = [
       {
         route: `${BAR}/${LIST}`,
-        title: 'Dashboard',
+        title: 'Home',
         icon: 'grid_view', // dashboard
         display: true
       },

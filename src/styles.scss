@@ -314,6 +314,9 @@ input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 
+/*
+input time picker
+
 input::-webkit-calendar-picker-indicator{
   top: -.5rem;
   right: -.5rem;
@@ -323,6 +326,7 @@ input::-webkit-calendar-picker-indicator{
   border-radius: 30px;
   cursor: pointer;
 }
+*/
 
 /* not-content message */
 .not-content {
