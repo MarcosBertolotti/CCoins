@@ -17,23 +17,33 @@
     }
 
     .list-container {
-      margin-top: 1.25rem;
+      margin-top: .25rem;
       border-radius: 30px;
-      border: 1px solid white;
       padding: 1rem 0;
 
       mat-list-item {
         height: 65px;
         margin-bottom: .75rem;
+        border: 1px solid white;
+        border-radius: 15px;
+        padding: 0.55rem 0;
 
         h1 {
           font-size: 14px;
         }
-      }
 
-      mat-divider {
-        border-top-color: white;
-        padding-bottom: .75rem;
+        h1 span.member {
+          color: var(--accent-base-color);
+        }
+
+        h3 span {
+          color: var(--danger-base-color);
+        }
+
+        h3 span.winner {
+          color: var(--primary-base-color);
+        }
+        
       }
 
       .title {
