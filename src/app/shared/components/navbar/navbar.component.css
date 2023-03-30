@@ -59,6 +59,7 @@
   .navbar .navbar-container {
     padding: 0 2rem;
     width: 100%;
+    justify-content: space-between;
   }
 
   .navbar .navbar-container .bottom-bar {
