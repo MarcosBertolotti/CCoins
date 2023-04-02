@@ -53,6 +53,7 @@ export class PartyCoinsComponent implements OnInit {
 
   filter(type: string = ''): void {
     this.selectedType = type;
+    this.currentPage = 0;
     this.getPartyCoinsReport();
   }
 
