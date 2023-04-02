@@ -422,3 +422,8 @@ input::-webkit-calendar-picker-indicator{
     color: var(--dark-lighter-color);
   }
 }
+
+// bug toolbar
+.cdk-global-scrollblock {
+  overflow: auto !important;
+}

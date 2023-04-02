@@ -2,6 +2,16 @@
   <mat-toolbar-row>
     <p class="nickname wrap-text ellipsis-second-line" (click)="openChangeNameDialog()">{{ nickName$ | async }}</p>
 
+    <div class="content-center">
+      <button
+        mat-raised-button
+        class="logo"
+        (click)="goToHome()">
+        <img height="37px" src="assets/chopp_coins_cinta.png"/>
+      </button>
+    </div>
+
+    <!--
     <button
       *ngIf="currentParty"
       mat-raised-button
@@ -9,6 +19,7 @@
       (click)="goToTableInfo()">
       <h1 class="wrap-text ellipsis-second-line">{{ currentParty.name }}</h1>
     </button>
+    -->
 
     <div class="content-right">
       <button

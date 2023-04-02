@@ -73,19 +73,23 @@ export class ToolbarComponent implements OnInit, OnDestroy {
       },
       error:(error: HttpErrorResponse) => console.error(error.error?.message)
     }
-    this.partyService.getInfo(this.me.partyId).subscribe(partyObserver);
+    this.partyService.getCurrentParty(this.me.partyId).subscribe(partyObserver);
+  }
+
+  goToHome(): void {
+    this.router.navigate([ClientPaths.HOME]);
   }
 
   goToTableInfo(): void {
     if(window.location.pathname == `/${ClientPaths.BAR_TABLE}`)
-      this.router.navigate([ClientPaths.HOME]);
+      this.goToHome();
     else
       this.router.navigate([ClientPaths.BAR_TABLE]);
   }
 
   goToCoinsInfo(): void {
     if(window.location.pathname == `/${ClientPaths.PARTY_COINS}`)
-      this.router.navigate([ClientPaths.HOME]);
+      this.goToHome();
     else
       this.router.navigate([ClientPaths.PARTY_COINS]);
   }

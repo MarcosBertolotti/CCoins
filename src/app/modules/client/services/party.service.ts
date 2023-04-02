@@ -1,12 +1,11 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, Observable, of } from "rxjs";
 import { tap } from "rxjs/operators";
 import { Value } from "src/app/models/dto/value.dto";
 import { Game } from "src/app/models/game.model";
 import { Prize } from "src/app/models/prize.model";
 import { ResponseList } from "src/app/models/response-list.model";
-import { RequestService } from "src/app/services/request.service";
 import { environment } from "src/environments/environment";
 import { Client } from "../models/client.model";
 import { Party } from "../models/party.model";
@@ -33,6 +32,7 @@ export class PartyService {
       this.partySubject = new BehaviorSubject<Party>(party);
     else
       this.partySubject.next(party);
+
     localStorage.setItem("party", JSON.stringify(party));
   }
 
@@ -52,15 +52,14 @@ export class PartyService {
 
   constructor(
     private http: HttpClient,
-    private requestService: RequestService,
   ) { }
 
   // REVISAR retorno
   getCurrentParty(idParty: string): Observable<Party> {
     const partyInfo = localStorage.getItem("party")!;
-    const party = partyInfo ? JSON.parse(partyInfo) : undefined;
+    const party = partyInfo ? JSON.parse(partyInfo) as Party : undefined;
 
-    if(party) return party
+    if(party) return of(party)
 
     return this.getInfo(idParty);
   }

@@ -66,6 +66,15 @@
       }
     }
   }
+
+  .card-container.party {
+    button {
+      .img-title span {
+        color: var(--accent-base-color);
+      }
+    }
+
+  }
 }
 
 @media (min-width: 960px) {

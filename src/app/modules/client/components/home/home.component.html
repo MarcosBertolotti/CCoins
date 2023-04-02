@@ -32,5 +32,14 @@
     </button>
   </div>
 
-  <div class="card-container"></div>
+  <div class="card-container bg-img party">
+    <button
+      mat-icon-button
+      (click)="goToTableInfo()">
+      <h1 class="img-title">
+        Miembros <br><span *ngIf="party?.name">{{ party.name}}</span>
+      </h1>
+      <img src="assets/img/members.jpg" alt="party">
+    </button>
+  </div>
 </div>

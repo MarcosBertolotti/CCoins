@@ -12,6 +12,7 @@ import { ClientTableDTO } from '../../models/client-table.dto';
 import { ClientService } from '../../services/client.service';
 import { PartyService } from '../../services/party.service';
 import { WelcomeComponent } from '../welcome/welcome.component';
+import { Party } from '../../models/party.model';
 
 @Component({
   selector: 'app-home',
@@ -23,6 +24,7 @@ export class HomeComponent implements OnInit {
   openedWelcomeDialogKey = 'openedWelcomeDialog';
   me: ClientTableDTO;
 
+  party!: Party;
   games!: Game[];
   voteGame!: Game;
 
@@ -41,6 +43,7 @@ export class HomeComponent implements OnInit {
 
     this.me = this.clientService.clientTable;
     this.getBarGames();
+    this.getCurrentParty();
   }
 
   checkWelcomeDialog(): void {
@@ -61,6 +64,14 @@ export class HomeComponent implements OnInit {
       });
     }
   }
+  
+  getCurrentParty(): void {
+    const partyObserver: PartialObserver<Party> = {
+      next: (partyInfo: Party) => this.party = partyInfo,
+      error: (error: HttpErrorResponse) => console.error(error.error?.message)
+    };
+    this.partyService.getCurrentParty(this.me.partyId).subscribe(partyObserver);
+  }
 
   openMenu(): void {
     const MenuBarObserver: PartialObserver<{ text: string}> = {
@@ -73,6 +84,10 @@ export class HomeComponent implements OnInit {
       error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message)
     };
     this.clientService.getBarMenu().subscribe(MenuBarObserver);
+  }
+
+  goToTableInfo(): void {
+    this.router.navigate([ClientPaths.BAR_TABLE]);
   }
 
   goToBarPrizes(): void {
