@@ -34,11 +34,11 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   currentParty!: Party;
 
   subscription: Subscription = new Subscription();
-  /*
+  
   coinsInterval$ = interval(60000).pipe(
     tap(() => this.getPartyCoins())
   );
-*/
+
   constructor(
     private router: Router,
     private matDialog: MatDialog,
@@ -55,11 +55,11 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     this.getPartyCoins();
     this.getPartyInfo();
 
-    //this.subscription.add(this.coinsInterval$.subscribe());
+    this.subscription.add(this.coinsInterval$.subscribe());
   }
 
   ngOnDestroy(): void {
-    //this.subscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   getPartyCoins(): void {
