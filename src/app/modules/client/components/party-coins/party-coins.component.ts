@@ -6,6 +6,7 @@ import { CoinsReport } from '../../models/coins-report.model';
 import { Party } from '../../models/party.model';
 import { CoinsService } from '../../services/coins.service';
 import { PartyService } from '../../services/party.service';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-party-coins',
@@ -17,6 +18,11 @@ export class PartyCoinsComponent implements OnInit {
   coinsReport!: CoinsReport;
   loading!: boolean;
   currentParty$!: Observable<Party>;
+
+  // paginator
+  selectedType: string = '';
+  currentPage = 0;
+  reportLength = 0;
 
   constructor(
     private toastService: ToastService,
@@ -34,15 +40,25 @@ export class PartyCoinsComponent implements OnInit {
     const gamesObserver: PartialObserver<CoinsReport> = {
       next: (response: CoinsReport) => {
         this.coinsReport = response;
+        this.reportLength = this.coinsReport?.report?.totalElements;
         this.loading = false;
-        console.log(response);
       },
       error: (error: HttpErrorResponse) => {
         this.toastService.openErrorToast(error.error?.message);
         this.loading = false;
       },   
     };
-    this.coinsService.partyReport().subscribe(gamesObserver);
+    this.coinsService.partyReport(this.selectedType, this.currentPage).subscribe(gamesObserver);
+  }
+
+  filter(type: string = ''): void {
+    this.selectedType = type;
+    this.getPartyCoinsReport();
+  }
+
+  pageChangeEvent(event: PageEvent): void {
+    this.currentPage = event.pageIndex;
+    this.getPartyCoinsReport();
   }
 
 }

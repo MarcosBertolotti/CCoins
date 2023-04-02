@@ -76,9 +76,10 @@ export class BarPrizesComponent implements OnInit {
   redeemPrize(prize: Prize): void {
     const redeemPrizeObserver: PartialObserver<{ code: number, message: string }> = {
       next: (response: { code: number, message: string }) => {
-        if(response.code == 0)
-          this.openSuccessfullReedemPrizeDialog(prize)
-        else
+        if(response.code == 0) {
+          this.openSuccessfullReedemPrizeDialog(prize);
+          this.partyService.getCoins(this.me.partyId).subscribe();
+        } else
           this.notificationService.openWarningDialog([response.message]);
       },
       error: (error: HttpErrorResponse) => {

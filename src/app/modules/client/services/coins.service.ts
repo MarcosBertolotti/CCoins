@@ -17,8 +17,8 @@ export class CoinsService {
     private requestService: RequestService,
   ) { }
 
-  partyReport(page = 0, size = 10, sort = 'id,desc'): Observable<CoinsReport> {
-    const url = this.requestService.parseUrlQueryParams(`${this.apiURL}/party/report`, { page, size, sort });
+  partyReport(type = '', page = 0, size = 10, sort = 'id,desc'): Observable<CoinsReport> {
+    const url = this.requestService.parseUrlQueryParams(`${this.apiURL}/party/report`, { page, size, sort, type });
     return this.http.get<CoinsReport>(url);
   }
 

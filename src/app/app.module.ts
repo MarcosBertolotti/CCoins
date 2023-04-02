@@ -20,6 +20,8 @@ import { ToastService } from './shared/services/toast.services';
 import { SharedModule } from './shared/shared.module';
 import { DISABLED_SPINNER_PATHS } from './tokens/disabled-spinner-paths.token';
 import { DISABLED_SPINNER_ENDPOINTS } from './const/disabled-spinner-endpoints.const';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { CustomPaginator } from './models/customize/customPaginator';
 
 @NgModule({
   declarations: [
@@ -65,6 +67,7 @@ import { DISABLED_SPINNER_ENDPOINTS } from './const/disabled-spinner-endpoints.c
     { provide: HTTP_INTERCEPTORS, useClass: ClientInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
     { provide: DISABLED_SPINNER_PATHS, useValue: DISABLED_SPINNER_ENDPOINTS },
+    { provide: MatPaginatorIntl, useClass: CustomPaginator },
     {
       provide: MAT_DIALOG_DEFAULT_OPTIONS,
       useValue: {

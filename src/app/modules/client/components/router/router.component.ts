@@ -31,26 +31,38 @@ export class RouterComponent implements OnInit {
 
   subscribeSSe(): void {
     this.sseService.getServerSentEvent().subscribe((event: Partial<MessageEvent<any>>) => {
-      if(event?.type === SseEvents.ACTUAL_SONG_SPTF && event.data) {
-        this.playerService.currentSong = JSON.parse(event.data);
-      } 
-      else if(event?.type === SseEvents.ACTUAL_VOTES_SPTF && event.data) {
-        this.playerService.currentVoting = JSON.parse(event.data) || [];
-        if(!this.playerService.newVoting)
-          this.playerService.newVoting = true;
-      } 
-      else if(event?.type === SseEvents.NEW_WINNER_SPTF && event.data) {
-        this.playerService.currentWinnerSong = JSON.parse(event.data);
-        this.playerService.currentVoting = [];
-        //if(!this.playerService.newVoting)
-        //  this.playerService.newVoting = true;
-      } 
-      else if(event?.type === SseEvents.YOU_WIN_SONG_VOTE_SPTF) {
-        const messages = JSON.parse(event.data);
-        if(messages?.list && messages.list.length > 0) {
-          this.openWinSongVoteDialog(messages.list);
+      switch (event?.type) {
+        case SseEvents.ACTUAL_SONG_SPTF:
+          if(event.data)
+            this.playerService.currentSong = JSON.parse(event.data);
+          break;
+        case SseEvents.ACTUAL_VOTES_SPTF:
+          if(event.data) {
+            this.playerService.currentVoting = JSON.parse(event.data) || [];
+            if(!this.playerService.newVoting)
+              this.playerService.newVoting = true;
+          }
+          break;
+        case SseEvents.NEW_WINNER_SPTF:
+          if(event.data) {
+            this.playerService.currentWinnerSong = JSON.parse(event.data);
+            this.playerService.currentVoting = [];
+            //if(!this.playerService.newVoting)
+            //  this.playerService.newVoting = true;
+          }
+        break;
+        case SseEvents.YOU_WIN_SONG_VOTE_SPTF:
+          const messages = JSON.parse(event.data);
+          if(messages?.list && messages.list.length > 0) {
+            this.openWinSongVoteDialog(messages.list);
+            this.getPartyCoins();
+          }
+          break;
+        case SseEvents.UPDATE_COINS:
           this.getPartyCoins();
-        }
+          break;
+        default:
+          console.log('unkown event:', event.type);
       }
     });
   }

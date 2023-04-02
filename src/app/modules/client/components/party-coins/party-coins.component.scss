@@ -57,6 +57,43 @@
         font-size: 12px;
         font-weight: 300;
       }
+
+      .filters {
+        display: flex;
+        gap: .25rem;
+        margin-bottom: .25rem;
+
+        button {
+          max-height: 40px;
+
+          &:not(.selected) {
+            background-color: gray;
+          }
+        }
+      }
+
+      mat-paginator {
+        background: none;
+        color: white;
+
+        ::ng-deep {
+          .mat-paginator-range-actions {
+            gap: .25rem;
+          }
+
+          button {
+            background-color: var(--primary-base-color);
+
+            &.mat-button-disabled {
+              background-color: gray;
+            }
+
+            span {
+              color: var(--dark-base-color);
+            }
+          }
+        }
+      }
     }
 
   }
