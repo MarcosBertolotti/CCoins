@@ -103,13 +103,19 @@ export class SidenavListComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       const code = params['code'];
 
-      if (code && !this.spotifyService.isLoggedIn()) { 
+      console.log("Code: ");
+      console.log(code);
+
+      if (code && !this.spotifyService.isLoggedIn())
         this.getCredentials(code);
+      else 
+        this.getMeSpotifyPlayer();
+
+      if(code) {
         // remove code from params
         const newUrl = this.router.createUrlTree([], { queryParams: {} }).toString();
         window.history.replaceState({}, '', newUrl);
-      } else 
-        this.getMeSpotifyPlayer();
+      }
     });
   }
 
@@ -162,5 +168,9 @@ export class SidenavListComponent implements OnInit {
   
   logOut(): void {
     this.authService.logOut();
+  }
+
+  authorizeSpotify(): void {
+    this.authService.spotifyLogin();
   }
 }
