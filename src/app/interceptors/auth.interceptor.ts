@@ -49,13 +49,13 @@ export class AuthInterceptor implements HttpInterceptor {
 
   private addHeaders(request: HttpRequest<any>): HttpRequest<any> {
     let token: string | null;
-
+/*
     if(request.url.includes('https://accounts.spotify.com/api/token'))
       token = null;
     else if(request.url.includes('https://api.spotify.com/v1'))
       token = this.spotifyService.getAccessTokenFromStorage();
     else 
-      token = this.authService.getToken();
+     */ token = this.authService.getToken();
 
     if(token) {
       request = request.clone({

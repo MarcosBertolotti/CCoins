@@ -39,7 +39,7 @@ export class AuthService {
           const socialLoginObserver: PartialObserver<AccessToken> = {
             next: (token: AccessToken) => {
               this.saveToken(token.value);
-              this.spotifyLogin();
+              this.router.navigate([AppPaths.ADMIN, AppPaths.BAR, AppPaths.LIST])
             },
             error: (error: HttpErrorResponse) => {
               const message = error.status === 503 ? 'Servicio momentáneamente no disponible' : error.error?.message;
@@ -61,6 +61,7 @@ export class AuthService {
     return socialType === GoogleLoginProvider.PROVIDER_ID ? socialUser.idToken : socialUser.authToken;
   }
 
+  
   spotifyLogin(): void {
     this.spotifyService.getCredentials()
     .then((response: SpotifyCredentials) => {

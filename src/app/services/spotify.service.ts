@@ -32,6 +32,7 @@ export class SpotifyService {
     private barService: BarService,
     ) { }
 
+
   getCredentials(): Promise<SpotifyCredentials> {
     return this.requestService.get(`${this.baseApiURL}/config`);
   }
@@ -41,7 +42,7 @@ export class SpotifyService {
     const authURL = `${authEndpoint}?client_id=${clientId}&response_type=code&redirect_uri=${this.redirectURI}&scope=${scopes.join('%20')}`;
     window.location.href = authURL;
   }
-
+  /*
   getHeaders(): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -124,5 +125,5 @@ export class SpotifyService {
       this.requestService.post('/spotify/actualSongs/bar', body);
     }
   }
-
+*/
 }

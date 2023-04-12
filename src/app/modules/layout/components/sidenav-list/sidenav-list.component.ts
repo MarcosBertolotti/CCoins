@@ -27,10 +27,11 @@ export class SidenavListComponent implements OnInit {
   currentBar!: Bar;
   spotifyPlayer!: SpotifyPlayer;
   subscription: Subscription = new Subscription();
+  /*
   spotifyPlayerInterval$ = interval(5000).pipe(
     tap(() => this.getMeSpotifyPlayer())
   );
-
+*/
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -47,7 +48,7 @@ export class SidenavListComponent implements OnInit {
     this.getCurrentBar();
     this.buildPaths();
     this.handleSpotifyLogin();
-    this.subscription.add(this.spotifyPlayerInterval$.subscribe());
+    //this.subscription.add(this.spotifyPlayerInterval$.subscribe());
   }
 
   ngOnDestroy(): void {
@@ -106,11 +107,12 @@ export class SidenavListComponent implements OnInit {
       console.log("Code: ");
       console.log(code);
 
+      /*
       if (code && !this.spotifyService.isLoggedIn())
         this.getCredentials(code);
       else 
         this.getMeSpotifyPlayer();
-
+*/
       if(code) {
         // remove code from params
         const newUrl = this.router.createUrlTree([], { queryParams: {} }).toString();
@@ -119,6 +121,7 @@ export class SidenavListComponent implements OnInit {
     });
   }
 
+  /*
   getCredentials(code: string): void {
     this.spotifyService.getCredentials()
     .then((response: SpotifyCredentials) => {
@@ -139,7 +142,7 @@ export class SidenavListComponent implements OnInit {
         this.spotifyService.sendSong(response);
     })
     .catch((error: HttpErrorResponse) => console.error(error.error?.message));
-  }
+  }*/
 
   registerIcons(): void {
     this.matIconRegistry.addSvgIcon(
