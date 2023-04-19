@@ -1,10 +1,10 @@
 <div 
   class="logo" 
-  [ngClass]="{'playing': spotifyPlayer, 'hide-logo': !showAppLogo, 'open-link': openSongLink}" 
+  [ngClass]="{'playing': spotifyPlayer && connected, 'hide-logo': !showAppLogo, 'open-link': openSongLink}" 
   (click)="openSpotifySong()">
 
-  <app-logo name="chopp_coins_2" [ngClass]="{'playing': spotifyPlayer?.is_playing}" *ngIf="showAppLogo"></app-logo>
-  <div class="spotify" *ngIf="spotifyPlayer">
+  <app-logo name="chopp_coins_2" [ngClass]="{'playing': spotifyPlayer?.is_playing && connected}" *ngIf="showAppLogo"></app-logo>
+  <div class="spotify" *ngIf="spotifyPlayer && connected">
     <div class="player">
       <img [src]="spotifyPlayer.item.album.images[0]?.url || null" alt=""/>
       <div class="detail">

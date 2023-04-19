@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { SpotifyCredentials } from '../models/spotify-credentials.model';
 import { RequestService } from './request.service';
 import { environment } from 'src/environments/environment';
@@ -20,8 +20,15 @@ export class SpotifyService {
     return `${this.apiURL}${this.baseApiURL}`;
   }
 
+  private connectedSubject = new BehaviorSubject<boolean>(false);
+
+  get connected$() {
+    return this.connectedSubject.asObservable();
+  }
+
   set connected(connected: boolean) {
     const status = connected ? SpotifyStatus.CONNECTED : SpotifyStatus.DISCONNECTED;
+    this.connectedSubject.next(connected);
     localStorage.setItem("spotify-status", status);
   }
 
@@ -76,7 +83,11 @@ export class SpotifyService {
     );
   }
 
-  startPlayback(code?: string): Observable<any> {
-    return this.http.post<any>(`${this.URL}/start-playback`, { code });
+  disconnect(): Observable<void> {
+    return this.http.get<void>(`${this.URL}/disconnect-me`)
+  }
+
+  startPlayback(code?: string): Observable<void> {
+    return this.http.post<void>(`${this.URL}/start-playback`, { code });
   }
 }

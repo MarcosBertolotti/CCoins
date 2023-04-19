@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PartialObserver, Subscription } from 'rxjs';
+import { PartialObserver, Subscription, of } from 'rxjs';
 import { AppPaths } from 'src/app/enums/app-paths.enum';
 import { SpotifySong } from 'src/app/enums/spotifySong.model';
 import { Bar } from 'src/app/models/bar-model';
@@ -15,7 +15,7 @@ import { PlayerService } from 'src/app/services/player.service';
 import { SpotifyService } from 'src/app/services/spotify.service';
 import { ToastService } from 'src/app/shared/services/toast.services';
 
-const { BAR, TABLES, PRIZES, ACTIVITIES, UPDATE, LIST } = AppPaths;
+const { BAR, TABLES, PRIZES, ACTIVITIES, UPDATE, LIST, SPOTIFY } = AppPaths;
 
 @Component({
   selector: 'app-sidenav-list',
@@ -28,8 +28,9 @@ export class SidenavListComponent implements OnInit {
 
   currentBar!: Bar;
   subscription: Subscription = new Subscription();
-  spotifyConnected = false;
+  spotifyConnected$ = of(false);
   currentSong!: SpotifySong;
+  spotifyPath = `${BAR}/${SPOTIFY}`;
 
   constructor(
     private router: Router,
@@ -49,7 +50,7 @@ export class SidenavListComponent implements OnInit {
   ngOnInit(): void {
     this.getCurrentBar();
     this.buildPaths();
-    this.spotifyConnected = this.spotifyService.connected;
+    this.spotifyConnected$ = this.spotifyService.connected$;
     this.handleSpotifyLogin();
   }
 
@@ -105,10 +106,8 @@ export class SidenavListComponent implements OnInit {
   }
 
   startPlayback(code?: string): void {
-    const spotifyObserver: PartialObserver<Boolean> = {
-      next: (response: any) => {
-        console.log("startPlayback: ", response);
-      },
+    const spotifyObserver: PartialObserver<void> = {
+      next: () => console.log("start playback successfull."),
       error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message)
     }
     this.spotifyService.startPlayback(code).subscribe(spotifyObserver);
@@ -129,6 +128,7 @@ export class SidenavListComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       const code = params['code'];
       if(code) {
+        this.spotifyService.connected = true;
         this.startPlayback(code);
         this.removeUrlParamCode();
       }

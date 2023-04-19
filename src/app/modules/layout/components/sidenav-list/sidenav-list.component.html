@@ -2,13 +2,14 @@
   <div sidenav [ngClass]="{'playing': currentSong}">
 
     <app-spotify-player
-      [spotifyPlayer]="currentSong">
+      [spotifyPlayer]="currentSong"
+      [connected]="!!(spotifyConnected$ | async)">
     </app-spotify-player>
 
     <mat-nav-list>
       <div>
         <button
-          *ngIf="!spotifyConnected"
+          *ngIf="!(spotifyConnected$ | async)"
           mat-raised-button
           class="spotify-btn"
           color="primary"
@@ -32,9 +33,9 @@
         <img class="ribbon-logo" src="/assets/chopp_coins_cinta.png" alt="">
 
         <mat-divider></mat-divider>
-        <mat-list-item>
-          <mat-icon matListIcon>settings</mat-icon>
-          <p matLine>Configuración</p> 
+        <mat-list-item [routerLink]="spotifyPath" routerLinkActive="mat-list-single-selected-option">
+          <mat-icon matListIcon>queue_music</mat-icon>
+          <p matLine>Spotify</p> 
         </mat-list-item>
         <mat-list-item (click)="logOut()">
           <mat-icon matListIcon>logout</mat-icon>

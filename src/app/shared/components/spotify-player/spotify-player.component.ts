@@ -17,6 +17,9 @@ export class SpotifyPlayerComponent implements OnInit {
   @Input()
   openSongLink = false;
 
+  @Input()
+  connected = true;
+
   constructor() { }
 
   ngOnInit(): void {
