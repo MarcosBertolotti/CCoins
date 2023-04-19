@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { SpotifySong } from '../models/spotifySong.model';
-import { Voting } from '../models/voting.model';
-import { WinnerSong } from '../models/winner-song.model';
+import { SpotifySong } from '../enums/spotifySong.model';
+import { Voting } from '../modules/client/models/voting.model';
+import { WinnerSong } from '../modules/client/models/winner-song.model';
 
 @Injectable({
   providedIn: 'root'

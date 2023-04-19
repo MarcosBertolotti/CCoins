@@ -14,7 +14,7 @@ import { AuthClientGuard } from './guards/auth-client.guard';
 const routes: Routes = [
   {
     path: '',
-    component: RouterComponent, // cambiar a layout
+    component: RouterComponent, // cambiar a layout?
     canActivate: [AuthClientGuard],
     children: [
       {

@@ -1,13 +1,14 @@
 <app-layout>
-  <div sidenav [ngClass]="{'playing': spotifyPlayer}">
+  <div sidenav [ngClass]="{'playing': currentSong}">
 
     <app-spotify-player
-      [spotifyPlayer]="spotifyPlayer">
+      [spotifyPlayer]="currentSong">
     </app-spotify-player>
 
     <mat-nav-list>
       <div>
         <button
+          *ngIf="!spotifyConnected"
           mat-raised-button
           class="spotify-btn"
           color="primary"

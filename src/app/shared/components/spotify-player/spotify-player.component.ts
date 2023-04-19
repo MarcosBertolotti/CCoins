@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SpotifyPlayer } from 'src/app/models/spotify-player-model';
-import { SpotifySong } from 'src/app/modules/client/models/spotifySong.model';
+import { SpotifySong } from 'src/app/enums/spotifySong.model';
 
 @Component({
   selector: 'app-spotify-player',
@@ -10,7 +9,7 @@ import { SpotifySong } from 'src/app/modules/client/models/spotifySong.model';
 export class SpotifyPlayerComponent implements OnInit {
 
   @Input()
-  spotifyPlayer!: SpotifyPlayer | SpotifySong; // SpotifyPlayer = Spotify Api response. SpotifySong = SSE response
+  spotifyPlayer!: SpotifySong;
 
   @Input()
   showAppLogo = true;
@@ -25,7 +24,7 @@ export class SpotifyPlayerComponent implements OnInit {
 
   openSpotifySong(): void {
     if(this.openSongLink) {
-      const songLink = (this.spotifyPlayer as SpotifySong)?.songLink;
+      const songLink = this.spotifyPlayer?.songLink;
 
       if(songLink) {
         window.open(songLink, '_blank');

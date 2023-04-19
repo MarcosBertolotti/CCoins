@@ -132,7 +132,6 @@ export class BarUpdateComponent implements OnInit, OnDestroy {
 
       const barCreated = this.barService.create(updateBar)
         .catch((error: HttpErrorResponse) => {
-          //const message = error.error?.name === ApiErrorResponses.EXISTING_OBJECT ? 'Ya existe un Bar' : error.message;
           this.toastService.openErrorToast(error.error?.message);
         });
       
@@ -153,7 +152,6 @@ export class BarUpdateComponent implements OnInit, OnDestroy {
     return this.tableService.createByQuantity(quantity, this.bar.id!)
     .then(() => this.tableQuantity = this.tables.value)
     .catch((error: HttpErrorResponse) => {
-      //const message = error.error?.name === ApiErrorResponses.EXISTING_OBJECT ? 'Ya existe un Bar' : error.message;
       this.toastService.openErrorToast(error.error?.message);
     });
   }
@@ -162,7 +160,6 @@ export class BarUpdateComponent implements OnInit, OnDestroy {
     return this.tableService.removeByQuantity(quantity, this.bar.id!)
     .then(() => this.tableQuantity = this.tables.value)
     .catch((error: HttpErrorResponse) => {
-      //const message = error.error?.name === ApiErrorResponses.EXISTING_OBJECT ? 'Ya existe un Bar' : error.message;
       this.toastService.openErrorToast(error.error?.message);
     });
   }
@@ -175,7 +172,6 @@ export class BarUpdateComponent implements OnInit, OnDestroy {
       this.toastService.openSuccessToast(`${this.bar.name} ${status} exitosamente!`);
     })
     .catch((error: HttpErrorResponse) => {
-      //const message = error.error?.name === ApiErrorResponses.EXISTING_OBJECT ? 'Ya existe un Bar' : error.message;
       this.toastService.openErrorToast(error.error?.message);
     });
   }

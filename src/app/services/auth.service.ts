@@ -3,13 +3,12 @@ import { GoogleLoginProvider, SocialAuthService, SocialUser } from 'angularx-soc
 import { Router } from '@angular/router';
 import { AppPaths } from '../enums/app-paths.enum';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, PartialObserver } from 'rxjs';
+import { CompletionObserver, Observable, PartialObserver } from 'rxjs';
 import { AccessToken } from '../models/access-token.model';
 import { environment } from 'src/environments/environment';
 import { ToastService } from '../shared/services/toast.services';
 import { ClientService } from '../modules/client/services/client.service';
 import { SpotifyService } from './spotify.service';
-import { SpotifyCredentials } from '../models/spotify-credentials.model';
 
 
 @Injectable({
@@ -39,7 +38,7 @@ export class AuthService {
           const socialLoginObserver: PartialObserver<AccessToken> = {
             next: (token: AccessToken) => {
               this.saveToken(token.value);
-              this.router.navigate([AppPaths.ADMIN, AppPaths.BAR, AppPaths.LIST])
+              this.checkSpotifyIsConnected();
             },
             error: (error: HttpErrorResponse) => {
               const message = error.status === 503 ? 'Servicio momentáneamente no disponible' : error.error?.message;
@@ -61,14 +60,11 @@ export class AuthService {
     return socialType === GoogleLoginProvider.PROVIDER_ID ? socialUser.idToken : socialUser.authToken;
   }
 
-  
-  spotifyLogin(): void {
-    this.spotifyService.getCredentials()
-    .then((response: SpotifyCredentials) => {
-      this.spotifyService.spotifyCredentials = response;
-      this.spotifyService.redirectToAuthorize(response)
-    })
-    .catch((error: HttpErrorResponse) => console.error(error));
+  checkSpotifyIsConnected(): void {
+    const spotifyObserver: CompletionObserver<boolean> = {
+      complete: () => this.router.navigate([AppPaths.ADMIN, AppPaths.BAR, AppPaths.LIST])
+    }
+    this.spotifyService.checkIsConnected().subscribe(spotifyObserver);
   }
 
   logOut(): void {

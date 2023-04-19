@@ -6,12 +6,12 @@ import { Game } from 'src/app/models/game.model';
 import { ResponseData } from 'src/app/models/response-data.model';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { ToastService } from 'src/app/shared/services/toast.services';
-import { SpotifySong } from '../../models/spotifySong.model';
 import { Voting } from '../../models/voting.model';
 import { WinnerSong } from '../../models/winner-song.model';
-import { PlayerService } from '../../services/player.service';
 import { VoteService } from '../../services/vote.service';
 import { VotingComponent } from '../voting/voting.component';
+import { SpotifySong } from 'src/app/enums/spotifySong.model';
+import { PlayerService } from 'src/app/services/player.service';
 
 @Component({
   selector: 'app-player',

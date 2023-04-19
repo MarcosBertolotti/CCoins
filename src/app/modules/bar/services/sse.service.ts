@@ -2,7 +2,6 @@ import { Injectable, NgZone } from "@angular/core";
 import { EMPTY, Observable, Observer } from "rxjs";
 import { environment } from "src/environments/environment";
 import { SseEvents } from "../enums/sse-events.enum";
-import { ClientService } from "./client.service";
 
 @Injectable({
   providedIn: "root"
@@ -13,34 +12,21 @@ export class SseService {
 
   constructor(
     private _zone: NgZone,
-    private clientService: ClientService,
   ) {}
 
-  getServerSentEvent(): Observable<Partial<MessageEvent<any>>> {
-    const me = this.clientService.clientTable;
-
-    if(!me) return EMPTY;
-
+  getServerSentEvent(barId: number): Observable<Partial<MessageEvent<any>>> {
+    if(!barId) {
+      console.error("No se encontró el id del bar subscribirse a sse");
+      return EMPTY;
+    }
     return new Observable((observer: Observer<Partial<MessageEvent<any>>>) => {
-      const eventSource = this.getEventSource(`${this.baseApiURl}/subscribe?partyId=${me?.partyId}&client=${me?.clientIp}`);
+      const eventSource = this.getEventSource(`${this.baseApiURl}/subscribe/owner?barId=${barId}`);
 
       eventSource.addEventListener(SseEvents.ACTUAL_SONG_SPTF, event => {
         observer.next(event);
       });
 
-      eventSource.addEventListener(SseEvents.ACTUAL_VOTES_SPTF, event => {
-        observer.next(event);
-      });
-
-      eventSource.addEventListener(SseEvents.NEW_WINNER_SPTF, event => {
-        observer.next(event);
-      });
-
-      eventSource.addEventListener(SseEvents.YOU_WIN_SONG_VOTE_SPTF, event => {
-        observer.next(event);
-      });
-
-      eventSource.addEventListener(SseEvents.UPDATE_COINS, event => {
+      eventSource.addEventListener(SseEvents.REQUEST_SPOTIFY_AUTHORIZATION, event => {
         observer.next(event);
       });
 

@@ -3,15 +3,17 @@ import { Component, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { interval, Subscription } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { PartialObserver, Subscription } from 'rxjs';
 import { AppPaths } from 'src/app/enums/app-paths.enum';
+import { SpotifySong } from 'src/app/enums/spotifySong.model';
 import { Bar } from 'src/app/models/bar-model';
-import { SpotifyCredentials } from 'src/app/models/spotify-credentials.model';
-import { SpotifyPlayer } from 'src/app/models/spotify-player-model';
+import { SseEvents } from 'src/app/modules/bar/enums/sse-events.enum';
+import { SseService } from 'src/app/modules/bar/services/sse.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { BarService } from 'src/app/services/bar.service';
+import { PlayerService } from 'src/app/services/player.service';
 import { SpotifyService } from 'src/app/services/spotify.service';
+import { ToastService } from 'src/app/shared/services/toast.services';
 
 const { BAR, TABLES, PRIZES, ACTIVITIES, UPDATE, LIST } = AppPaths;
 
@@ -25,13 +27,10 @@ export class SidenavListComponent implements OnInit {
   items: { route: string, title: string, icon: string, display: boolean }[] = [];
 
   currentBar!: Bar;
-  spotifyPlayer!: SpotifyPlayer;
   subscription: Subscription = new Subscription();
-  /*
-  spotifyPlayerInterval$ = interval(5000).pipe(
-    tap(() => this.getMeSpotifyPlayer())
-  );
-*/
+  spotifyConnected = false;
+  currentSong!: SpotifySong;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -40,6 +39,9 @@ export class SidenavListComponent implements OnInit {
     private authService: AuthService,
     private spotifyService: SpotifyService,
     public barService: BarService,
+    private toastService: ToastService,
+    private sseService: SseService,
+    private playerService: PlayerService,
   ) { 
     this.registerIcons();
   }
@@ -47,8 +49,8 @@ export class SidenavListComponent implements OnInit {
   ngOnInit(): void {
     this.getCurrentBar();
     this.buildPaths();
+    this.spotifyConnected = this.spotifyService.connected;
     this.handleSpotifyLogin();
-    //this.subscription.add(this.spotifyPlayerInterval$.subscribe());
   }
 
   ngOnDestroy(): void {
@@ -60,6 +62,8 @@ export class SidenavListComponent implements OnInit {
     this.subscription.add(this.barService.currentBar$?.subscribe((currentBar: Bar) => {
       if(currentBar) {
         this.currentBar = currentBar;
+        this.subscribeSSe();
+        this.subscribePlayback()
         this.buildPaths();
       }
     }));
@@ -70,13 +74,13 @@ export class SidenavListComponent implements OnInit {
       {
         route: `${BAR}/${LIST}`,
         title: 'Home',
-        icon: 'grid_view', // dashboard
+        icon: 'grid_view',
         display: true
       },
       {
         route: `${BAR}/${UPDATE}/${this.currentBar?.id}`,
         title: this.currentBar?.name,
-        icon: 'local_bar', // info
+        icon: 'local_bar',
         display: !!this.currentBar?.id
       },
       {
@@ -100,49 +104,58 @@ export class SidenavListComponent implements OnInit {
     ];
   }
 
+  startPlayback(code?: string): void {
+    const spotifyObserver: PartialObserver<Boolean> = {
+      next: (response: any) => {
+        console.log("startPlayback: ", response);
+      },
+      error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message)
+    }
+    this.spotifyService.startPlayback(code).subscribe(spotifyObserver);
+  }
+
+  subscribePlayback(): void {
+    this.currentSong = this.playerService.spotifySong;
+    this.subscription.add(this.playerService.currentSong$.subscribe((currentSong: SpotifySong) =>
+      this.currentSong = currentSong
+    ));
+  }
+
+  authorizeSpotify(): void {
+    this.spotifyService.spotifyLogin();
+  }
+
   handleSpotifyLogin(): void {
     this.route.queryParams.subscribe((params) => {
       const code = params['code'];
-
-      console.log("Code: ");
-      console.log(code);
-
-      /*
-      if (code && !this.spotifyService.isLoggedIn())
-        this.getCredentials(code);
-      else 
-        this.getMeSpotifyPlayer();
-*/
       if(code) {
-        // remove code from params
-        const newUrl = this.router.createUrlTree([], { queryParams: {} }).toString();
-        window.history.replaceState({}, '', newUrl);
+        this.startPlayback(code);
+        this.removeUrlParamCode();
       }
     });
   }
 
-  /*
-  getCredentials(code: string): void {
-    this.spotifyService.getCredentials()
-    .then((response: SpotifyCredentials) => {
-      this.spotifyService.spotifyCredentials = response;
-      this.spotifyService.getAccessToken(code).subscribe((response) => {
-        this.spotifyService.saveTokens(response.access_token, response.expires_in, response.refresh_token);
-        this.getMeSpotifyPlayer();
-      });
-    })
-    .catch((error: HttpErrorResponse) => console.error(error));
+  removeUrlParamCode(): void {
+    const newUrl = this.router.createUrlTree([], { queryParams: {} }).toString();
+    window.history.replaceState({}, '', newUrl);
   }
 
-  getMeSpotifyPlayer(): void {
-    this.spotifyService.mePlayer()
-    .then((response: SpotifyPlayer) => {
-      this.spotifyPlayer = response;
-      if(response)
-        this.spotifyService.sendSong(response);
-    })
-    .catch((error: HttpErrorResponse) => console.error(error.error?.message));
-  }*/
+  subscribeSSe(): void {
+    this.sseService.getServerSentEvent(this.currentBar.id as number)
+    .subscribe((event: Partial<MessageEvent<any>>) => {
+      switch (event?.type) {
+        case SseEvents.ACTUAL_SONG_SPTF:
+          if(event.data)
+            this.playerService.currentSong = JSON.parse(event.data);
+          break;
+        case SseEvents.REQUEST_SPOTIFY_AUTHORIZATION:
+          this.authorizeSpotify();
+          break;
+        default:
+          console.log('unkown event:', event.type);
+      }
+    });
+  }
 
   registerIcons(): void {
     this.matIconRegistry.addSvgIcon(
@@ -171,9 +184,5 @@ export class SidenavListComponent implements OnInit {
   
   logOut(): void {
     this.authService.logOut();
-  }
-
-  authorizeSpotify(): void {
-    this.authService.spotifyLogin();
   }
 }

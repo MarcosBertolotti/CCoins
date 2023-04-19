@@ -67,7 +67,6 @@ export class BarCreateComponent implements OnInit, OnDestroy {
 
       const barCreated = await this.barService.create(newBar)
         .catch((error: HttpErrorResponse) => {
-          //const message = error.error?.name === ApiErrorResponses.EXISTING_OBJECT ? 'Ya existe un Bar' : error.message;
           this.toastService.openErrorToast(error.error?.message);
         });
 
