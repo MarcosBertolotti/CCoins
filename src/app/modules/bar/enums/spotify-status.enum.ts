@@ -1,4 +1,4 @@
 export enum SpotifyStatus {
-  CONNECTED = "connected",
+  CONNECTED = "CONNECTED",
   DISCONNECTED = "DISCONNECTED"
 }

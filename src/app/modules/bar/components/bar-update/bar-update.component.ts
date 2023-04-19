@@ -1,8 +1,10 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PartialObserver } from 'rxjs';
+import { Observable, PartialObserver } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
 import { FIELD_ERROR_MESSAGES } from 'src/app/const/field-error-messages.const';
 import { AppPaths } from 'src/app/enums/app-paths.enum';
 import { Bar } from 'src/app/models/bar-model';
@@ -35,6 +37,12 @@ export class BarUpdateComponent implements OnInit, OnDestroy {
 
   fieldErrors = FIELD_ERROR_MESSAGES;
   appPaths = AppPaths;
+
+  isSmallScreen$: Observable<boolean> = this.breakpointObserver.observe('(max-width: 600px)')
+  .pipe(
+    map((result: { matches: any; }) => result.matches),
+    shareReplay()
+  );
   
   constructor(
     private formBuilder: FormBuilder,
@@ -46,6 +54,7 @@ export class BarUpdateComponent implements OnInit, OnDestroy {
     private navigationService: NavigationService,
     private gameService: GameService,
     private prizeService: PrizeService,
+    private breakpointObserver: BreakpointObserver,
   ) { 
     this.navigationService.showNavbar();
   }

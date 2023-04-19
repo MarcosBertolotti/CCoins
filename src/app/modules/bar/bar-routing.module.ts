@@ -13,6 +13,7 @@ import { ActivityDetailComponent } from './components/activity-detail/activity-d
 import { PrizeListComponent } from './components/prize-list/prize-list.component';
 import { PrizeCreateComponent } from './components/prize-create/prize-create.component';
 import { PrizeDetailComponent } from './components/prize-detail/prize-detail.component';
+import { SpotifyConfigComponent } from './components/spotify-config/spotify-config.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,7 @@ const routes: Routes = [
       { path: `:id/${AppPaths.PRIZES}`, component: PrizeListComponent },
       { path: `:id/${AppPaths.PRIZES}/${AppPaths.CREATE}`, component: PrizeCreateComponent },
       { path: `:id/${AppPaths.PRIZES}/:idPrize`, component: PrizeDetailComponent },
+      { path: AppPaths.SPOTIFY, component: SpotifyConfigComponent },
     ]
   }
 ];

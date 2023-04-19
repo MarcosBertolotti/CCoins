@@ -17,12 +17,14 @@
   }
 
   .left-content {
+    flex-direction: row;
+    gap: .5rem;
+    flex-wrap: nowrap;
     padding-top: 1rem;
 
     .table-container {
-      max-width: calc(200px - 2rem);
       width: 100%;
-      margin-bottom: 1rem;
+      text-align: center;
 
       h3 {
         font-weight: 400;
@@ -59,9 +61,38 @@ button[mat-raised-button] {
   margin-top: .25rem;
 }
 
-@media (min-width: 1280px) {
+@media (max-width: 600px) {
+  .left-content {
+    .table-container.bubble-gray {
+      background-color: transparent;
+      padding: 0;
 
+      h3 {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (min-width: 600px) {
   .container {
+    .left-content {
+      gap: 1rem;
+      flex-wrap: wrap;
+
+      .table-container {
+        max-width: calc(200px - 2rem);
+      }
+    }
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    .left-content {
+      flex-direction: column;
+    }
+
     form {
       width: 50%;
     }

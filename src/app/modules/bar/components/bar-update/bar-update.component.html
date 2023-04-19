@@ -10,14 +10,14 @@
 
   <div class="container">
 
-    <div class="left-content">
+    <div class="left-content" [ngClass]="{'xs': (isSmallScreen$ | async)}">
       <div class="table-container bubble-gray">
         <h3>{{ tableQuantity }} Mesas creadas</h3>
         <button 
           mat-raised-button
           color="accent"
           [routerLink]="['../../', bar.id, appPaths.TABLES]">
-          Ver mesas
+          {{ (isSmallScreen$ | async) ? 'Mesas' : 'Ver mesas' }}
         </button>
       </div>
 
@@ -27,7 +27,7 @@
           mat-raised-button
           color="accent"
           [routerLink]="['../../', bar.id, appPaths.ACTIVITIES]">
-          Ver actividades
+          {{ (isSmallScreen$ | async) ? 'Actividades' : 'Ver actividades' }}
         </button>
       </div>
 
@@ -37,7 +37,7 @@
           mat-raised-button
           color="accent"
           [routerLink]="['../../', bar.id, appPaths.PRIZES]">
-          Ver Premios
+          {{ (isSmallScreen$ | async) ? 'Premios' : 'Ver premios' }}
         </button>
       </div>
     </div>

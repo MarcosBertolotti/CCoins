@@ -1,0 +1,21 @@
+<app-title title="Configuración de Spotify"></app-title>
+
+<div class="action-container">
+  <button
+    mat-raised-button
+    class="spotify-btn"
+    color="primary"
+    [disabled]="isConnected"
+    (click)="authorizeSpotify()">
+    Autorizar Spotify
+  </button>
+
+  <button
+    mat-raised-button
+    class="spotify-btn"
+    color="primary"
+    [disabled]="!isConnected"
+    (click)="disconnectSpotify()">
+    Desconectar Spotify
+  </button>
+</div>

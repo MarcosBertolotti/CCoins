@@ -29,6 +29,7 @@ import { ActivityCreateComponent } from './components/activity-create/activity-c
 import { PrizeListComponent } from './components/prize-list/prize-list.component';
 import { PrizeCreateComponent } from './components/prize-create/prize-create.component';
 import { PrizeDetailComponent } from './components/prize-detail/prize-detail.component';
+import { SpotifyConfigComponent } from './components/spotify-config/spotify-config.component';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { PrizeDetailComponent } from './components/prize-detail/prize-detail.com
     PrizeListComponent,
     PrizeCreateComponent,
     PrizeDetailComponent,
+    SpotifyConfigComponent,
   ],
   imports: [
     CommonModule,
