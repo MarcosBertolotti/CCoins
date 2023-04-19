@@ -23,6 +23,7 @@ export class SpotifyService {
   private connectedSubject = new BehaviorSubject<boolean>(false);
 
   get connected$() {
+    this.connectedSubject.next(this.connected);
     return this.connectedSubject.asObservable();
   }
 

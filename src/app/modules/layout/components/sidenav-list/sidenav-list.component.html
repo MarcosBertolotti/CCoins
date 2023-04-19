@@ -1,5 +1,5 @@
 <app-layout>
-  <div sidenav [ngClass]="{'playing': currentSong}">
+  <div sidenav [ngClass]="{'playing': currentSong && (spotifyConnected$ | async)}">
 
     <app-spotify-player
       [spotifyPlayer]="currentSong"
@@ -8,6 +8,10 @@
 
     <mat-nav-list>
       <div>
+        <h1 class="waiting-song" *ngIf="(spotifyConnected$ | async) && !currentSong">
+          Esperando Canción...
+        </h1>
+
         <button
           *ngIf="!(spotifyConnected$ | async)"
           mat-raised-button
