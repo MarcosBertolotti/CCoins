@@ -1,8 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, PartialObserver } from 'rxjs';
 import { SpotifyCredentials } from '../models/spotify-credentials.model';
-import { RequestService } from './request.service';
 import { environment } from 'src/environments/environment';
 import { SpotifyStatus } from '../modules/bar/enums/spotify-status.enum';
 import { catchError, tap } from 'rxjs/operators';
@@ -46,12 +45,14 @@ export class SpotifyService {
 
   constructor(
     private http: HttpClient,
-    private requestService: RequestService,
     private toastService: ToastService,
     ) { }
 
-  getCredentials(): Promise<SpotifyCredentials> {
-    return this.requestService.get(`${this.baseApiURL}/config`);
+  getCredentials(): Observable<SpotifyCredentials> {
+    return this.http.get<SpotifyCredentials>(`${this.URL}/config`)
+    .pipe(
+      tap((response: SpotifyCredentials) => this.spotifyCredentials = response)
+    );
   }
 
   redirectToAuthorize(spotifyCredentials: SpotifyCredentials): void {
@@ -61,12 +62,11 @@ export class SpotifyService {
   }
 
   spotifyLogin(): void {
-    this.getCredentials()
-    .then((response: SpotifyCredentials) => {
-      this.spotifyCredentials = response;
-      this.redirectToAuthorize(response)
-    })
-    .catch((error: HttpErrorResponse) => console.error(error));
+    const spotifyObserver: PartialObserver<SpotifyCredentials> = {
+      next: (response: SpotifyCredentials) => this.redirectToAuthorize(response),
+      error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message)
+    }
+    this.getCredentials().subscribe(spotifyObserver);
   }
 
   checkIsConnected(): Observable<boolean> {
