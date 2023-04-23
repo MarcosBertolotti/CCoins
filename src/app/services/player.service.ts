@@ -11,7 +11,7 @@ export class PlayerService {
 
   /* currentSong */
 
-  spotifySong!: SpotifySong;
+  spotifySong!: SpotifySong | null;
 
   currentSongSubject = new Subject<SpotifySong>();
 
@@ -26,7 +26,7 @@ export class PlayerService {
 
   /* currentVoting */
 
-  voting!: Voting[];
+  voting!: Voting[] | null;
 
   currentVotingSubject = new Subject<Voting[]>();
 
@@ -37,17 +37,6 @@ export class PlayerService {
   set currentVoting(voting: Voting[]) {
     this.voting = voting;
     this.currentVotingSubject.next(voting);
-  }
-
-  /* newVoting */
-
-  get newVoting(): boolean {
-    const newVoting = localStorage.getItem("newVoting");
-    return newVoting ? JSON.parse(newVoting) : false;
-  }
-
-  set newVoting(newVoting: boolean) {
-    localStorage.setItem("newVoting", JSON.stringify(newVoting));
   }
 
   /* currentWinnerSong */
@@ -66,5 +55,12 @@ export class PlayerService {
   }
 
   constructor() { }
+
+  reset(): void {
+    this.spotifySong = null;
+    this.currentSongSubject.next();
+    this.voting = null;
+    this.currentVotingSubject.next();
+  }
 
 }

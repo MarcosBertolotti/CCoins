@@ -114,7 +114,7 @@ export class SidenavListComponent implements OnInit {
   }
 
   subscribePlayback(): void {
-    this.currentSong = this.playerService.spotifySong;
+    this.currentSong = this.playerService.spotifySong!;
     this.subscription.add(this.playerService.currentSong$.subscribe((currentSong: SpotifySong) =>
       this.currentSong = currentSong
     ));

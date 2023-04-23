@@ -1,9 +1,10 @@
-<ng-container *ngIf="currentSong else notSong">
+<ng-container *ngIf="currentSong && connected; else notConnected">
   <app-spotify-player
     [spotifyPlayer]="currentSong"
     [showAppLogo]="false"
     [openSongLink]="true">
   </app-spotify-player>
+
   <ng-container *ngIf="voteGame && currentVoting && currentVoting.length > 0">
     <button
       mat-stroked-button
@@ -11,6 +12,7 @@
       (click)="checkCanVote()">
       Vota la siguiente y ganá {{ voteGame.points }} puntos
     </button>
+  
     <div class="voting">
       <h1>Votación actual:</h1>
       <ng-container *ngFor="let voteOption of currentVoting; index as index">
@@ -19,11 +21,16 @@
       <mat-divider *ngIf="currentWinnerSong"></mat-divider>
     </div>
   </ng-container>
+
   <div class="winner" *ngIf="currentWinnerSong">
     <h1>Última canción ganadora ({{ currentWinnerSong.votes}} {{ currentWinnerSong.votes === 1 ? 'voto' : 'votos' }}):</h1>
     <p>{{ currentWinnerSong.name }}</p>
   </div>
 </ng-container>
-<ng-template #notSong>
-  <h2>No hay ningún tema en reproducción.</h2>
+
+<ng-template #notConnected>
+  <h2 *ngIf="connected === false; else notPlayback">Servicio de reproducción desconectado.</h2>
+  <ng-template #notPlayback>
+    <h2>No hay ningún tema en reproducción.</h2>
+  </ng-template>
 </ng-template>

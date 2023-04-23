@@ -12,6 +12,7 @@ import { VoteService } from '../../services/vote.service';
 import { VotingComponent } from '../voting/voting.component';
 import { SpotifySong } from 'src/app/enums/spotifySong.model';
 import { PlayerService } from 'src/app/services/player.service';
+import { SpotifyService } from 'src/app/services/spotify.service';
 
 @Component({
   selector: 'app-player',
@@ -23,6 +24,7 @@ export class PlayerComponent implements OnInit {
   @Input()
   voteGame!: Game;
 
+  connected!: boolean;
   currentVoting!: Voting[];
   currentWinnerSong!: WinnerSong;
   currentSong!: SpotifySong;
@@ -34,11 +36,17 @@ export class PlayerComponent implements OnInit {
     private voteService: VoteService,
     private toastService: ToastService,
     private playerService: PlayerService,
+    private spotifyService: SpotifyService,
     private notificationService: NotificationService,
   ) { }
 
   ngOnInit(): void {
-    this.currentSong = this.playerService.spotifySong;
+    this.currentSong = this.playerService.spotifySong!;
+
+    this.subscription.add(this.spotifyService.connected$.subscribe((connected: boolean) =>
+      this.connected = connected
+    ));
+
     this.subscription.add(this.playerService.currentSong$.subscribe((currentSong: SpotifySong) =>
       this.currentSong = currentSong
     ));
@@ -66,7 +74,7 @@ export class PlayerComponent implements OnInit {
 
   checkCanVote(): void {
     const voteObservable: PartialObserver<ResponseData<void>> = {
-      next: (response: ResponseData<void>) => this.openVotingDialog(),
+      next: () => this.openVotingDialog(),
       error: (error: HttpErrorResponse) => {
         const message = error.error?.message;
         if(message)

@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { PartialObserver } from 'rxjs';
 import { AppPaths } from 'src/app/enums/app-paths.enum';
@@ -43,7 +44,7 @@ export class SpotifyConfigComponent implements OnInit {
         this.spotifyService.connected = false;
         this.isConnected = false;
       },
-      error: () => this.toastService.openErrorToast("Ocurrió un error al desconectar Spotify")
+      error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message)
     }
     this.spotifyService.disconnect().subscribe(spotifyObserver);
   }

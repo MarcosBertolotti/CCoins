@@ -7,6 +7,7 @@ import { SseService } from '../../services/sse.service';
 import { PartyService } from '../../services/party.service';
 import { PlayerService } from 'src/app/services/player.service';
 import { ClientService } from '../../services/client.service';
+import { SpotifyService } from 'src/app/services/spotify.service';
 
 
 /*
@@ -34,6 +35,7 @@ export class RouterComponent implements OnInit {
     private partyService: PartyService,
     private playerService: PlayerService,
     private clientService: ClientService,
+    private spotifyService: SpotifyService,
     private notificationService: NotificationService,
   ) { }
 
@@ -58,20 +60,27 @@ export class RouterComponent implements OnInit {
   subscribeSSe(): void {
     this.sseService.getServerSentEvent().subscribe((event: Partial<MessageEvent<any>>) => {
       switch (event?.type) {
+
         case SseEvents.ACTUAL_SONG_SPTF:
-          if(event.data)
+          if(event.data) {
             this.playerService.currentSong = JSON.parse(event.data);
+            if(!this.spotifyService.connected)
+              this.spotifyService.connected = true;
+          }
           break;
+
         case SseEvents.ACTUAL_VOTES_SPTF:
           if(event.data)
             this.playerService.currentVoting = JSON.parse(event.data) || [];
           break;
+
         case SseEvents.NEW_WINNER_SPTF:
           if(event.data) {
             this.playerService.currentWinnerSong = JSON.parse(event.data);
             this.playerService.currentVoting = [];
           }
         break;
+
         case SseEvents.YOU_WIN_SONG_VOTE_SPTF:
           const messages = JSON.parse(event.data);
           if(messages?.list && messages.list.length > 0) {
@@ -79,9 +88,18 @@ export class RouterComponent implements OnInit {
             this.getPartyCoins();
           }
           break;
+
         case SseEvents.UPDATE_COINS:
           this.getPartyCoins();
           break;
+
+        case SseEvents.LOGOUT_SPOTIFY:
+          if(this.spotifyService.connected) {
+            this.spotifyService.connected = false;
+            this.playerService.reset();
+          }
+          break;
+
         default:
           console.log('unkown event:', event.type);
       }
