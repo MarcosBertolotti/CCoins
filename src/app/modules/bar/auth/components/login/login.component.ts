@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
+import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
 import { AuthService } from 'src/app/services/auth.service';
+import { LoadingSpinnerService } from 'src/app/shared/services/loading-spinner.service';
 
 @Component({
   selector: 'app-login',
@@ -15,12 +16,18 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private domSanitizer: DomSanitizer,
     private matIconRegistry: MatIconRegistry,
+    private socialAuthService: SocialAuthService,
+    private loadingSpinnerService: LoadingSpinnerService
   ) { 
+    this.loadingSpinnerService.showSpinner();
     this.registerIcons();
     localStorage.clear();
   }
 
   ngOnInit(): void {
+    this.socialAuthService.initState.subscribe(() => {
+      this.loadingSpinnerService.hideSpinner();
+    });
   }
 
   registerIcons(): void {

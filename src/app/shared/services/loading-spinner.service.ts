@@ -63,7 +63,7 @@ export class LoadingSpinnerService {
    * This method is used to show the spinner.
    * It will create the spinner component and attach it to the DOM.
    */
-  private showSpinner(): void {
+  showSpinner(): void {
     if (!this.isLoading) {
       this.isLoading = true;
 
@@ -85,7 +85,7 @@ export class LoadingSpinnerService {
    * This method is used to hide the spinner.
    * It will remove the spinner component from the DOM and destroy it.
    */
-  private hideSpinner(): void {
+  hideSpinner(): void {
     if (this.isLoading) {
       this.isLoading = false;
       this.applicationRef.detachView(this.spinnerComponentRef.hostView);

@@ -22,6 +22,7 @@ import { DISABLED_SPINNER_PATHS } from './tokens/disabled-spinner-paths.token';
 import { DISABLED_SPINNER_ENDPOINTS } from './const/disabled-spinner-endpoints.const';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { CustomPaginator } from './models/customize/customPaginator';
+import { LoadingSpinnerService } from './shared/services/loading-spinner.service';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { CustomPaginator } from './models/customize/customPaginator';
   ],
   providers: [
     ToastService,
+    LoadingSpinnerService,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
