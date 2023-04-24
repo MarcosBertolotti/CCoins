@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoadingSpinnerService } from 'src/app/shared/services/loading-spinner.service';
 
@@ -10,7 +11,9 @@ import { LoadingSpinnerService } from 'src/app/shared/services/loading-spinner.s
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
+
+  private subscription = new Subscription;
 
   constructor(
     private authService: AuthService,
@@ -25,9 +28,13 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.socialAuthService.initState.subscribe(() => {
+    this.subscription.add(this.socialAuthService.initState.subscribe(() => {
       this.loadingSpinnerService.hideSpinner();
-    });
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   registerIcons(): void {
