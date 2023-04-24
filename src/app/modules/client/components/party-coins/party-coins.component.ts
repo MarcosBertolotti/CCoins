@@ -2,11 +2,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable, PartialObserver } from 'rxjs';
 import { ToastService } from 'src/app/shared/services/toast.services';
-import { CoinsReport } from '../../models/coins-report.model';
 import { Party } from '../../models/party.model';
 import { CoinsService } from '../../services/coins.service';
 import { PartyService } from '../../services/party.service';
 import { PageEvent } from '@angular/material/paginator';
+import { CoinsReport } from 'src/app/models/coins-report.model';
 
 @Component({
   selector: 'app-party-coins',

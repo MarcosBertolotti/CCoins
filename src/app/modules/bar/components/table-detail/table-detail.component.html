@@ -9,10 +9,6 @@
         (toggle)="toggleActive()">
       </app-slide-toggle>
 
-      <div class="center-container xs">
-        <qrcode [qrdata]="table.code" [width]="234" [margin]="0" elementType="url"></qrcode>
-      </div>
-      
       <div class="bubble-gray">
         <p>Última actualización: </p>
         <h2>
@@ -27,12 +23,43 @@
         (click)="updateQR()">
         Actualizar QR
       </button>
-    </div>
 
-    <div class="center-container ls">
       <qrcode [qrdata]="QRURL" [width]="280" [margin]="3" elementType="url"></qrcode>
     </div>
 
-    <div class="right-content"></div>
+    <div class="center-container">
+      <h1>Reporte de Coins</h1>
+      <div class='tabbed'>
+        <ul>
+          <li (click)="filter()" [ngClass]="{'active': selectedType === ''}"><span>TOTAL</span></li>
+          <li (click)="filter('expended')" [ngClass]="{'active': selectedType === 'expended'}"><span>GASTADOS</span></li>
+          <li (click)="filter('acquired')" [ngClass]="{'active': selectedType === 'acquired'}"><span>RECIBIDOS</span></li>
+        </ul>
+      </div>
+      <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <ng-container [matColumnDef]="column.name" *ngFor="let column of initColumns; index as index">
+          <mat-header-cell *matHeaderCellDef [ngClass]="{'hide': !column.show && (isSmallScreen$ | async)}"> {{ column.display }} </mat-header-cell>
+    
+          <mat-cell *matCellDef="let item" [ngClass]="{'hide': !column.show && (isSmallScreen$ | async)}"> 
+            <ng-container>{{ item[column.name] }}</ng-container>
+          </mat-cell>
+        </ng-container>
+    
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+      </mat-table>
+
+      <mat-paginator
+        [pageSize]="10"
+        [pageIndex]="currentPage"
+        [length]="reportLength"
+        [hidePageSize]="true"
+        (page)="pageChangeEvent($event)">
+      </mat-paginator>
+    </div>
+
+    <!--<div class="right-content"></div>-->
   </div>
 </ng-container>

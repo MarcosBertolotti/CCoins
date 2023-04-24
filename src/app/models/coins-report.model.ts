@@ -1,14 +1,9 @@
+import { CoinsRegister } from "./coins-register.model"
+
 export interface CoinsReport {
   totalCoins: number,
   report: {
-    content: {
-      coinsId: number,
-      date: string,
-      coins: number,
-      activity: string,
-      client: string,
-      state: string,
-    }[],
+    content: CoinsRegister[],
     empty: boolean,
     first: boolean
     last: boolean

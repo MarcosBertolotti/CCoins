@@ -4,8 +4,7 @@
     justify-content: center;
     flex-wrap: wrap;
     
-    > * 
-    {
+    > * {
       display: flex;
       flex-direction: column;
       flex: 1 1 auto;
@@ -16,6 +15,7 @@
       margin: 1rem 0;
 
       h2 {
+        font-size: 22px;
         margin: 1rem 0 .25rem;
 
         span {
@@ -24,29 +24,42 @@
       }
     }
 
+    qrcode {  
+      margin-top: .5rem;
+
+      ::ng-deep {
+        img {
+          max-width: 280px;
+          width: 100%;
+        }
+      }
+    }
+
     .center-container {
       width: fit-content;
-      margin: auto;
-      min-width: 50%;
-    }
+      min-width: 75%;
 
-    .center-container.ls {
-      display: none;
-    }
-
-    .center-container.xs {
-      display: inherit;
-      margin-top: 1rem;
-    }
-  
-    qrcode ::ng-deep {
-      .qrcode {
-        text-align: center;
+      h1 {
+        margin: 0 0 1rem;
+        font-size: 20px;
+        font-weight: 500;
       }
-  
-      img {
-        max-width: 280px;
-        width: 100%;
+
+      mat-table {
+        mat-header-cell:first-of-type,
+        mat-header-cell:last-of-type,
+        mat-cell:first-of-type,
+        mat-cell:last-of-type {
+          flex: .75;
+        }
+      }
+
+      .hide {
+        display: none;
+      }
+
+      mat-paginator {
+        margin-top: .75rem;
       }
     }
   }
@@ -63,14 +76,6 @@
     }
     button[mat-raised-button] {
       max-width: 280px;
-    }
-
-    .center-container.xs {
-      display: none !important;
-    }
-
-    .center-container.ls {
-      display: inherit !important;
     }
   }
 }

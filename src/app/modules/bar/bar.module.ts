@@ -17,6 +17,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { BarCreateComponent } from './components/bar-create/bar-create.component';
 import { BarUpdateComponent } from './components/bar-update/bar-update.component';
@@ -62,6 +63,7 @@ import { SpotifyConfigComponent } from './components/spotify-config/spotify-conf
     QRCodeModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatPaginatorModule,
   ],
   providers: [
     ParseToDatePipe,
