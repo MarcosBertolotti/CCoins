@@ -44,6 +44,16 @@
           color: var(--primary-base-color);
         }
         
+        h2 {
+          font-size: 14px;
+
+          &.Entregado {
+            color: var(--primary-base-color);
+          }
+          &.Cancelado {
+            color: var(--danger-base-color);
+          }
+        }
       }
 
       .title {
@@ -96,6 +106,15 @@
       }
     }
 
+  }
+
+  .empty-response {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: calc(100vh - 56px);
+    z-index: -1;
   }
 }
 

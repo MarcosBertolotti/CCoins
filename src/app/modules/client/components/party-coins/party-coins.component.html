@@ -1,10 +1,12 @@
-<div class="container" *ngIf="coinsReport && coinsReport.report?.content && coinsReport.report.content.length > 0; else notReport">
+<div class="container">
   <div class="title-content">
     <h3>Reporte de coins de {{ (currentParty$ | async)?.name || 'la party'}}</h3>
   </div>
 
   <div class="list-container">
-    <h2 class="title">Último registro: {{ coinsReport.totalCoins || 0 }} coins</h2>
+    <h2 class="title" *ngIf="coinsReport?.totalCoins">
+      Último registro: {{ coinsReport.totalCoins || 0 }} coins
+    </h2>
 
     <div class="filters">
       <button
@@ -30,29 +32,38 @@
       </button>
     </div>
 
-    <mat-nav-list>
-      <ng-container *ngFor="let detail of coinsReport.report.content">
-        <mat-list-item >
-          <h3 matLine>Coins {{ detail.coins > 0 ? 'ganadas' : 'consumidas' }}: <span [ngClass]="{'winner': detail.coins > 0}">{{ detail.coins }}</span></h3>
-          <h1 matLine>Actividad: {{ detail.activity }}</h1>
-          <h1 matLine>Miembro: <span class="member">{{ detail.client }}</span></h1>
-          <p matLine>Fecha: {{ detail.date }}</p>
-        </mat-list-item>
-      </ng-container>
-    </mat-nav-list>
+    <ng-container *ngIf="coinsReport && coinsReport.report?.content && coinsReport.report.content.length > 0; else notReport">
+      <mat-nav-list>
+        <ng-container *ngFor="let detail of coinsReport.report.content">
+          <mat-list-item >
+            <h3 matLine>Coins {{ detail.coins > 0 ? 'ganadas' : 'consumidas' }}: <span [ngClass]="{'winner': detail.coins > 0}">{{ detail.coins }}</span></h3>
+            <h1 matLine>Actividad: {{ detail.activity }}</h1>
+            <h1 matLine>Miembro: <span class="member">{{ detail.client }}</span></h1>
+            <p matLine>Fecha: {{ detail.date }}</p>
 
-    <mat-paginator
-      [pageSize]="10"
-      [pageIndex]="currentPage"
-      [length]="reportLength"
-      [hidePageSize]="true"
-      (page)="pageChangeEvent($event)">
-    </mat-paginator>
+            <h2 [class]="detail.state">{{ detail.state }}</h2>
+          </mat-list-item>
+        </ng-container>
+      </mat-nav-list>
+  
+      <mat-paginator
+        [pageSize]="10"
+        [pageIndex]="currentPage"
+        [length]="reportLength"
+        [hidePageSize]="true"
+        (page)="pageChangeEvent($event)">
+      </mat-paginator>
+    </ng-container>
+
   </div>
 </div>
 
 <ng-template #notReport>
   <div class="empty-response" *ngIf="!loading">
-    <h1>Lo sentimos, Aún no hay un reporte de coins para su party, participá en las actividades del bar para generar un registro de coins</h1>
+    <ng-container [ngSwitch]="selectedType">
+      <h1 *ngSwitchCase="'expended'">Aún no se han gastado coins en su party, participá en las actividades del bar para generar un registro de coins</h1>
+      <h1 *ngSwitchCase="'acquired'">Aún no se han recibido coins en su party, participá en las actividades del bar para generar un registro de coins</h1>
+      <h1 *ngSwitchDefault>Aún no hay un reporte de coins para su party, participá en las actividades del bar para generar un registro de coins</h1>
+    </ng-container>
   </div>
 </ng-template>

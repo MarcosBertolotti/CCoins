@@ -7,6 +7,7 @@ export interface CoinsReport {
       coins: number,
       activity: string,
       client: string,
+      state: string,
     }[],
     empty: boolean,
     first: boolean
