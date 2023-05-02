@@ -1,0 +1,12 @@
+<button 
+  *ngIf="count > 0"
+  mat-button 
+  color="warn" 
+  class="notification-btn"
+  (click)="execute()">
+  <mat-icon color="warn" fontSet="material-icons-outlined">notifications</mat-icon>
+  <div class="text">
+    <p>Solicitudes</p>
+    <span>(<small>{{ count }}</small>)</span>
+  </div>
+</button>

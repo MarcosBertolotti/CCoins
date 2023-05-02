@@ -1,0 +1,38 @@
+.notification-btn {
+  position: absolute;
+  right: .5rem;
+  top: .75rem;
+  border-radius: 30px;
+  height: 38px;
+
+  ::ng-deep .mat-button-wrapper, .text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  p, span, small {
+    font-weight: 400;
+  }
+
+  p {
+    margin: 0 .25rem 0 .125rem;
+    color: var(--dark-base-color);
+  }
+
+  span {
+    color: var(--danger-base-color);
+  }
+
+  small {
+    font-size: 14px;
+    margin: 0 .125rem;
+    font-weight: 500;
+  }
+}
+
+@media (max-width: 599px) {
+  p {
+    display: none;
+  }
+}

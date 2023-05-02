@@ -1,0 +1,19 @@
+<app-title title="Solicitudes"></app-title>
+
+<app-demand-table
+  [demandReport]="inDemandReport"
+  [dataSource]="dataSourceInDemand"
+  [isSmallScreen$]="isSmallScreen$"
+  [actionsDescription]="demandActionsDescription"
+  (onAction)="findDemandReport()">
+</app-demand-table>
+
+<h1>Procesadas</h1>
+
+<app-demand-table
+  [demandReport]="outDemandReport"
+  [dataSource]="dataSourceOutDemand"
+  [isSmallScreen$]="isSmallScreen$"
+  (onAction)="findDemandReport()">
+</app-demand-table>
+

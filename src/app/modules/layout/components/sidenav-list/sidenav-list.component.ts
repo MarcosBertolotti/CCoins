@@ -8,6 +8,7 @@ import { AppPaths } from 'src/app/enums/app-paths.enum';
 import { SpotifySong } from 'src/app/enums/spotifySong.model';
 import { Bar } from 'src/app/models/bar-model';
 import { SseEvents } from 'src/app/modules/bar/enums/sse-events.enum';
+import { CoinsService } from 'src/app/modules/bar/services/coins.service';
 import { SseService } from 'src/app/modules/bar/services/sse.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { BarService } from 'src/app/services/bar.service';
@@ -15,7 +16,7 @@ import { PlayerService } from 'src/app/services/player.service';
 import { SpotifyService } from 'src/app/services/spotify.service';
 import { ToastService } from 'src/app/shared/services/toast.services';
 
-const { BAR, TABLES, PRIZES, ACTIVITIES, UPDATE, LIST, SPOTIFY } = AppPaths;
+const { BAR, TABLES, PRIZES, ACTIVITIES, UPDATE, LIST, SPOTIFY, DEMAND, ADMIN } = AppPaths;
 
 @Component({
   selector: 'app-sidenav-list',
@@ -32,6 +33,8 @@ export class SidenavListComponent implements OnInit {
   currentSong!: SpotifySong;
   spotifyPath = `${BAR}/${SPOTIFY}`;
 
+  countDemand$ = this.coinsService.countDemand$;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -43,6 +46,7 @@ export class SidenavListComponent implements OnInit {
     private toastService: ToastService,
     private sseService: SseService,
     private playerService: PlayerService,
+    private coinsService: CoinsService,
   ) { 
     this.registerIcons();
   }
@@ -52,6 +56,7 @@ export class SidenavListComponent implements OnInit {
     this.buildPaths();
     this.spotifyConnected$ = this.spotifyService.connected$;
     this.handleSpotifyLogin();
+    this.countCurrentDemand();
   }
 
   ngOnDestroy(): void {
@@ -101,8 +106,18 @@ export class SidenavListComponent implements OnInit {
         title: 'Premios',
         icon: 'emoji_events',
         display: !!this.currentBar?.id
+      },
+      {
+        route: `${BAR}/${this.currentBar?.id}/${DEMAND}`,
+        title: 'Peticiones',
+        icon: 'event_note',
+        display: !!this.currentBar?.id
       }
     ];
+  }
+
+  goToDemand = (): void => {
+    this.router.navigate([ADMIN, BAR, this.currentBar?.id, DEMAND]);
   }
 
   startPlayback(code?: string): void {
@@ -140,6 +155,10 @@ export class SidenavListComponent implements OnInit {
     window.history.replaceState({}, '', newUrl);
   }
 
+  countCurrentDemand(): void {
+    this.coinsService.countCurrentDemand().subscribe();
+  }
+
   subscribeSSe(): void {
     this.sseService.getServerSentEvent(this.currentBar.id as number)
     .subscribe((event: Partial<MessageEvent<any>>) => {
@@ -150,6 +169,9 @@ export class SidenavListComponent implements OnInit {
           break;
         case SseEvents.REQUEST_SPOTIFY_AUTHORIZATION:
           this.authorizeSpotify();
+          break;
+        case SseEvents.NEW_DEMAND:
+          this.countCurrentDemand();
           break;
         default:
           console.log('unkown event:', event.type);

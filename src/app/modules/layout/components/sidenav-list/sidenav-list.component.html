@@ -48,5 +48,12 @@
       </div>
     </mat-nav-list>
   </div>
+
+  <app-notification
+    *ngIf="currentBar?.id"
+    [count]="(countDemand$ | async)!"
+    [action]="goToDemand">  
+  </app-notification>
+
   <router-outlet #router></router-outlet>
 </app-layout>

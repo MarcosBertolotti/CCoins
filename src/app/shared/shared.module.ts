@@ -35,6 +35,7 @@ import { ParseArrayToDatePipe } from './pipes/parse-array-to-date';
 import { SpotifyPlayerComponent } from './components/spotify-player/spotify-player.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { TimePickerComponent } from './components/time-picker/time-picker.component';
+import { NotificationComponent } from './components/notification/notification.component';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import { TimePickerComponent } from './components/time-picker/time-picker.compon
     ParseArrayToDatePipe,
     SpotifyPlayerComponent,
     TimePickerComponent,
+    NotificationComponent,
   ],
   imports: [
     CommonModule,
@@ -88,6 +90,7 @@ import { TimePickerComponent } from './components/time-picker/time-picker.compon
     ParseArrayToDatePipe,
     SpotifyPlayerComponent,
     TimePickerComponent,
+    NotificationComponent,
   ],
 })
 export class SharedModule { }

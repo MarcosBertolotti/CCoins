@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { BarCreateComponent } from './components/bar-create/bar-create.component';
 import { BarUpdateComponent } from './components/bar-update/bar-update.component';
@@ -31,6 +32,8 @@ import { PrizeListComponent } from './components/prize-list/prize-list.component
 import { PrizeCreateComponent } from './components/prize-create/prize-create.component';
 import { PrizeDetailComponent } from './components/prize-detail/prize-detail.component';
 import { SpotifyConfigComponent } from './components/spotify-config/spotify-config.component';
+import { DemandComponent } from './components/demand/demand.component';
+import { DemandTableComponent } from './components/demand-table/demand-table.component';
 
 
 @NgModule({
@@ -47,6 +50,8 @@ import { SpotifyConfigComponent } from './components/spotify-config/spotify-conf
     PrizeCreateComponent,
     PrizeDetailComponent,
     SpotifyConfigComponent,
+    DemandComponent,
+    DemandTableComponent,
   ],
   imports: [
     CommonModule,
@@ -64,6 +69,7 @@ import { SpotifyConfigComponent } from './components/spotify-config/spotify-conf
     MatDatepickerModule,
     MatNativeDateModule,
     MatPaginatorModule,
+    MatTooltipModule,
   ],
   providers: [
     ParseToDatePipe,

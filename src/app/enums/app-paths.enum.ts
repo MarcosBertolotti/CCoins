@@ -11,4 +11,5 @@ export enum AppPaths {
   ACTIVITIES = 'activities',
   PRIZES = 'prizes',
   SPOTIFY = 'spotify',
+  DEMAND = 'demand'
 }

@@ -1,0 +1,9 @@
+::ng-deep app-router {
+  padding-top: 1rem;
+}
+
+h1 {
+  color: var(--danger-base-color);
+  font-weight: 400;
+  font-size: 30px;
+}

@@ -69,6 +69,40 @@ p {
   background-color: var(--black-alpha-35);
 }
 
+/* mat-tooltip */
+
+.mat-tooltip-panel .mat-tooltip {
+  background-color: var(--accent-base-color);
+  color: white;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 12px;
+  overflow: initial;
+  margin-top: 1rem;
+}
+
+.mat-tooltip.above::after {
+  content: "";
+  position: absolute;
+  border-left: 0.5rem solid transparent;
+  border-right: 0.5rem solid transparent;
+  border-bottom: 0.5rem solid var(--accent-base-color);;
+  bottom: -0.5rem;
+  right: calc(50% - 0.5rem);
+  transform: rotate(180deg);
+}
+
+.mat-tooltip.left::after {
+  content: "";
+  position: absolute;
+  border-left: 0.5rem solid transparent;
+  border-right: 0.5rem solid transparent;
+  border-bottom: 0.5rem solid var(--accent-base-color);;
+  top: calc(50% - 0.25rem);
+  left: calc(100% - 0.3rem);
+  transform: rotate(90deg);
+}
+
 /* mat-button */
 
 button[mat-stroked-button],
@@ -119,6 +153,14 @@ button[mat-stroked-button] {
     
     span {
       color:  var(--primary-base-color);
+    }
+  }
+
+  &[color='warn'] {
+    border-color: var(--danger-base-color);
+    
+    span {
+      color:  var(--danger-base-color);
     }
   }
 }

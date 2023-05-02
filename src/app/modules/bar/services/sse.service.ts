@@ -30,6 +30,10 @@ export class SseService {
         observer.next(event);
       });
 
+      eventSource.addEventListener(SseEvents.NEW_DEMAND, event => {
+        observer.next(event);
+      });
+
       eventSource.onmessage = event => {
         this._zone.run(() => {
           observer.next(event);

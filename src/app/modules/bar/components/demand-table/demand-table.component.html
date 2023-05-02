@@ -1,0 +1,58 @@
+<div class="container" *ngIf="demandReport?.data && demandReport.data.length > 0; else notDemandReport">
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <ng-container [matColumnDef]="column.name" *ngFor="let column of initColumns; index as index">
+      <mat-header-cell *matHeaderCellDef [ngClass]="{'hide': !column.show && (isSmallScreen$ | async)}"> {{ column.display }} </mat-header-cell>
+      <mat-cell *matCellDef="let item" [ngClass]="{'hide': !column.show && (isSmallScreen$ | async)}"> 
+
+        <ng-container *ngIf="index >= 0 && index < 4">
+          {{ item[column.name] }}
+        </ng-container>
+
+        <div class="action-container" *ngIf="index === 4">
+          <ng-container *ngIf="item.state === demandTypes.IN_DEMAND; else adjustment">
+            <button
+              mat-stroked-button
+              color="primary"
+              (click)="deliver(item.coinsId)"
+              [matTooltip]="actionsDescription[demandTypes.DELIVERED]"
+              matTooltipClass="above"
+              matTooltipPosition="above">
+              <mat-icon>done</mat-icon>
+            </button>
+            <button
+              mat-stroked-button
+              color="warn"
+              (click)="cancel(item.coinsId)"
+              [matTooltip]="actionsDescription[demandTypes.CANCELLED]"
+              matTooltipClass="above"
+              matTooltipPosition="above">
+              <mat-icon>close</mat-icon>
+            </button>
+          </ng-container>
+          <ng-template #adjustment>
+            <button
+              mat-stroked-button
+              color="accent"
+              class="adjust"
+              (click)="adjust(item.coinsId)">
+              Ajuste
+            </button>
+          </ng-template>
+        </div>
+
+        <ng-container *ngIf="index > 4">{{ item[column.name] }}</ng-container>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+  </mat-table>
+</div>
+
+<ng-template #notDemandReport>
+  <div class="not-content" *ngIf="demandReport">
+    <h1>{{ demandReport.message }}</h1>
+  </div>
+</ng-template>
