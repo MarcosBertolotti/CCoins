@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from "@angular/core";
-import { EMPTY, Observable, Observer } from "rxjs";
+import { BehaviorSubject, EMPTY, Observable, Observer } from "rxjs";
 import { environment } from "src/environments/environment";
 import { SseEvents } from "../enums/sse-events.enum";
 
@@ -9,6 +9,12 @@ import { SseEvents } from "../enums/sse-events.enum";
 export class SseService {
 
   baseApiURl = `${environment.API_URL}/sse`;
+
+  newDemandSubject = new BehaviorSubject(false);
+
+  get newDemand$(): Observable<boolean> {
+    return this.newDemandSubject.asObservable();
+  }
 
   constructor(
     private _zone: NgZone,
@@ -31,6 +37,7 @@ export class SseService {
       });
 
       eventSource.addEventListener(SseEvents.NEW_DEMAND, event => {
+        this.newDemandSubject.next(true);
         observer.next(event);
       });
 

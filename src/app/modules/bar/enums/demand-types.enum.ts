@@ -3,5 +3,5 @@ export enum DemandTypes {
   CANCELLED = 'Cancelado',
   DELIVERED = 'Entregado',
   EXPIRED = 'Vencido',
-  ADJUSTMENT = 'Ajuste',
+  REVERSED = 'Revertido',
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, PartialObserver } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, PartialObserver, Subscription } from 'rxjs';
 import { DemandReport } from '../../models/demand-report.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastService } from 'src/app/shared/services/toast.services';
@@ -9,13 +9,13 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { map, shareReplay } from 'rxjs/operators';
 import { Demand } from '../../models/demand.model';
 import { DemandActionDescription } from '../../models/demand-action-description.model';
-
+import { SseService } from '../../services/sse.service';
 @Component({
   selector: 'app-demand',
   templateUrl: './demand.component.html',
   styleUrls: ['./demand.component.scss']
 })
-export class DemandComponent implements OnInit {
+export class DemandComponent implements OnInit, OnDestroy {
 
   outDemandReport!: DemandReport;
   inDemandReport!: DemandReport;
@@ -27,9 +27,12 @@ export class DemandComponent implements OnInit {
 
   demandActionsDescription: { [key: string]: string } = {};
 
+  subscription = new Subscription();
+
   constructor(
     private toastService: ToastService,
     private coinsService: CoinsService,
+    private sseService: SseService,
     private breakpointObserver: BreakpointObserver,
   ) { }
 
@@ -38,6 +41,11 @@ export class DemandComponent implements OnInit {
     this.findOutDemandReport();
     this.findInDemandReport();
     this.getCurrentActionsDescription();
+    this.subscribeSSe();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   findDemandReport(): void {
@@ -86,6 +94,15 @@ export class DemandComponent implements OnInit {
 
   countCurrentDemand(): void {
     this.coinsService.countCurrentDemand().subscribe();
+  }
+
+  subscribeSSe(): void {
+    this.subscription.add(
+      this.sseService.newDemand$.subscribe((newDemand) => {
+        if(newDemand) 
+          this.findInDemandReport();
+      })
+    );
   }
 
   subscribeBreakpointObserver() {

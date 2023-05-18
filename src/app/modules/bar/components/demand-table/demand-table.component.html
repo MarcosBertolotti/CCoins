@@ -10,7 +10,7 @@
         </ng-container>
 
         <div class="action-container" *ngIf="index === 4">
-          <ng-container *ngIf="item.state === demandTypes.IN_DEMAND; else adjustment">
+          <ng-container *ngIf="item.state === demandTypes.IN_DEMAND; else reversed">
             <button
               mat-stroked-button
               color="primary"
@@ -30,13 +30,14 @@
               <mat-icon>close</mat-icon>
             </button>
           </ng-container>
-          <ng-template #adjustment>
+          <ng-template #reversed>
             <button
               mat-stroked-button
               color="accent"
               class="adjust"
-              (click)="adjust(item.coinsId)">
-              Ajuste
+              (click)="adjust(item.coinsId)"
+              [disabled]="!item.updatable">
+              Revertir
             </button>
           </ng-template>
         </div>
