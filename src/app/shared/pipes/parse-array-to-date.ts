@@ -6,8 +6,8 @@ import { parse } from 'date-fns';
 })
 export class ParseArrayToDatePipe implements PipeTransform {
 
-  transform(dateArray: any, format: string = 'dd/MM/yyyy'): Date {
-    return new Date(dateArray.slice(0, 3));
+  transform(dateArray: any, end = 3, format: string = 'dd/MM/yyyy'): Date | null {
+    return dateArray ? new Date(dateArray.slice(0, end)) : null;
   }
 
 }

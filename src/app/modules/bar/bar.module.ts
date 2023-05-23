@@ -34,6 +34,8 @@ import { PrizeDetailComponent } from './components/prize-detail/prize-detail.com
 import { SpotifyConfigComponent } from './components/spotify-config/spotify-config.component';
 import { DemandComponent } from './components/demand/demand.component';
 import { DemandTableComponent } from './components/demand-table/demand-table.component';
+import { CodesComponent } from './components/codes/codes.component';
+import { CodeCreateComponent } from './components/code-create/code-create.component';
 
 
 @NgModule({
@@ -52,6 +54,8 @@ import { DemandTableComponent } from './components/demand-table/demand-table.com
     SpotifyConfigComponent,
     DemandComponent,
     DemandTableComponent,
+    CodesComponent,
+    CodeCreateComponent,
   ],
   imports: [
     CommonModule,

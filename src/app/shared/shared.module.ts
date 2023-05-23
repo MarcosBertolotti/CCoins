@@ -18,6 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 // PIPES
 import { FieldRequiredPipe } from './pipes/field-required.pipe';
 import { ErrorMessagePipe } from './pipes/error-message.pipe';
+import { TypeofPipe } from './pipes/typeof.pipe';
 
 // COMPONENTS
 import { RouterComponent } from './components/router/router.component';
@@ -57,6 +58,7 @@ import { NotificationComponent } from './components/notification/notification.co
     SpotifyPlayerComponent,
     TimePickerComponent,
     NotificationComponent,
+    TypeofPipe,
   ],
   imports: [
     CommonModule,
@@ -91,6 +93,7 @@ import { NotificationComponent } from './components/notification/notification.co
     SpotifyPlayerComponent,
     TimePickerComponent,
     NotificationComponent,
+    TypeofPipe,
   ],
 })
 export class SharedModule { }

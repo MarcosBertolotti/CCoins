@@ -16,7 +16,7 @@ import { PlayerService } from 'src/app/services/player.service';
 import { SpotifyService } from 'src/app/services/spotify.service';
 import { ToastService } from 'src/app/shared/services/toast.services';
 
-const { BAR, TABLES, PRIZES, ACTIVITIES, UPDATE, LIST, SPOTIFY, DEMAND, ADMIN } = AppPaths;
+const { BAR, TABLES, PRIZES, ACTIVITIES, UPDATE, LIST, SPOTIFY, DEMAND, ADMIN, CODES } = AppPaths;
 
 @Component({
   selector: 'app-sidenav-list',
@@ -79,7 +79,7 @@ export class SidenavListComponent implements OnInit {
     this.items = [
       {
         route: `${BAR}/${LIST}`,
-        title: 'Home',
+        title: 'Inicio',
         icon: 'grid_view',
         display: true
       },
@@ -111,6 +111,12 @@ export class SidenavListComponent implements OnInit {
         route: `${BAR}/${this.currentBar?.id}/${DEMAND}`,
         title: 'Peticiones',
         icon: 'event_note',
+        display: !!this.currentBar?.id
+      },
+      {
+        route: `${BAR}/${this.currentBar?.id}/${CODES}`,
+        title: 'Códigos',
+        icon: 'pin', // pin local_activity confirmation_number
         display: !!this.currentBar?.id
       }
     ];

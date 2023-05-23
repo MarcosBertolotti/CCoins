@@ -15,6 +15,8 @@ import { PrizeCreateComponent } from './components/prize-create/prize-create.com
 import { PrizeDetailComponent } from './components/prize-detail/prize-detail.component';
 import { SpotifyConfigComponent } from './components/spotify-config/spotify-config.component';
 import { DemandComponent } from './components/demand/demand.component';
+import { CodesComponent } from './components/codes/codes.component';
+import { CodeCreateComponent } from './components/code-create/code-create.component';
 
 const routes: Routes = [
   {
@@ -38,6 +40,8 @@ const routes: Routes = [
       { path: `:id/${AppPaths.PRIZES}/${AppPaths.CREATE}`, component: PrizeCreateComponent },
       { path: `:id/${AppPaths.PRIZES}/:idPrize`, component: PrizeDetailComponent },
       { path: `:id/${AppPaths.DEMAND}`, component: DemandComponent },
+      { path: `:id/${AppPaths.CODES}`, component: CodesComponent },
+      { path: `:id/${AppPaths.CODES}/${AppPaths.CREATE}`, component: CodeCreateComponent },
       { path: AppPaths.SPOTIFY, component: SpotifyConfigComponent },
     ]
   }

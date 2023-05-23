@@ -1,6 +1,7 @@
 <mat-label *ngIf="label">{{ label }} {{ (control | fieldRequired) ? '*' : '' }}</mat-label>
 <mat-form-field appearance="outline" [formGroup]="formGroup">
   <mat-select
+    #select
     panelClass="select-custom-panel simple"
     disableOptionCentering
     [compareWith]="compareFn"
@@ -12,6 +13,11 @@
       {{ displayFn(item) }}
     </mat-option>
   </mat-select>
-  <mat-icon matSuffix>south</mat-icon>
+  <mat-icon
+    matSuffix
+    (click)="handleClickIcon()"
+    [ngClass]="control.value ? 'icon-available-delete' : ''">
+    {{ control.value ? 'close' : 'south' }}
+  </mat-icon>
   <mat-error *ngIf="control.errors?.['required']">{{ fieldErrorMessages.required }}</mat-error>
 </mat-form-field>

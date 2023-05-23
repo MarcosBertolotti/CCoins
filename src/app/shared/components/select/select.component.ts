@@ -28,7 +28,7 @@ export class SelectComponent implements OnInit {
   displayFn!: (item: any) => string;
 
   fieldErrorMessages: any = FIELD_ERROR_MESSAGES;
-
+  
   constructor() { }
 
   ngOnInit(): void {
@@ -36,6 +36,10 @@ export class SelectComponent implements OnInit {
 
   compareFn(option: any, value: any) {
     return option.id === value?.id;
+  }
+
+  handleClickIcon() {
+    this.control.reset();
   }
 
   get control(): FormControl {

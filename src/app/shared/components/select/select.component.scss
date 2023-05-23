@@ -16,3 +16,7 @@ mat-form-field mat-icon {
 mat-form-field .mat-select ::ng-deep .mat-select-arrow-wrapper .mat-select-arrow {
 	opacity: 0;
 }
+
+.icon-available-delete:hover {
+  filter: brightness(0.9);
+}

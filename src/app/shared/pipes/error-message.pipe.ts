@@ -30,7 +30,7 @@ export class ErrorMessagePipe implements PipeTransform {
           message = FIELD_ERROR_MESSAGES.email;
           break;
         case "pattern":
-          message = FIELD_ERROR_MESSAGES.email;
+          message = text || FIELD_ERROR_MESSAGES.email;
           break;
         case "min":
           message = `${FIELD_ERROR_MESSAGES.minQuantity} ${abstractControl?.errors?.['min'].min} ${text}`;
