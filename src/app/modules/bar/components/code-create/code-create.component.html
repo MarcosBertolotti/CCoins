@@ -1,0 +1,63 @@
+<app-title title="Crear Código"></app-title>
+
+<div class="container" *ngIf="formGroup">
+  <form [formGroup]="formGroup" #form="ngForm">
+
+    <h4 class="title-accent">Nuevo Código</h4>
+
+    <mat-label>Código {{ (code | fieldRequired) ? '*' : '' }}</mat-label>
+    <mat-form-field appearance="outline">
+      <input matInput formControlName="code" placeholder="Entre 6 y 12 caracteres">
+      <mat-error>{{ 'code' | errorMessage : formGroup : 'El código solo admite letras en mayúscula, guión medio y no se admiten acentos.' }}</mat-error>
+    </mat-form-field>
+    
+    <div class="inline-content">
+      <div>
+        <mat-label>Cantidad {{ (quantity | fieldRequired) ? '*' : '' }}</mat-label>
+        <mat-form-field appearance="outline">
+          <input matInput type="number" formControlName="quantity" placeholder="Cantidad de códigos a generar" >
+          <mat-error>{{ 'quantity' | errorMessage : formGroup : 'código' }}</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-label>Puntos {{ (points | fieldRequired) ? '*' : '' }}</mat-label>
+        <mat-form-field appearance="outline">
+          <input matInput type="number" formControlName="points" placeholder="Cantidad de puntos a otorgar" autocomplete="off">
+          <mat-error>{{ 'points' | errorMessage : formGroup : 'punto' }}</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <app-select
+      label="Premio"
+      name="prizeId"
+      placeholder="Seleccionar premio"
+      [items]="prizes"
+      [displayFn]="displayItemFn"
+      [formGroup]="formGroup">
+    </app-select>
+
+    <mat-checkbox formControlName="expires" color="primary">Con expiración</mat-checkbox>
+
+    <ng-container *ngIf="expires?.value">
+      <mat-label class="expire-date">Fecha de expiración {{ (points | fieldRequired) ? '*' : '' }}</mat-label>
+      <mat-form-field appearance="outline">
+        <input matInput autocomplete="off" formControlName="expirationDate" [matDatepicker]="picker" [min]="minDate" placeholder="dd/mm/aaaa">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error>{{ 'expirationDate' | errorMessage : formGroup }}</mat-error>
+      </mat-form-field>
+    </ng-container>
+
+    <mat-checkbox formControlName="oneUse" color="primary">Un solo uso</mat-checkbox>
+    <mat-checkbox formControlName="perPerson" color="primary">Reclamar por persona</mat-checkbox>
+
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!formGroup.valid"
+      (click)="submitForm()">
+      Crear
+    </button>
+  </form>
+</div>

@@ -1,0 +1,49 @@
+<app-title title="Códigos"></app-title>
+
+<button
+  mat-raised-button
+  color="primary"
+  [routerLink]="appPaths.CREATE">
+  Crear código
+  <mat-icon class="east">east</mat-icon>
+</button>
+
+<div class="container" >
+  <div class='tabbed'>
+    <ul>
+      <li (click)="getActiveCodes()" [ngClass]="{'active': showActive}"><span>ACTIVOS</span></li>
+      <li (click)="getInactiveCodes()" [ngClass]="{'active': !showActive}"><span>INACTIVOS</span></li>
+    </ul>
+  </div>
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container [matColumnDef]="column.name" *ngFor="let column of initColumns; index as index">
+      <mat-header-cell *matHeaderCellDef [ngClass]="{'hide': !column.show && (isSmallScreen$ | async)}"> {{ column.display }} </mat-header-cell>
+      <mat-cell *matCellDef="let item" [ngClass]="{'hide': !column.show && (isSmallScreen$ | async)}"> 
+        <ng-container *ngIf="index <= 6">
+          <ng-container [ngSwitch]="(item[column.name]) | typeof">
+            <span *ngSwitchCase="'boolean'">{{ item[column.name] ? 'Sí' : 'No' }}</span>
+            <span *ngSwitchDefault>{{ item[column.name] ?? '-' }}</span>
+          </ng-container>
+        </ng-container>
+        <ng-container *ngIf="index == 7 || index == 8">{{ ((item[column.name] | parseArrayToDate) | date: 'dd/MM/yyyy HH:mm') || '-' }}</ng-container>
+        <ng-container *ngIf="index >= 9">
+          <button
+            mat-stroked-button
+            color="accent"
+            (click)="invalidate(item.code)"
+            [disabled]="!item.active">
+            Invalidar
+          </button>
+        </ng-container>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <div class="not-content" *ngIf="!codes || codes.length == 0">
+    <h1 *ngIf="showActive">Aún no hay códigos activos disponibles.</h1>
+    <h1 *ngIf="!showActive">Aún no hay códigos inactivos.</h1>
+  </div>
+</div>

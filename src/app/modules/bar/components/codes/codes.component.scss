@@ -1,0 +1,55 @@
+::ng-deep app-router {
+  padding-top: 1rem;
+}
+
+button[mat-raised-button] {
+  max-width: 220px;
+  margin-bottom: 1.5rem;
+}
+
+small {
+  display: block;
+  margin-top: -1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 1rem;
+  flex-direction: column;
+
+  mat-table {
+    border-radius: 0;
+    overflow-y: overlay;
+
+    button[mat-stroked-button] {
+      height: 40px;
+    }
+  }
+}
+
+.hide {
+  display: none;
+}
+
+.empty-bar h1 {
+  font-weight: 300;
+  font-size: 18px;
+}
+
+@media (max-width: 960px) {
+  .container {
+    mat-table {
+      mat-header-cell:first-of-type,
+      mat-cell:first-of-type {
+        max-width: 70px;
+      }
+    }
+  }
+
+  ::ng-deep app-router {
+    //56px = toolbar height //57px = navbar height //1rem = padding-top
+    max-height: calc(100vh - 56px - 57px - 1rem);
+  }
+}
