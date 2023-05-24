@@ -19,6 +19,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { BarCreateComponent } from './components/bar-create/bar-create.component';
 import { BarUpdateComponent } from './components/bar-update/bar-update.component';
@@ -36,6 +37,7 @@ import { DemandComponent } from './components/demand/demand.component';
 import { DemandTableComponent } from './components/demand-table/demand-table.component';
 import { CodesComponent } from './components/codes/codes.component';
 import { CodeCreateComponent } from './components/code-create/code-create.component';
+import { CodeRedeemComponent } from './components/code-redeem/code-redeem.component';
 
 
 @NgModule({
@@ -56,6 +58,7 @@ import { CodeCreateComponent } from './components/code-create/code-create.compon
     DemandTableComponent,
     CodesComponent,
     CodeCreateComponent,
+    CodeRedeemComponent,
   ],
   imports: [
     CommonModule,
@@ -74,6 +77,7 @@ import { CodeCreateComponent } from './components/code-create/code-create.compon
     MatNativeDateModule,
     MatPaginatorModule,
     MatTooltipModule,
+    MatDialogModule,
   ],
   providers: [
     ParseToDatePipe,

@@ -329,6 +329,10 @@ mat-table {
   word-break: break-word;
 }
 
+.custom-dialog-container.bg-white .mat-dialog-container {
+  background-color: white !important;
+}
+
 /* mat-snack-bar */
 
 .toast {

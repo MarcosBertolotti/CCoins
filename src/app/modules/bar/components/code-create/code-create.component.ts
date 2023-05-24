@@ -52,7 +52,7 @@ export class CodeCreateComponent implements OnInit {
 
     this.code.valueChanges.subscribe((value: string) => {
       if(value)
-        this.code.addValidators([Validators.minLength(6), Validators.maxLength(12), Validators.pattern(/^[A-Z\\-]+$/)]); //  /^[A-Z0-9\-]*$/
+        this.code.addValidators([Validators.minLength(6), Validators.maxLength(12), Validators.pattern(/^[A-Z0-9\\-]+$/)]); //  /^[A-Z0-9\-]*$/
       else
         this.code.clearValidators();
     });

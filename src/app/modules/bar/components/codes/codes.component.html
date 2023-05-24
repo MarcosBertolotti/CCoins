@@ -1,12 +1,21 @@
 <app-title title="Códigos"></app-title>
 
-<button
-  mat-raised-button
-  color="primary"
-  [routerLink]="appPaths.CREATE">
-  Crear código
-  <mat-icon class="east">east</mat-icon>
-</button>
+<div class="action-container">
+  <button
+    mat-raised-button
+    color="primary"
+    [routerLink]="appPaths.CREATE">
+    Crear código
+    <mat-icon class="east">east</mat-icon>
+  </button>
+
+  <button
+    mat-raised-button
+    color="accent"
+    (click)="openRedeemDialog()">
+    Canjear
+  </button>
+</div>
 
 <div class="container" >
   <div class='tabbed'>

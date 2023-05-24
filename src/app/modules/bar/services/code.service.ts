@@ -29,4 +29,8 @@ export class codeService {
   invalidate(code: string): Promise<Code> {
     return this.requestService.put(`${this.apiURL}/invalidate`, { text: code })
   }
+
+  redeem(code: string, partyId: number): Promise<any> {
+    return this.requestService.post(`${this.apiURL}/redeem`, { code, partyId });
+  }
 }
