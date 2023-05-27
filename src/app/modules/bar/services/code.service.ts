@@ -1,5 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Code } from "src/app/models/code.model";
+import { CoinsRegister } from "src/app/models/coins-register.model";
+import { ResponseData } from "src/app/models/response-data.model";
 import { RequestService } from "src/app/services/request.service";
 
 
@@ -30,7 +32,7 @@ export class codeService {
     return this.requestService.put(`${this.apiURL}/invalidate`, { text: code })
   }
 
-  redeem(code: string, partyId: number): Promise<any> {
+  redeem(code: string, partyId: number): Promise<ResponseData<CoinsRegister>> {
     return this.requestService.post(`${this.apiURL}/redeem`, { code, partyId });
   }
 }

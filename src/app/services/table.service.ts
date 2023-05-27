@@ -4,6 +4,7 @@ import { Table } from '../models/table.model';
 import { ResponseData } from '../models/response-data.model';
 import { ResponseList } from '../models/response-list.model';
 import { Response } from '../models/response.model';
+import { TableParty } from '../modules/bar/models/table-party.model';
 
 interface TableDTO {
   id?: number,
@@ -27,6 +28,10 @@ export class TableService {
 
   findAllByBar(id: number): Promise<ResponseList<Table>> {
     return this.requestService.post(`${this.baseApiURL}/bar`, { id }); // revisar status
+  }
+
+  findAllWithActivePartyByBar(): Promise<TableParty[]> {
+    return this.requestService.get('/party-tables');
   }
 
   saveOrUpdate(table: TableDTO) {

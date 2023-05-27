@@ -36,6 +36,10 @@
           color: var(--accent-base-color);
         }
 
+        h1 span.activity {
+          color: darkturquoise; // aqua
+        }
+
         h3 span {
           color: var(--danger-base-color);
         }
@@ -52,6 +56,9 @@
           }
           &.Cancelado {
             color: var(--danger-base-color);
+          }
+          &.Revertido {
+            color: var(--accent-base-color);
           }
         }
       }

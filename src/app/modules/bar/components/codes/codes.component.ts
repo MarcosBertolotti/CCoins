@@ -5,17 +5,14 @@ import { Code } from 'src/app/models/code.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastService } from 'src/app/shared/services/toast.services';
 import { MatTableDataSource } from '@angular/material/table';
-import { Observable, PartialObserver } from 'rxjs';
+import { Observable } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { map, shareReplay } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { CodeRedeemComponent } from '../code-redeem/code-redeem.component';
-import { Bar } from 'src/app/models/bar-model';
-import { ResponseList } from 'src/app/models/response-list.model';
-import { Table } from 'src/app/models/table.model';
-import { BarService } from 'src/app/services/bar.service';
 import { TableService } from 'src/app/services/table.service';
+import { TableParty } from '../../models/table-party.model';
 
 @Component({
   selector: 'app-codes',
@@ -45,14 +42,13 @@ export class CodesComponent implements OnInit {
 
   isSmallScreen$!: Observable<boolean>;
   idBar!: number;
-  barTables: Table[] = [];
+  barTables: TableParty[] = [];
 
   constructor(
     private matDialog: MatDialog,
     private route: ActivatedRoute,
     private toastService: ToastService,
     private codeService: codeService,
-    private barService: BarService,
     private tableService: TableService,
     private breakpointObserver: BreakpointObserver,
   ) {
@@ -63,7 +59,7 @@ export class CodesComponent implements OnInit {
     this.idBar = +this.route.snapshot.paramMap.get('id')!;
 
     this.getActiveCodes();
-    this.getTables();
+    this.getTablesWithParty();
   }
 
   getActiveCodes(): void {
@@ -105,10 +101,10 @@ export class CodesComponent implements OnInit {
     .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message));
   }
 
-  private async getTables(): Promise<void> {
-    this.tableService.findAllByBar(this.idBar)
-    .then((tables: ResponseList<Table>) => {
-      this.barTables = tables?.list || [];
+  private async getTablesWithParty(): Promise<void> {
+    this.tableService.findAllWithActivePartyByBar()
+    .then((tables: TableParty[]) => {
+      this.barTables = tables || [];
     })
     .catch((error: HttpErrorResponse) =>  this.toastService.openErrorToast(error.error?.message));
   }
@@ -116,13 +112,13 @@ export class CodesComponent implements OnInit {
   openRedeemDialog(): void {
     this.matDialog.open(CodeRedeemComponent, {
       panelClass: ['custom-dialog-container', 'bg-white'],
-      width: '80%',
-      maxWidth: '350px',
+      width: '90%',
+      maxWidth: '450px',
       data: {
         tables: this.barTables
       }
     })
-  }
+  } 
 
   redeem(codeText: string, partyId: number): void {
     this.codeService.redeem(codeText, partyId)
