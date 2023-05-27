@@ -62,7 +62,7 @@
 
     <ng-container *ngIf="expires?.value">
       <div class="inline expires">
-        <mat-label class="expire-date">Fecha de expiración {{ (points | fieldRequired) ? '*' : '' }}</mat-label>
+        <mat-label class="expire-date">Fecha de expiración {{ (expirationDate | fieldRequired) ? '*' : '' }}</mat-label>
         <mat-icon 
           matTooltip="Si no se completa el campo, el código expirará en 10 minutos de ser creado"
           matTooltipClass="above"
