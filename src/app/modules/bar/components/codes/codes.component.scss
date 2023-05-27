@@ -32,6 +32,11 @@ small {
     button[mat-stroked-button] {
       height: 40px;
     }
+
+    mat-header-cell.extended,
+    mat-cell.extended {
+      flex: 1.25 !important;
+    }
   }
 }
 

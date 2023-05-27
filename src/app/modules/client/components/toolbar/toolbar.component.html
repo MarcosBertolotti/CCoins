@@ -7,21 +7,30 @@
         mat-raised-button
         class="logo"
         (click)="goToHome()">
-        <img height="37px" src="assets/chopp_coins_cinta.png"/>
+        <img height="48px" src="assets/chopp_coins_2.png"/>
       </button>
     </div>
 
-    <!--
-    <button
-      *ngIf="currentParty"
-      mat-raised-button
-      class="content-center"
-      (click)="goToTableInfo()">
-      <h1 class="wrap-text ellipsis-second-line">{{ currentParty.name }}</h1>
-    </button>
-    -->
-
     <div class="content-right">
+      <button
+        *ngIf="notifications && notifications.length > 0"
+        mat-icon-button
+        class="notification"
+        (click)="showNotifications = !showNotifications">
+        <mat-icon matBadge="0" matBadgePosition="before" matBadgeColor="warn">
+          notifications_active
+        </mat-icon>
+      </button>
+
+      <div class="collapsable" *ngIf="showNotifications">
+        <div class="notification-container" *ngFor="let message of notifications; index as index">
+          <button mat-icon-button (click)="removeNotification(index)">
+            <mat-icon>close</mat-icon>
+          </button>
+          <p>{{ message }}</p>
+        </div>
+      </div>
+
       <button
         *ngIf="currentParty"
         mat-raised-button

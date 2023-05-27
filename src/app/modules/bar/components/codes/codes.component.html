@@ -26,8 +26,8 @@
   </div>
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container [matColumnDef]="column.name" *ngFor="let column of initColumns; index as index">
-      <mat-header-cell *matHeaderCellDef [ngClass]="{'hide': !column.show && (isSmallScreen$ | async)}"> {{ column.display }} </mat-header-cell>
-      <mat-cell *matCellDef="let item" [ngClass]="{'hide': !column.show && (isSmallScreen$ | async)}"> 
+      <mat-header-cell *matHeaderCellDef [class]="column.class" [ngClass]="{'hide': !column.show && (isSmallScreen$ | async)}"> {{ column.display }} </mat-header-cell>
+      <mat-cell *matCellDef="let item" [class]="column.class" [ngClass]="{'hide': !column.show && (isSmallScreen$ | async)}"> 
         <ng-container *ngIf="index <= 6">
           <ng-container [ngSwitch]="(item[column.name]) | typeof">
             <span *ngSwitchCase="'boolean'">{{ item[column.name] ? 'Sí' : 'No' }}</span>

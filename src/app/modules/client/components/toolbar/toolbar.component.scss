@@ -57,20 +57,13 @@ button[mat-raised-button] {
 }
 
 .content-center {
-  max-height: calc(100% - 10px);
-  background-color: white;
-  border-radius: 30px;
-
-  h1 {
-    font-size: 14px;
-    font-weight: 500; 
-    text-align: center;
-    line-height: normal;
-  }
+  height: 48px;
 
   button {
     background-color: transparent;
-    padding: .25rem .5rem;
+    padding: 0;
+    margin: 0;
+    min-width: 48px;
   }
 }
 
@@ -85,6 +78,74 @@ button[mat-raised-button] {
     text-align: center;
     line-height: normal;
     max-width: 100px;
+  }
+
+  button.notification {
+    mat-icon {
+      font-size: 28px;
+      width: 28px;
+    }
+
+    ::ng-deep {
+      .mat-badge-medium.mat-badge-overlap.mat-badge-before .mat-badge-content {
+        left: -7px;
+      }
+
+      .mat-badge-medium.mat-badge-above .mat-badge-content {
+        top: -8px;
+      }
+
+      .mat-badge-warn .mat-badge-content {
+        border: 2px solid white;
+      }
+
+      .mat-badge-medium .mat-badge-content {
+        width: 8px;
+        height: 8px;
+        line-height: 8px;
+      }
+
+      .mat-badge-warn .mat-badge-content {
+        color: red;
+      }
+    }
+  }
+}
+
+.collapsable {
+  position: absolute;
+  top: 64px;
+  right: 0;
+  z-index: 2000;
+
+  .notification-container {
+    position: relative;
+    background-color: var(--accent-darker-color);
+    width: calc(100% - 3rem);
+    max-width: 400px;
+    min-height: calc(50px - 2rem);
+    max-height: 50px;
+    border-radius: 10px;
+    padding: 1rem;
+    margin: 0 auto .5rem;
+
+    button[mat-icon-button] {
+      position: absolute;
+      right: -0.25rem;
+      top: -0.25rem;
+
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+      }
+    }
+
+    p {
+      font-size: 14px;
+      max-width: none;
+      white-space: normal;
+      text-align: left;
+    }
   }
 }
 
@@ -109,8 +170,7 @@ button[mat-raised-button] {
       position: sticky;
       top: 0;
       z-index: 2;
-    }
-    
+    } 
   }
 }
 
@@ -134,6 +194,10 @@ button[mat-raised-button] {
     p {
       font-size: 18px;
     }
+  }
+
+  .collapsable {
+    top: 72px;
   }
 }
   

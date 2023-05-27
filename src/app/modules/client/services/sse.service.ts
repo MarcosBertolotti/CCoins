@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from "@angular/core";
-import { EMPTY, Observable, Observer } from "rxjs";
+import { EMPTY, Observable, Observer, Subject } from "rxjs";
 import { environment } from "src/environments/environment";
 import { SseEvents } from "../enums/sse-events.enum";
 import { ClientService } from "./client.service";
@@ -10,6 +10,12 @@ import { ClientService } from "./client.service";
 export class SseService {
 
   baseApiURl = `${environment.API_URL}/sse`;
+
+  newNotificationSubject = new Subject<string>();
+
+  get newNotification$(): Observable<string> {
+    return this.newNotificationSubject.asObservable();
+  }
 
   constructor(
     private _zone: NgZone,
@@ -42,6 +48,12 @@ export class SseService {
 
       eventSource.addEventListener(SseEvents.UPDATE_COINS, event => {
         observer.next(event);
+        this.sendNotificationEvent((event as any)?.data);
+      });
+
+      eventSource.addEventListener(SseEvents.NEW_PRIZE, event => {
+        observer.next(event);
+        this.sendNotificationEvent((event as any)?.data);
       });
 
       eventSource.addEventListener(SseEvents.LOGOUT_SPOTIFY, event => {
@@ -65,5 +77,10 @@ export class SseService {
 
   private getEventSource(url: string): EventSource {
     return new EventSource(url);
+  }
+
+  private sendNotificationEvent(notification: string): void {
+    if(notification && notification.length > 0)
+      this.newNotificationSubject.next(notification);
   }
 }

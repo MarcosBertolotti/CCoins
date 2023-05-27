@@ -17,6 +17,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import { MatBadgeModule } from '@angular/material/badge';
 
 import { LoginComponent } from './components/login/login.component';
 import { LoginWarningComponent } from './components/login-warning/login-warning.component';
@@ -62,6 +63,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatDividerModule,
     MatListModule,
     MatPaginatorModule,
+    MatBadgeModule,
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { floatLabel: 'always' } },

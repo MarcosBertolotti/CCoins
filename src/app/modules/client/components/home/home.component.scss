@@ -75,6 +75,13 @@
     }
 
   }
+
+  .container-bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+  }
 }
 
 @media (min-width: 960px) {

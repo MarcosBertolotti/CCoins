@@ -28,13 +28,13 @@ export class CodesComponent implements OnInit {
   initColumns: any[] = [
     { name: 'code', display: 'Código', show: true},
     { name: 'points', display: 'Puntos' , show: true },
-    { name: 'prize', display: 'Premio', show: true },
+    { name: 'prize', display: 'Premio', show: true, class: 'extended' },
     { name: 'perPerson', display: 'Por persona', show: false },
     { name: 'oneUse', display: 'Un uso', show: false },
     { name: 'active', display: 'Activo', show: false },
     { name: 'state', display: 'Estado', show: true },
-    { name: 'startDate', display: 'Inicio', show: false },
-    { name: 'endDate', display: 'Fin', show: false },
+    { name: 'startDate', display: 'Inicio', show: false, class: 'extended' },
+    { name: 'endDate', display: 'Fin', show: false, class: 'extended' },
     { name: 'action', display: '', show: false },
   ];
   displayedColumns: any[] = this.initColumns.map(col => col.name);

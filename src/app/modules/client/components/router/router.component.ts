@@ -1,4 +1,3 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { SseEvents } from '../../enums/sse-events.enum';
@@ -9,22 +8,10 @@ import { PlayerService } from 'src/app/services/player.service';
 import { ClientService } from '../../services/client.service';
 import { SpotifyService } from 'src/app/services/spotify.service';
 
-
-/*
-export const puntosAnimacion = trigger('puntosAnimacion', [
-  transition(':leave', [
-    animate('500ms', style({ 
-      opacity: 1,
-      transform: 'translate(110%, -50vh) scale(0.5)',
-    }))
-  ])
-]);
-*/
 @Component({
   selector: 'app-router',
   templateUrl: './router.component.html',
   styleUrls: ['./router.component.scss'],
- // animations: [puntosAnimacion]
 })
 export class RouterComponent implements OnInit {
 
@@ -42,21 +29,8 @@ export class RouterComponent implements OnInit {
   ngOnInit(): void {
     this.subscribeSSe();
     this.me = this.clientService.clientTable;
-   // this.ganarPuntos();
   }
-/*
-  contador = 0;
-  puntosGanados: number = 0;
 
-  ganarPuntos() {
-    this.puntosGanados = 10;
-
-    setTimeout(() => {
-      this.contador += 10;
-      this.puntosGanados = 0;
-    }, 2000);
-  }
-*/
   subscribeSSe(): void {
     this.sseService.getServerSentEvent().subscribe((event: Partial<MessageEvent<any>>) => {
       switch (event?.type) {
@@ -91,6 +65,9 @@ export class RouterComponent implements OnInit {
 
         case SseEvents.UPDATE_COINS:
           this.getPartyCoins();
+          break;
+
+        case SseEvents.NEW_PRIZE:
           break;
 
         case SseEvents.LOGOUT_SPOTIFY:

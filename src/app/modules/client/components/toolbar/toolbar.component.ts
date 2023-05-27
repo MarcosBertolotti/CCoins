@@ -12,6 +12,7 @@ import { Party } from '../../models/party.model';
 import { ClientService } from '../../services/client.service';
 import { PartyService } from '../../services/party.service';
 import { WelcomeComponent } from '../welcome/welcome.component';
+import { SseService } from '../../services/sse.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -39,12 +40,16 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     tap(() => this.getPartyCoins())
   );
 
+  showNotifications = false;
+  notifications: string[] = ['La party ha adquirido un premio! Que lo disfruten! 1', 'La party ha adquirido un premio! Que lo disfruten! 2'];
+
   constructor(
     private router: Router,
     private matDialog: MatDialog,
     private breakpointObserver: BreakpointObserver,
     private clientService: ClientService,
     private partyService: PartyService,
+    private sseService: SseService,
   ) { }
 
   ngOnInit(): void {
@@ -56,6 +61,12 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     this.getPartyInfo();
 
     this.subscription.add(this.coinsInterval$.subscribe());
+
+    this.subscription.add(
+      this.sseService.newNotification$.subscribe((notification: any) => {
+        this.notifications.push(notification);
+      })
+    );
   }
 
   ngOnDestroy(): void {
@@ -105,5 +116,9 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     dialogRef.beforeClosed().subscribe(() => {
       this.me = this.clientService.clientTable;
     });
+  }
+
+  removeNotification(index: number): void {
+    this.notifications = this.notifications.filter((n: string, i: number) => i !== index);
   }
 }
