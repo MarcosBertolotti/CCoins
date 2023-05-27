@@ -108,4 +108,8 @@ export class HomeComponent implements OnInit {
     };
     this.partyService.getBarGames().subscribe(gamesObserver);
   }
+
+  openRedeemCodeDialog(): void {
+    
+  }
 }

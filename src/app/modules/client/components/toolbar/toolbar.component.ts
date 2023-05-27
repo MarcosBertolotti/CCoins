@@ -41,7 +41,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   );
 
   showNotifications = false;
-  notifications: string[] = ['La party ha adquirido un premio! Que lo disfruten! 1', 'La party ha adquirido un premio! Que lo disfruten! 2'];
+  notifications: string[] = [];
 
   constructor(
     private router: Router,
