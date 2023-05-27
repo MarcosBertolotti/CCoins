@@ -40,7 +40,7 @@
             mat-stroked-button
             color="accent"
             (click)="invalidate(item.code)"
-            [disabled]="!item.active">
+            [disabled]="!item.active || item.state === 'Expirado' || item.state === 'Cerrado'">
             Invalidar
           </button>
         </ng-container>
