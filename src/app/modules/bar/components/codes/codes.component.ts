@@ -34,7 +34,7 @@ export class CodesComponent implements OnInit {
     { name: 'active', display: 'Activo', show: false },
     { name: 'state', display: 'Estado', show: true },
     { name: 'startDate', display: 'Inicio', show: false },
-    { name: 'EndDate', display: 'Fin', show: false },
+    { name: 'endDate', display: 'Fin', show: false },
     { name: 'action', display: '', show: false },
   ];
   displayedColumns: any[] = this.initColumns.map(col => col.name);

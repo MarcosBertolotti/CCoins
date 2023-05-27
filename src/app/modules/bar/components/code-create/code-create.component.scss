@@ -13,10 +13,6 @@ form {
 		width: 100%;
 		margin-bottom: .5rem;
 	}
-
-  mat-label.expire-date {
-    margin-top: .5rem;
-  }
 	
 	.inline-content {
 		display: flex;
@@ -27,6 +23,26 @@ form {
 			flex-direction: column;
 			width: 100%;
 			max-width: calc(50% - .5rem);
+		}
+	}
+
+	.inline {
+		display: flex;
+		align-items: center;
+		padding-bottom: .125rem;
+
+		mat-label {
+			padding-bottom: 0;
+		}
+
+		mat-icon {
+			font-size: 20px;
+			height: 20px;
+			margin-left: .25rem;
+		}
+
+		&.expires {
+			margin-top: .5rem;
 		}
 	}
 }

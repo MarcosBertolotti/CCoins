@@ -5,7 +5,15 @@
 
     <h4 class="title-accent">Nuevo Código</h4>
 
-    <mat-label>Código {{ (code | fieldRequired) ? '*' : '' }}</mat-label>
+    <div class="inline">
+      <mat-label>Código {{ (code | fieldRequired) ? '*' : '' }}</mat-label>
+      <mat-icon 
+        matTooltip="Si no se completa el campo, se generará un código aleatorio"
+        matTooltipClass="above"
+        matTooltipPosition="above">
+        error_outline
+      </mat-icon>
+    </div>
     <mat-form-field appearance="outline">
       <input matInput formControlName="code" placeholder="Entre 6 y 12 caracteres">
       <mat-error>{{ 'code' | errorMessage : formGroup : 'El código solo admite letras en mayúscula, guión medio y no se admiten acentos.' }}</mat-error>
@@ -20,27 +28,48 @@
         </mat-form-field>
       </div>
       <div>
-        <mat-label>Puntos {{ (points | fieldRequired) ? '*' : '' }}</mat-label>
-        <mat-form-field appearance="outline">
-          <input matInput type="number" formControlName="points" placeholder="Cantidad de puntos a otorgar" autocomplete="off">
-          <mat-error>{{ 'points' | errorMessage : formGroup : 'punto' }}</mat-error>
-        </mat-form-field>
+        <app-select
+          label="Recompensa"
+          name="reward"
+          placeholder="Seleccionar recompensa"
+          [items]="rewards"
+          [displayFn]="displayItemFn"
+          [formGroup]="formGroup">
+        </app-select>
       </div>
     </div>
+     
+    <ng-container *ngIf="reward.value?.value === 'points'">
+      <mat-label>Puntos {{ (points | fieldRequired) ? '*' : '' }}</mat-label>
+      <mat-form-field appearance="outline">
+        <input matInput type="number" formControlName="points" placeholder="Cantidad de puntos a otorgar" autocomplete="off">
+        <mat-error>{{ 'points' | errorMessage : formGroup : 'punto' }}</mat-error>
+      </mat-form-field>
+    </ng-container>
 
-    <app-select
-      label="Premio"
-      name="prizeId"
-      placeholder="Seleccionar premio"
-      [items]="prizes"
-      [displayFn]="displayItemFn"
-      [formGroup]="formGroup">
-    </app-select>
+    <ng-container *ngIf="reward.value?.value === 'reward'">
+      <app-select
+        label="Premio"
+        name="prize"
+        placeholder="Seleccionar premio"
+        [items]="prizes"
+        [displayFn]="displayItemFn"
+        [formGroup]="formGroup">
+      </app-select>
+    </ng-container>
 
     <mat-checkbox formControlName="expires" color="primary">Con expiración</mat-checkbox>
 
     <ng-container *ngIf="expires?.value">
-      <mat-label class="expire-date">Fecha de expiración {{ (points | fieldRequired) ? '*' : '' }}</mat-label>
+      <div class="inline expires">
+        <mat-label class="expire-date">Fecha de expiración {{ (points | fieldRequired) ? '*' : '' }}</mat-label>
+        <mat-icon 
+          matTooltip="Si no se completa el campo, el código expirará en 10 minutos de ser creado"
+          matTooltipClass="above"
+          matTooltipPosition="above">
+          error_outline
+        </mat-icon>
+      </div>
       <mat-form-field appearance="outline">
         <input matInput autocomplete="off" formControlName="expirationDate" [matDatepicker]="picker" [min]="minDate" placeholder="dd/mm/aaaa">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -49,8 +78,25 @@
       </mat-form-field>
     </ng-container>
 
-    <mat-checkbox formControlName="oneUse" color="primary">Un solo uso</mat-checkbox>
-    <mat-checkbox formControlName="perPerson" color="primary">Reclamar por persona</mat-checkbox>
+    <div class="inline expires">
+      <mat-checkbox formControlName="oneUse" color="primary">Un solo uso</mat-checkbox>
+      <mat-icon 
+        matTooltip="Una vez reclamado el código se cerrará"
+        matTooltipClass="above"
+        matTooltipPosition="above">
+        error_outline
+      </mat-icon>
+    </div>
+
+    <div class="inline expires">
+      <mat-checkbox formControlName="perPerson" color="primary">Reclamar por persona</mat-checkbox>
+      <mat-icon 
+        matTooltip="Si es por persona, todos los miembros de la party podrán reclamarlo, si no, solo podrá ser reclamado por una persona de la party"
+        matTooltipClass="above"
+        matTooltipPosition="above">
+        error_outline
+      </mat-icon>
+    </div>
 
     <button
       mat-raised-button

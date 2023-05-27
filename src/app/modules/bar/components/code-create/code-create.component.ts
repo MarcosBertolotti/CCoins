@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Prize } from 'src/app/models/prize.model';
@@ -20,6 +20,7 @@ export class CodeCreateComponent implements OnInit {
   formGroup!: FormGroup;
   prizes: Prize[] = [];
   minDate = new Date();
+  rewards = [{ name: 'Puntos', value: 'points' }, { name: 'Premio', value: 'reward' }];
 
   constructor(
     private router: Router,
@@ -28,6 +29,7 @@ export class CodeCreateComponent implements OnInit {
     private codeService: codeService,
     private prizeService: PrizeService,
     private toastService: ToastService,
+    private changeDetectorRef: ChangeDetectorRef,
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -44,25 +46,37 @@ export class CodeCreateComponent implements OnInit {
       quantity: [1, [Validators.required, Validators.min(1)]],
       oneUse: false,
       perPerson: false,
-      prizeId: [null, ],
-      points: [null, [Validators.required, Validators.min(1)]],
+      prize: null,
+      points: [null, [Validators.min(1)]],
       expirationDate: null,
       expires: false,
+      reward: [this.rewards[0], Validators.required],
     });
 
     this.code.valueChanges.subscribe((value: string) => {
       if(value)
-        this.code.addValidators([Validators.minLength(6), Validators.maxLength(12), Validators.pattern(/^[A-Z0-9\\-]+$/)]); //  /^[A-Z0-9\-]*$/
+        this.code.addValidators([Validators.minLength(6), Validators.maxLength(12), Validators.pattern(/^[A-Z0-9\\-]+$/)]);
       else
         this.code.clearValidators();
     });
 
-    this.expires.valueChanges.subscribe((expires: string) => {
-      if(expires)
-        this.expirationDate.addValidators([Validators.required]);
-      else
-        this.expirationDate.clearValidators();
-    });
+    this.validateReward(this.reward.value?.value);
+    this.reward.valueChanges.subscribe((value: { name: string, value: string }) => {
+      this.validateReward(value?.value);
+    })
+  }
+
+  private validateReward(value: string): void {
+    if(value === 'points') {
+      this.points.addValidators(Validators.required);
+      this.prize.removeValidators(Validators.required);
+      this.prize.setValue(null);
+    } else if(value === 'reward') {
+      this.prize.addValidators(Validators.required);
+      this.points.removeValidators(Validators.required);
+      this.points.setValue(null);
+    }
+    this.changeDetectorRef.detectChanges();
   }
 
   private async getPrizes(): Promise<void> {
@@ -71,8 +85,8 @@ export class CodeCreateComponent implements OnInit {
     .catch((error: HttpErrorResponse) =>  this.toastService.openErrorToast(error.error?.message));
   }
 
-  displayItemFn(item?: Prize): string {
-    return item?.name ? item.name : "";
+  displayItemFn(item?: any): string {
+    return item?.name || "";
   }
   
   submitForm(): void {
@@ -81,7 +95,7 @@ export class CodeCreateComponent implements OnInit {
       quantity: this.quantity.value,
       oneUse: this.oneUse.value,
       perPerson: this.perPerson.value,
-      prizeId: this.prizeId.value?.id || null,
+      prizeId: this.prize.value?.id || null,
       points: this.points.value || null,
       expirationDate: this.expirationDate.value || null,
       expires: this.expires.value,
@@ -103,9 +117,9 @@ export class CodeCreateComponent implements OnInit {
   get quantity() { return this.formGroup.get('quantity') as FormControl }
   get oneUse() { return this.formGroup.get('oneUse') as FormControl }
   get perPerson() { return this.formGroup.get('perPerson') as FormControl }
-  get prizeId() { return this.formGroup.get('prizeId') as FormControl }
+  get prize() { return this.formGroup.get('prize') as FormControl }
   get points() { return this.formGroup.get('points') as FormControl }
   get expirationDate() { return this.formGroup.get('expirationDate') as FormControl }
   get expires() { return this.formGroup.get('expires') as FormControl }
-
+  get reward() { return this.formGroup.get('reward') as FormControl }
 }
