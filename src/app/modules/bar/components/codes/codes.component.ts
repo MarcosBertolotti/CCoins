@@ -120,14 +120,6 @@ export class CodesComponent implements OnInit {
     })
   } 
 
-  redeem(codeText: string, partyId: number): void {
-    this.codeService.redeem(codeText, partyId)
-    .then((response) => {
-      console.log("redeem response: ", response);
-    })
-    .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message));
-  }
-
   subscribeBreakpointObserver() {
     this.isSmallScreen$ = this.breakpointObserver.observe('(max-width: 960px)')
     .pipe(

@@ -78,7 +78,7 @@ export class RouterComponent implements OnInit {
           break;
 
         default:
-          console.log('unkown event:', event.type);
+          console.info('unkown event:', event.type);
       }
     });
   }

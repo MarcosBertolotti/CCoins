@@ -38,7 +38,6 @@ export class CodeRedeemComponent implements OnInit {
 
     this.codeService.redeem(code)
     .then((response: ResponseData<CoinsRegister>) => {
-      console.log("response: ", response);
       if(response?.message && response?.data) {
         this.toastService.openSuccessToast(response.message);
         this.matDialogRef.close(true);

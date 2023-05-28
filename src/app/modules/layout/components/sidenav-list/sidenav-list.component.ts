@@ -128,7 +128,7 @@ export class SidenavListComponent implements OnInit {
 
   startPlayback(code?: string): void {
     const spotifyObserver: PartialObserver<void> = {
-      next: () => console.log("start playback successfull."),
+      next: () => console.info("start playback successfull."),
       error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message)
     }
     this.spotifyService.startPlayback(code).subscribe(spotifyObserver);
@@ -180,7 +180,7 @@ export class SidenavListComponent implements OnInit {
           this.countCurrentDemand();
           break;
         default:
-          console.log('unkown event:', event.type);
+          console.info('unkown event:', event.type);
       }
     });
   }
