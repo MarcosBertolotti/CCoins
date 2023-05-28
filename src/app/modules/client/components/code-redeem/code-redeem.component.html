@@ -1,0 +1,25 @@
+<button
+  mat-icon-button
+  mat-dialog-close>
+  <mat-icon>close</mat-icon>
+</button>
+
+<form [formGroup]="formGroup" #form="ngForm" *ngIf="formGroup">
+  <h1>Canjear código</h1>
+
+  <mat-form-field class="dark" floatLabel="always">
+    <mat-label>Código {{ (code | fieldRequired) ? '*' : '' }}</mat-label>
+    <input matInput formControlName="code" placeholder="Ingresar código" autocomplete="off">
+    <mat-error>{{ 'code' | errorMessage : formGroup }}</mat-error>
+  </mat-form-field>
+
+  <button
+    mat-raised-button
+    color="primary"
+    class="rounded dark"
+    [disabled]="!formGroup.valid"
+    (click)="submitForm()">
+    Canjear
+  </button>
+</form>
+

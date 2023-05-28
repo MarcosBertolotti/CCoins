@@ -18,6 +18,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { LoginComponent } from './components/login/login.component';
 import { LoginWarningComponent } from './components/login-warning/login-warning.component';
@@ -32,6 +33,7 @@ import { PlayerComponent } from './components/player/player.component';
 import { PartyCoinsComponent } from './components/party-coins/party-coins.component';
 import { BarGamesComponent } from './components/bar-games/bar-games.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { CodeRedeemComponent } from './components/code-redeem/code-redeem.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     PlayerComponent,
     PartyCoinsComponent,
     BarGamesComponent,
+    CodeRedeemComponent,
   ],
   imports: [
     CommonModule,
@@ -64,6 +67,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatListModule,
     MatPaginatorModule,
     MatBadgeModule,
+    MatDialogModule,
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { floatLabel: 'always' } },

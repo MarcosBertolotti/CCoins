@@ -13,6 +13,7 @@ import { ClientService } from '../../services/client.service';
 import { PartyService } from '../../services/party.service';
 import { WelcomeComponent } from '../welcome/welcome.component';
 import { Party } from '../../models/party.model';
+import { CodeRedeemComponent } from '../code-redeem/code-redeem.component';
 
 @Component({
   selector: 'app-home',
@@ -52,6 +53,7 @@ export class HomeComponent implements OnInit {
     if(!openedWelcomeDialog) {
       const dialogRef = this.matDialog.open(WelcomeComponent, {
         width: '80%',
+        maxWidth: '600px',
         backdropClass: 'back-drop-dialog',
         panelClass: 'custom-dialog-container-dark',
         disableClose: true,
@@ -109,7 +111,12 @@ export class HomeComponent implements OnInit {
     this.partyService.getBarGames().subscribe(gamesObserver);
   }
 
-  openRedeemCodeDialog(): void {
-    
-  }
+  openRedeemDialog(): void {
+    this.matDialog.open(CodeRedeemComponent, {
+      backdropClass: 'back-drop-dialog',
+      panelClass: 'custom-dialog-container-dark',
+      width: '90%',
+      maxWidth: '450px',
+    })
+  } 
 }

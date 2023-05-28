@@ -442,11 +442,6 @@ input::-webkit-calendar-picker-indicator{
   background-color: white;
 }
 
-.custom-dialog-container-dark {
-  /*min-width: 400px;*/
-  max-width: 600px !important;
-}
-
 .custom-dialog-container-dark .mat-dialog-container {
   border-radius: 20px !important;
   background-color: var(--dark-base-color) !important;

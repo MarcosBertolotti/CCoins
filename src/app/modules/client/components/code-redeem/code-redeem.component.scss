@@ -1,0 +1,26 @@
+:host {
+  position: relative;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    font-size: 22px;
+    text-align: center;
+    font-weight: 400;
+    margin: 0 0 1rem;
+  }
+
+  button[mat-raised-button] {
+    margin-top: 0.75rem;
+  }
+}
+
+button[mat-icon-button] {
+  color: var(--dark-base-color);
+  position: absolute;
+  right: -1.5rem;
+  top: -1.5rem;
+}
