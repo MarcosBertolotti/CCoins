@@ -17,6 +17,7 @@ export class WelcomeComponent implements OnInit {
 
   me: ClientTableDTO;
   formGroup!: FormGroup;
+  openedWelcomeDialog: boolean = false;
 
   constructor(
     private matDialog: MatDialogRef<WelcomeComponent>,
@@ -26,6 +27,7 @@ export class WelcomeComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) data: ClientTableDTO,
   ) {
     this.me = data;
+    this.openedWelcomeDialog = localStorage.getItem('openedWelcomeDialog') === 'true';
    }
 
   ngOnInit(): void {

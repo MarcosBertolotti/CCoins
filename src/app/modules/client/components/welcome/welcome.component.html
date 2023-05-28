@@ -16,6 +16,6 @@
     class="rounded dark"
     color="primary"
     [disabled]="!formGroup.valid">
-    Continuar
+    {{ openedWelcomeDialog ? 'Aceptar' : 'Continuar' }}
   </button>
 </form>
