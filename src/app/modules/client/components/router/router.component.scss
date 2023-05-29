@@ -3,9 +3,15 @@
   top: 56px;
 }
 
+::ng-deep {
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--dark-lighter-color);
+  }
+}
+
 ::ng-deep body {
   background-color: var(--dark-base-color);
-  overflow-y: overlay;
+  //overflow-y: overlay;
 
   p, h1, h2, h3, h4, h5, b, span {
     color: white;

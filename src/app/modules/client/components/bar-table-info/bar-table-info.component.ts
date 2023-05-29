@@ -156,11 +156,11 @@ export class BarTableInfoComponent implements OnInit {
         actions: [
           {
             message: "Eliminar",
-            action: () => {},
+            action: () => this.toastService.openErrorToast("Work in Progress"),
           },
           {
             message: "Bannear",
-            action: () => {},
+            action: () => this.toastService.openErrorToast("Work in Progress"),
           },
         ],
       },
