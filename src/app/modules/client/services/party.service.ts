@@ -101,4 +101,8 @@ export class PartyService {
   redeemPrize(idPrize: number): Observable<{ code: number, message: string }> {
     return this.http.post<{ code: number, message: string }>(`${this.apiURL}/prizes/buy`, { id: idPrize });
   }
+
+  setLeader(id: number): Observable<any> {
+    return this.http.put<any>(`${this.apiURL}/leader`, { id });
+  }
 }

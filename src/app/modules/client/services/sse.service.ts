@@ -61,6 +61,11 @@ export class SseService {
         this.sendNotificationEvent((event as any)?.data);
       });
 
+      eventSource.addEventListener(SseEvents.NEW_LEADER, event => {
+        observer.next(event);
+        this.sendNotificationEvent((event as any)?.data);
+      });
+
       eventSource.addEventListener(SseEvents.LOGOUT_SPOTIFY, event => {
         observer.next(event);
       });

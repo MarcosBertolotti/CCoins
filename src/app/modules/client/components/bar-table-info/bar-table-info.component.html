@@ -9,13 +9,25 @@
     <h2 class="party">{{ party.name }}</h2>
 
     <div class="content me">
-      <mat-icon>circle</mat-icon>
+      <div class="left-container">
+        <img *ngIf="me.leader" src="assets/icons/crown_filled_2.png" alt="crown" height="24px" width="24px">
+        <img *ngIf="!me.leader" src="assets/icons/crown.png" alt="crown" height="23px" width="23px" class="not-leader">
+      </div>
       <h1>{{ nickName$ | async }} (Tú)</h1>
     </div>
 
     <ng-container *ngFor="let client of clients">
       <div class="content">
-        <mat-icon>circle</mat-icon>
+        <div class="left-container">
+          <button
+            mat-icon-button
+            class="not-leader"
+            (click)="openSetLeaderDialog(client)"
+            [disabled]="!me.leader || client.leader">
+            <img *ngIf="client.leader" src="assets/icons/crown_filled_2.png" alt="crown" height="24px" width="24px">
+            <img *ngIf="!client.leader" src="assets/icons/crown.png" alt="crown" height="23px" width="23px" class="not-leader">
+          </button>
+        </div>
         <h1>{{ client.nickName }}</h1>
       </div>
     </ng-container>

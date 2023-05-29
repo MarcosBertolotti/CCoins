@@ -4,4 +4,5 @@ export interface Client {
     ip: string,
     nickName: string,
     startDate: Date,
+    leader: boolean,
 }

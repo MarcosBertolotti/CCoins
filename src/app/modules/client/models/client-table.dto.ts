@@ -4,4 +4,5 @@ export interface ClientTableDTO {
   tableCode: string;
   nickName: string;
   partyId: string;
+  leader: boolean;
 }

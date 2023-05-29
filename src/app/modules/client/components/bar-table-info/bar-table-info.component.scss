@@ -46,7 +46,7 @@
       .content {
         display: flex;
         align-items: center;
-        margin-bottom: .25rem;
+        margin-bottom: .375rem;
 
         h1 {
           margin: 0;
@@ -54,14 +54,35 @@
           font-weight: 400;
         }
 
-        .mat-icon {
-          font-size: 16px;
-          height: auto;
+        .left-container {
+          display: flex;
+          align-items: center;
+          width: 36px;
+          height: 34px;
+
+          button[mat-icon-button].not-leader {
+            left: -.5rem;
+          }
+  
+          .mat-icon {
+            font-size: 16px;
+            height: auto;
+          }
+
+          img.not-leader {
+            background-color: var(--dark-lighter-color);
+            border-radius: 50%;
+            border: 1px solid white;
+          }
         }
 
         &.me {
           .mat-icon {
             color: var(--primary-darker-color);
+          }
+
+          img {
+            margin-right: .25rem;
           }
         }
       }
