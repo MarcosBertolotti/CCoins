@@ -19,6 +19,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { LoginComponent } from './components/login/login.component';
 import { LoginWarningComponent } from './components/login-warning/login-warning.component';
@@ -32,7 +34,6 @@ import { VotingComponent } from './components/voting/voting.component';
 import { PlayerComponent } from './components/player/player.component';
 import { PartyCoinsComponent } from './components/party-coins/party-coins.component';
 import { BarGamesComponent } from './components/bar-games/bar-games.component';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { CodeRedeemComponent } from './components/code-redeem/code-redeem.component';
 
 @NgModule({
@@ -68,6 +69,7 @@ import { CodeRedeemComponent } from './components/code-redeem/code-redeem.compon
     MatPaginatorModule,
     MatBadgeModule,
     MatDialogModule,
+    MatCheckboxModule,
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { floatLabel: 'always' } },

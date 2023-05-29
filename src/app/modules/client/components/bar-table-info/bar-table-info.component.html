@@ -8,30 +8,41 @@
     <h2 class="title">Integrantes de la mesa</h2>
     <h2 class="party">{{ party.name }}</h2>
 
-    <div class="content me">
-      <div class="left-container">
-        <img *ngIf="me.leader" src="assets/icons/crown_filled_2.png" alt="crown" height="24px" width="24px">
-        <img *ngIf="!me.leader" src="assets/icons/crown.png" alt="crown" height="23px" width="23px" class="not-leader">
-      </div>
-      <h1>{{ nickName$ | async }} (Tú)</h1>
-    </div>
+    <form [formGroup]="formGroup" *ngIf="formGroup">
+      <mat-list formArrayName="members">
+        <mat-list-item class="me">
+          <div matListIcon>
+            <img *ngIf="me.leader" src="assets/icons/crown_filled_2.png" alt="crown" height="24px" width="24px">
+            <img *ngIf="!me.leader" src="assets/icons/crown.png" alt="crown" height="23px" width="23px" class="not-leader">
+          </div>
+          <h1 matLine>{{ nickName$ | async }} (Tú)</h1>
+        </mat-list-item>
 
-    <ng-container *ngFor="let client of clients">
-      <div class="content">
-        <div class="left-container">
-          <button
-            mat-icon-button
-            class="not-leader"
-            (click)="openSetLeaderDialog(client)"
-            [disabled]="!me.leader || client.leader">
-            <img *ngIf="client.leader" src="assets/icons/crown_filled_2.png" alt="crown" height="24px" width="24px">
-            <img *ngIf="!client.leader" src="assets/icons/crown.png" alt="crown" height="23px" width="23px" class="not-leader">
-          </button>
-        </div>
-        <h1>{{ client.nickName }}</h1>
-      </div>
-    </ng-container>
+        <mat-list-item *ngFor="let client of clients; index as index">
+          <div matListIcon>
+            <button
+              mat-icon-button
+              class="not-leader"
+              (click)="openSetLeaderDialog(client)"
+              [disabled]="!me.leader || client.leader">
+              <img *ngIf="client.leader" src="assets/icons/crown_filled_2.png" alt="crown" height="24px" width="24px">
+              <img *ngIf="!client.leader" src="assets/icons/crown.png" alt="crown" height="23px" width="23px" class="not-leader">
+            </button>
+          </div>
+          <h1 matLine>{{ client.nickName }}</h1>
+          <mat-checkbox *ngIf="me.leader" color="warn" [formControlName]="index"></mat-checkbox>
+        </mat-list-item>
+      </mat-list>
+    </form>
   </div>
+
+  <button 
+    class="btn-remove"
+    mat-raised-button
+    color="warn"
+    (click)="openRemoveClientsDialog()">
+    Eliminar seleccionados
+  </button>
 
   <button 
     class="btn-logout"

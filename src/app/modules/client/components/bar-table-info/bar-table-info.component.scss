@@ -43,30 +43,30 @@
         color: var(--primary-darker-color);
       }
 
-      .content {
-        display: flex;
-        align-items: center;
-        margin-bottom: .375rem;
+      .mat-list-base {
+        padding-top: 0;
 
-        h1 {
-          margin: 0;
-          font-size: 18px;
-          font-weight: 400;
-        }
+        mat-list-item ::ng-deep {
+          height: 43px;
 
-        .left-container {
-          display: flex;
-          align-items: center;
-          width: 36px;
-          height: 34px;
+          .mat-list-item-content {
+            padding: 0;
+          }
+
+          .mat-list-icon {
+            display: flex;
+            align-items: center;
+            width: 36px;
+            height: 34px;
+            padding: 0;
+          }
+
+          .mat-list-text {
+            padding: 0;
+          }
 
           button[mat-icon-button].not-leader {
             left: -.5rem;
-          }
-  
-          .mat-icon {
-            font-size: 16px;
-            height: auto;
           }
 
           img.not-leader {
@@ -74,16 +74,26 @@
             border-radius: 50%;
             border: 1px solid white;
           }
+
+          h1 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 400;
+          }
+
+          mat-checkbox ::ng-deep .mat-checkbox-frame {
+            border-color: var(--dark-lighter-color);
+          }
         }
+      }
+    }
 
-        &.me {
-          .mat-icon {
-            color: var(--primary-darker-color);
-          }
+    .btn-remove {
+      margin-top: 1rem;
 
-          img {
-            margin-right: .25rem;
-          }
+      ::ng-deep {
+        .mat-button-wrapper {
+          color: white;
         }
       }
     }
@@ -94,7 +104,7 @@
     }
 
     .btn-logout ::ng-deep .mat-button-wrapper {
-      color: var(--danger-darker-color) !important;
+      color: var(--accent-darker-color) !important;
       font-weight: 300;
       text-decoration: underline;
     }
