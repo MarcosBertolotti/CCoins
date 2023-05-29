@@ -105,4 +105,8 @@ export class PartyService {
   setLeader(id: number): Observable<any> {
     return this.http.put<any>(`${this.apiURL}/leader`, { id });
   }
+
+  kickMembers(ids: number[], banned = false): Observable<any> {
+    return this.http.delete(`${this.apiURL}/kick`, { body: { list: ids, banned } });
+  }
 }

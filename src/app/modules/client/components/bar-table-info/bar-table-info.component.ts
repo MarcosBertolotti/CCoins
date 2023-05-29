@@ -117,6 +117,7 @@ export class BarTableInfoComponent implements OnInit {
   setLeader(clientId: number): void {
     const clientsObserver: PartialObserver<any> = {
       next: () => {
+        this.toastService.openSuccessToast("se ha cedido el lider exitosamente!");
         this.getClients();
       },
       error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message)
@@ -156,14 +157,27 @@ export class BarTableInfoComponent implements OnInit {
         actions: [
           {
             message: "Eliminar",
-            action: () => this.toastService.openErrorToast("Work in Progress"),
+            action: () => this.deleteMembers(selectedClients),
           },
           {
             message: "Bannear",
-            action: () => this.toastService.openErrorToast("Work in Progress"),
+            action: () => this.deleteMembers(selectedClients, true),
           },
         ],
       },
     });
+  }
+
+  deleteMembers(members: Client[], banned = false): void {
+    const ids = members.map((member: Client) => member.id);
+
+    const membersObserver: PartialObserver<any> = {
+      next: (response: any) => {
+        this.toastService.openSuccessToast("se han eliminado los miembros seleccionados exitosamente!");
+        this.getClients();
+      },
+      error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message)
+    };
+    this.partyService.kickMembers(ids, banned).subscribe(membersObserver);
   }
 }
