@@ -117,6 +117,7 @@ export class BarTableInfoComponent implements OnInit {
   setLeader(clientId: number): void {
     const clientsObserver: PartialObserver<any> = {
       next: () => {
+        this.me.leader = false;
         this.toastService.openSuccessToast("se ha cedido el lider exitosamente!");
         this.getClients();
       },
