@@ -153,16 +153,11 @@ export class BarTableInfoComponent implements OnInit {
           "Si seleccionás 'Bannear', los miembros no podrán volver acceder a la party durante esta sesión.",
         ],
         title: 'Atención!',
-        canCancel: false,
-        showCloseIcon: true,
+        canCancel: true,
         actions: [
           {
             message: "Eliminar",
             action: () => this.deleteMembers(selectedClients),
-          },
-          {
-            message: "Bannear",
-            action: () => this.deleteMembers(selectedClients, true),
           },
         ],
       },
