@@ -28,7 +28,7 @@ export class CodesComponent implements OnInit {
   initColumns: any[] = [
     { name: 'code', display: 'Código', show: true},
     { name: 'points', display: 'Puntos' , show: true },
-    { name: 'prize', display: 'Premio', show: true, class: 'extended' },
+    { name: 'prizeName', display: 'Premio', show: true, class: 'extended' },
     { name: 'perPerson', display: 'Por persona', show: false },
     { name: 'oneUse', display: 'Un uso', show: false },
     { name: 'active', display: 'Activo', show: false },

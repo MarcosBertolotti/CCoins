@@ -1,10 +1,14 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable, of, PartialObserver } from "rxjs";
+import { BehaviorSubject, Observable, of, PartialObserver, Subject } from "rxjs";
 import { tap } from "rxjs/operators";
 import { RequestService } from "src/app/services/request.service";
 import { environment } from "src/environments/environment";
 import { ClientTableDTO } from "../models/client-table.dto";
+import { Router } from "@angular/router";
+import { AppPaths } from "src/app/enums/app-paths.enum";
+import { ClientPaths } from "../enums/client-paths.eum";
+import { WarningType } from "../enums/warning-type.enum";
 
 export interface IpAddress {
   ip: string,
@@ -31,7 +35,20 @@ export class ClientService {
     this.nickNameSubject.next(nickName);
   }
 
+  private leaderSubject = new Subject<boolean>();
+
+  get leader$(): Observable<boolean> {
+    return this.leaderSubject.asObservable();
+  }
+
+  set leader(leader: boolean) {
+    let clientTable = this.clientTable;
+    clientTable.leader = leader;
+    this.leaderSubject.next(leader);
+  }
+
   constructor(
+    private router: Router,
     private requestService: RequestService,
     private http: HttpClient,
   ) { }
@@ -86,5 +103,11 @@ export class ClientService {
     .pipe(
       tap(() => localStorage.clear())
     );
+  }
+
+  logoutByKick(): void {
+    this.router.navigate([ClientPaths.WARNING_LOGIN], { queryParams: {
+      type: WarningType.KICK
+    }});
   }
 }

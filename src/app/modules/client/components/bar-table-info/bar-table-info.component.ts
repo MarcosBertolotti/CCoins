@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, PartialObserver } from 'rxjs';
+import { PartialObserver } from 'rxjs';
 import { ResponseList } from 'src/app/models/response-list.model';
 import { ToastService } from 'src/app/shared/services/toast.services';
 import { ClientPaths } from '../../enums/client-paths.eum';
@@ -23,7 +23,6 @@ import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 export class BarTableInfoComponent implements OnInit {
 
   me!: ClientTableDTO;
-  nickName$!: Observable<string>;
 
   party!: Party;
   clients!: Client[];
@@ -40,8 +39,6 @@ export class BarTableInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.me = this.clientService.clientTable;
-    this.nickName$ = this.clientService.nickName$;
-
     this.getClients();
     this.getParty();
   }
@@ -118,6 +115,7 @@ export class BarTableInfoComponent implements OnInit {
     const clientsObserver: PartialObserver<any> = {
       next: () => {
         this.me.leader = false;
+        this.clientService.clientTable = this.me;
         this.toastService.openSuccessToast("se ha cedido el lider exitosamente!");
         this.getClients();
       },
@@ -138,19 +136,18 @@ export class BarTableInfoComponent implements OnInit {
     }
 
     let clientNames: string[] | string = selectedClients.map((client: Client) => client.nickName);
-    clientNames = clientNames.length > 1 ? `${clientNames.slice(0, -1).join('\n ')}\n ${clientNames.slice(-1)}` : clientNames[0];
+    clientNames = clientNames.length > 1 ? `- ${clientNames.slice(0, -1).join('\n- ')}\n - ${clientNames.slice(-1)}` : `- ${clientNames[0]}`;
 
     this.matDialog.open(DialogComponent, {
       width: '90%',
       maxWidth: '350px',
       maxHeight: '90vh',
       backdropClass: 'back-drop-dialog',
-      panelClass: 'custom-dialog-container-dark',
+      panelClass: ['custom-dialog-container-dark', 'remove-members'],
       data: {
         messages: [
-          'Se eliminarán los siguientes miembros de la party:',
+          selectedClients.length > 1 ? 'Se eliminarán los siguientes miembros de la party:' : 'Se eliminará a el siguiente miembro de la party:',
           `${clientNames}`,
-          "Si seleccionás 'Bannear', los miembros no podrán volver acceder a la party durante esta sesión.",
         ],
         title: 'Atención!',
         canCancel: true,
@@ -169,7 +166,8 @@ export class BarTableInfoComponent implements OnInit {
 
     const membersObserver: PartialObserver<any> = {
       next: (response: any) => {
-        this.toastService.openSuccessToast("se han eliminado los miembros seleccionados exitosamente!");
+        const message = members.length > 1 ? 'se han eliminado los miembros seleccionados exitosamente!' : 'se ha eliminado a el miembro seleccionado exitosamente!'
+        this.toastService.openSuccessToast(message);
         this.getClients();
       },
       error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message)

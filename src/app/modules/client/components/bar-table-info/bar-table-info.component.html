@@ -1,6 +1,6 @@
 <div class="container" *ngIf="party && clients">
   <div class="title-content">
-    <h3>{{ clients.length + 1 }} integrantes</h3>
+    <h3>{{ clients.length }} integrantes</h3>
     <h2>Mesa {{ party.table }}</h2>
   </div>
 
@@ -10,27 +10,19 @@
 
     <form [formGroup]="formGroup" *ngIf="formGroup">
       <mat-list formArrayName="members">
-        <mat-list-item class="me">
-          <div matListIcon>
-            <img *ngIf="me.leader" src="assets/icons/crown_filled_2.png" alt="crown" height="24px" width="24px">
-            <img *ngIf="!me.leader" src="assets/icons/crown.png" alt="crown" height="23px" width="23px" class="not-leader">
-          </div>
-          <h1 matLine>{{ nickName$ | async }} (Tú)</h1>
-        </mat-list-item>
-
         <mat-list-item *ngFor="let client of clients; index as index">
           <div matListIcon>
             <button
               mat-icon-button
               class="not-leader"
               (click)="openSetLeaderDialog(client)"
-              [disabled]="!me.leader || client.leader">
+              [disabled]="!me.leader || client.leader || index == 0">
               <img *ngIf="client.leader" src="assets/icons/crown_filled_2.png" alt="crown" height="24px" width="24px">
               <img *ngIf="!client.leader" src="assets/icons/crown.png" alt="crown" height="23px" width="23px" class="not-leader">
             </button>
           </div>
-          <h1 matLine>{{ client.nickName }}</h1>
-          <mat-checkbox *ngIf="me.leader" color="warn" [formControlName]="index"></mat-checkbox>
+          <h1 matLine>{{ client.nickName }} <span *ngIf="index == 0">(Tú)</span></h1>
+          <mat-checkbox *ngIf="me.leader && index > 0" color="warn" [formControlName]="index"></mat-checkbox>
         </mat-list-item>
       </mat-list>
     </form>
@@ -41,6 +33,7 @@
     class="btn-remove"
     mat-raised-button
     color="warn"
+    [disabled]="!clients || clients.length == 1"
     (click)="openRemoveClientsDialog()">
     Eliminar seleccionados
   </button>

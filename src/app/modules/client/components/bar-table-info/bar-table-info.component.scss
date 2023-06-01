@@ -96,6 +96,10 @@
           color: white;
         }
       }
+
+      &.mat-button-disabled {
+        background-color: var(--dark-lighter-color);
+      }
     }
 
     .btn-logout {
@@ -109,6 +113,10 @@
       text-decoration: underline;
     }
   }
+}
+
+::ng-deep .mat-dialog-container p:not(:first-of-type) {
+  text-align: left;
 }
 
 @media (min-width: 960px) {

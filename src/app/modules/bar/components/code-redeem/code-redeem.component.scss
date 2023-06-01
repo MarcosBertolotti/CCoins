@@ -1,5 +1,6 @@
 :host {
   position: relative;
+  display: block;
 }
 
 form {
@@ -28,6 +29,6 @@ form {
 button[mat-icon-button] {
   color: var(--dark-base-color);
   position: absolute;
-  right: -1.5rem;
+  right: -1.25rem;
   top: -1.5rem;
 }

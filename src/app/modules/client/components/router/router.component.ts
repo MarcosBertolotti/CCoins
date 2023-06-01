@@ -70,6 +70,14 @@ export class RouterComponent implements OnInit {
         case SseEvents.NEW_PRIZE:
           break;
 
+        case SseEvents.YOU_ARE_THE_LEADER:
+          this.clientService.leader = true;
+          break;
+
+        case SseEvents.LOGOUT_CLIENT:
+          this.clientService.logoutByKick();
+          break;
+
         case SseEvents.LOGOUT_SPOTIFY:
           if(this.spotifyService.connected) {
             this.spotifyService.connected = false;

@@ -1,3 +1,4 @@
 export enum WarningType {
-    LOGOUT = 'logout'
+    LOGOUT = 'logout',
+    KICK = 'kick',
 }
