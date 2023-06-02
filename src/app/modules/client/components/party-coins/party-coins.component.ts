@@ -7,6 +7,7 @@ import { CoinsService } from '../../services/coins.service';
 import { PartyService } from '../../services/party.service';
 import { PageEvent } from '@angular/material/paginator';
 import { CoinsReport } from 'src/app/models/coins-report.model';
+import { DemandTypes } from 'src/app/modules/bar/enums/demand-types.enum';
 
 @Component({
   selector: 'app-party-coins',
@@ -18,6 +19,7 @@ export class PartyCoinsComponent implements OnInit {
   coinsReport!: CoinsReport;
   loading!: boolean;
   currentParty$!: Observable<Party>;
+  demandType = DemandTypes;
 
   // paginator
   selectedType: string = '';
