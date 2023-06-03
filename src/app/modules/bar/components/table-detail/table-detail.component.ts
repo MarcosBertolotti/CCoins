@@ -99,7 +99,6 @@ export class TableDetailComponent implements OnInit {
         const date = table.startDate;
         if(table.startDate.length > 0) {
           this.table.startDate = this.parseArrayToDatePipe.transform(date);
-          this.table.startDate.setHours(date[3], date[4], date[5]);
         }
       })
       .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message));
