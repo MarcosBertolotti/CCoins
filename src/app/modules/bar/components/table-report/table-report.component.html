@@ -1,0 +1,30 @@
+<div class='tabbed'>
+  <ul>
+    <li (click)="filter()" [ngClass]="{'active': selectedType === ''}"><span>TOTAL</span></li>
+    <li (click)="filter('expended')" [ngClass]="{'active': selectedType === 'expended'}"><span>GASTADOS</span></li>
+    <li (click)="filter('acquired')" [ngClass]="{'active': selectedType === 'acquired'}"><span>RECIBIDOS</span></li>
+  </ul>
+  <ng-container [ngTemplateOutlet]="reportPaginator"></ng-container>
+</div>
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <ng-container [matColumnDef]="column.name" *ngFor="let column of initColumns; index as index">
+    <mat-header-cell *matHeaderCellDef [ngClass]="{'hide': !column.show && (isSmallScreen$ | async)}"> {{ column.display }} </mat-header-cell>
+    <mat-cell *matCellDef="let item" [ngClass]="{'hide': !column.show && (isSmallScreen$ | async)}"> 
+      <ng-container>{{ item[column.name] }}</ng-container>
+    </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;">
+  </mat-row>
+</mat-table>
+<ng-container [ngTemplateOutlet]="reportPaginator"></ng-container>
+
+<ng-template #reportPaginator>
+  <mat-paginator
+    [pageSize]="10"
+    [pageIndex]="currentPage"
+    [length]="reportLength"
+    [hidePageSize]="true"
+    (page)="pageChangeEvent($event)">
+  </mat-paginator>
+</ng-template>

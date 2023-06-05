@@ -26,14 +26,14 @@
             </mat-checkbox>
           </ng-container>
 
-          <ng-container *ngIf="index === 3">
+          <ng-container *ngIf="index === 4">
             {{ column.display }} 
             <button mat-icon-button color="primary" (click)="downloadPDF()">
               <mat-icon fontSet="material-icons-outlined">file_download</mat-icon>
             </button>
           </ng-container>
 
-          <ng-container *ngIf="index === 4">
+          <ng-container *ngIf="index === 5">
             <mat-checkbox 
               (change)="$event ? masterToggleQR() : null"
               [checked]="selectionQR.hasValue() && isAllSelected(selectionQR)"
@@ -42,12 +42,12 @@
             </mat-checkbox>
           </ng-container>
 
-          <ng-container *ngIf="index !== 3"> {{ column.display }} </ng-container>
+          <ng-container *ngIf="index !== 4"> {{ column.display }} </ng-container>
         </mat-header-cell>
 
         <ng-container *ngIf="index === 0">
           <mat-cell *matCellDef="let item"> 
-            <button mat-icon-button [routerLink]="[item.id]">
+            <button mat-icon-button [routerLink]="[item.id]" [queryParams]="{idParty: item.partyId}">
               <mat-icon fontSet="material-icons-outlined">info</mat-icon>
             </button>
           </mat-cell>
@@ -64,13 +64,13 @@
           </mat-cell>
         </ng-container>
 
-        <ng-container *ngIf="index === 2">
-          <mat-cell *matCellDef="let item"> 
-            {{ item[column.name] }}
+        <ng-container *ngIf="index === 2 || index === 3">
+          <mat-cell *matCellDef="let item" [ngClass]="{'hide': !column.show && (isSmallScreen$ | async)}"> 
+            {{ item[column.name] || '-' }}
           </mat-cell>
         </ng-container>
         
-        <ng-container *ngIf="index === 3">
+        <ng-container *ngIf="index === 4">
           <mat-cell *matCellDef="let item" [ngClass]="{'hide': !column.show && (isSmallScreen$ | async)}"> 
             <button mat-icon-button (click)="openQRDialog(item.qrCode, item.number)">
               <mat-icon fontSet="material-icons-outlined">qr_code_2</mat-icon>
@@ -78,7 +78,7 @@
           </mat-cell>
         </ng-container>
 
-        <ng-container *ngIf="index === 4">
+        <ng-container *ngIf="index === 5">
           <mat-cell *matCellDef="let item"> 
             <mat-checkbox 
               (change)="toggleSelectionQR(item)"

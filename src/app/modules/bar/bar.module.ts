@@ -20,6 +20,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { BarCreateComponent } from './components/bar-create/bar-create.component';
 import { BarUpdateComponent } from './components/bar-update/bar-update.component';
@@ -38,6 +39,8 @@ import { DemandTableComponent } from './components/demand-table/demand-table.com
 import { CodesComponent } from './components/codes/codes.component';
 import { CodeCreateComponent } from './components/code-create/code-create.component';
 import { CodeRedeemComponent } from './components/code-redeem/code-redeem.component';
+import { TableReportComponent } from './components/table-report/table-report.component';
+import { TableMembersComponent } from './components/table-members/table-members.component';
 
 
 @NgModule({
@@ -59,6 +62,8 @@ import { CodeRedeemComponent } from './components/code-redeem/code-redeem.compon
     CodesComponent,
     CodeCreateComponent,
     CodeRedeemComponent,
+    TableReportComponent,
+    TableMembersComponent,
   ],
   imports: [
     CommonModule,
@@ -78,6 +83,7 @@ import { CodeRedeemComponent } from './components/code-redeem/code-redeem.compon
     MatPaginatorModule,
     MatTooltipModule,
     MatDialogModule,
+    MatTabsModule,
   ],
   providers: [
     ParseToDatePipe,

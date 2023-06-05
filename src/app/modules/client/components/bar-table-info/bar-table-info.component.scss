@@ -115,10 +115,6 @@
   }
 }
 
-::ng-deep .mat-dialog-container p:not(:first-of-type) {
-  text-align: left;
-}
-
 @media (min-width: 960px) {
   :host {
     .container {

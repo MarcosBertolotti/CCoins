@@ -5,5 +5,9 @@ export interface Table {
     bar: number,
     qrCode: string,
     code: string,
-    startDate: any // Date | number[]
+    startDate: any, // Date | number[]
+//
+    partyId?: number,
+    partyName?: string,
+    partyActive?: boolean,
 }

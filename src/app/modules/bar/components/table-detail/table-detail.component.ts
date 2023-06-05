@@ -1,12 +1,9 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, PartialObserver } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { PartialObserver } from 'rxjs';
 import { Bar } from 'src/app/models/bar-model';
 import { CoinsRegister } from 'src/app/models/coins-register.model';
 import { CoinsReport } from 'src/app/models/coins-report.model';
@@ -18,6 +15,8 @@ import { ParseArrayToDatePipe } from 'src/app/shared/pipes/parse-array-to-date';
 import { ToastService } from 'src/app/shared/services/toast.services';
 import { environment } from 'src/environments/environment';
 import { CoinsService } from '../../services/coins.service';
+import { Client } from 'src/app/models/client.model';
+import { ResponseList } from 'src/app/models/response-list.model';
 
 @Component({
   selector: 'app-table-detail',
@@ -30,27 +29,20 @@ export class TableDetailComponent implements OnInit {
   table!: Table;
   QRURL!: string;
 
+  dataSource!: MatTableDataSource<CoinsRegister>;
+  coinsReport!: CoinsReport;
+  reportLength = 0;
+
+  dataSourceClients!: MatTableDataSource<Client>;
+  idParty!: number;
+
   initColumns: any[] = [
-    { name: 'coins', display: 'Coins', show: true },
-    { name: 'client', display: 'Miembro', show: false },
-    { name: 'activity', display: 'Actividad', show: true },
-    { name: 'date', display: 'Fecha' , show: false },
-    { name: 'state', display: 'Estado' , show: true },
+    { name: 'nickName', display: 'Nickname', show: true },
+    { name: 'leader', display: 'Líder', show: false },
+    { name: 'active', display: 'Activo', show: true },
+    { name: 'startDate', display: 'Fecha inicio', show: true },
   ];
   displayedColumns: any[] = this.initColumns.map(col => col.name);
-
-  dataSource!: MatTableDataSource<CoinsRegister>;
-
-  isSmallScreen$: Observable<boolean> = this.breakpointObserver.observe('(max-width: 960px)')
-  .pipe(
-    map(result => result.matches),
-    shareReplay()
-  );
-
-  coinsReport!: CoinsReport;
-  selectedType: string = '';
-  currentPage = 0;
-  reportLength = 0;
 
   constructor(
     private barService: BarService,
@@ -60,7 +52,6 @@ export class TableDetailComponent implements OnInit {
     private router: Router,
     private matDialog: MatDialog,
     private parseArrayToDatePipe: ParseArrayToDatePipe,
-    private breakpointObserver: BreakpointObserver,
     private coinsService: CoinsService,
   ) { }
 
@@ -70,6 +61,10 @@ export class TableDetailComponent implements OnInit {
     if(!idBar || !idTable) this.goToHome();
 
     this.getCurrentBar(idBar, idTable);
+    this.route.queryParams.subscribe((params) => {
+      this.idParty = params['idParty'];
+      if(this.idParty) this.getMembers();
+    });
   }
 
   private goToHome(): void {
@@ -102,6 +97,15 @@ export class TableDetailComponent implements OnInit {
         }
       })
       .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message));
+  }
+
+  async getMembers(): Promise<void> {
+    this.tableService.getTablePartyMembers(this.idParty)
+    .then((response: ResponseList<Client>) => {
+      const members = response?.list || [];
+      this.dataSourceClients = new MatTableDataSource<Client>(members);
+    })
+    .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message));
   }
 
   toggleActive(): void {
@@ -142,34 +146,23 @@ export class TableDetailComponent implements OnInit {
     .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message))
   }
 
-  // party coins
-
-  getPartyCoinsReport(): void {
-    //this.loading = true;
-    const gamesObserver: PartialObserver<CoinsReport> = {
+  getPartyCoinsReport(selectedType = '', currentPage = 0): void {
+    const reportObserver: PartialObserver<CoinsReport> = {
       next: (response: CoinsReport) => {
         this.coinsReport = response;
         this.reportLength = this.coinsReport?.report?.totalElements;
         if(this.coinsReport?.report?.content)
           this.dataSource = new MatTableDataSource<CoinsRegister>(this.coinsReport.report.content);
-        //this.loading = false;
       },
       error: (error: HttpErrorResponse) => {
         this.toastService.openErrorToast(error.error?.message);
-        //this.loading = false;
       },   
     };
-    this.coinsService.partyReport(this.table.id, this.selectedType, this.currentPage).subscribe(gamesObserver);
+    this.coinsService.partyReport(this.table.id, selectedType, currentPage).subscribe(reportObserver);
   }
 
-  filter(type: string = ''): void {
-    this.selectedType = type;
-    this.currentPage = 0;
-    this.getPartyCoinsReport();
+  getReportEvent(event: { selectedType: string, currentPage: number}): void {
+    this.getPartyCoinsReport(event.selectedType, event.currentPage);
   }
 
-  pageChangeEvent(event: PageEvent): void {
-    this.currentPage = event.pageIndex;
-    this.getPartyCoinsReport();
-  }
 }

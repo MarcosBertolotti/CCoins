@@ -7,8 +7,8 @@ import { Game } from "src/app/models/game.model";
 import { Prize } from "src/app/models/prize.model";
 import { ResponseList } from "src/app/models/response-list.model";
 import { environment } from "src/environments/environment";
-import { Client } from "../models/client.model";
 import { Party } from "../models/party.model";
+import { Client } from "src/app/models/client.model";
 
 @Injectable({
   providedIn: 'root'

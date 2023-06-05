@@ -1,0 +1,30 @@
+mat-table {
+  mat-header-cell:first-of-type,
+  mat-header-cell:last-of-type,
+  mat-cell:first-of-type,
+  mat-cell:last-of-type {
+    flex: .75;
+  }
+}
+
+.hide {
+  display: none;
+}
+
+mat-paginator {
+  margin-top: .75rem;
+}
+
+.tabbed {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  mat-paginator {
+    margin-top: 0;
+
+    ::ng-deep .mat-paginator-container {
+      min-height: 40px;
+    }
+  }
+}

@@ -124,6 +124,16 @@ button[mat-raised-button] {
   }
 }
 
+button[mat-raised-button].mat-button-disabled {
+  &[color='warn'] {
+    border-color: darkgray;
+
+    span {
+      color: gray;
+    }
+  }
+}
+
 button[mat-raised-button].dark.mat-button-disabled {
   background-color: #ffffff1f;
 
@@ -328,6 +338,10 @@ mat-table {
   background-color: var(--dark-base-color) !important;
   color: white !important;
   word-break: break-word;
+}
+
+.remove-members .mat-dialog-container p:not(:first-of-type) {
+  text-align: left;
 }
 
 .custom-dialog-container.bg-white .mat-dialog-container {

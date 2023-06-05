@@ -7,13 +7,13 @@ import { ToastService } from 'src/app/shared/services/toast.services';
 import { ClientPaths } from '../../enums/client-paths.eum';
 import { WarningType } from '../../enums/warning-type.enum';
 import { ClientTableDTO } from '../../models/client-table.dto';
-import { Client } from '../../models/client.model';
 import { Party } from '../../models/party.model';
 import { ClientService } from '../../services/client.service';
 import { PartyService } from '../../services/party.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/shared/components/dialog/dialog.component';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Client } from 'src/app/models/client.model';
 
 @Component({
   selector: 'app-bar-table-info',
@@ -170,7 +170,8 @@ export class BarTableInfoComponent implements OnInit {
         this.toastService.openSuccessToast(message);
         this.getClients();
       },
-      error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message)
+      error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message),
+      complete: (() => this.formGroup.reset())
     };
     this.partyService.kickMembers(ids, banned).subscribe(membersObserver);
   }

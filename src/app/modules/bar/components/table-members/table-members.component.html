@@ -1,0 +1,27 @@
+<form [formGroup]="formGroup" *ngIf="formGroup">
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8" formArrayName="members">
+    <ng-container [matColumnDef]="column.name" *ngFor="let column of initColumns; index as index">
+      <mat-header-cell *matHeaderCellDef [ngClass]="{'hide': !column.show && (isSmallScreen$ | async)}"> {{ column.display }} </mat-header-cell>
+      <mat-cell *matCellDef="let item; index as indexRow" [ngClass]="{'hide': !column.show && (isSmallScreen$ | async)}"> 
+        <ng-container *ngIf="index == 0">{{ item[column.name] }}</ng-container>
+        <ng-container *ngIf="index == 1 || index == 2">{{ item[column.name] ? 'Sí' : 'No' }}</ng-container>
+        <ng-container *ngIf="index === 3">{{ (item[column.name] | parseArrayToDate | date: 'dd/MM/yyyy hh:mm') || '-'}}</ng-container>
+        <ng-container *ngIf="index === 4">
+          <mat-checkbox color="warn" [formControlName]="indexRow"></mat-checkbox>
+        </ng-container>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+  </mat-table>
+
+  <button 
+    class="btn-remove"
+    mat-raised-button
+    color="warn"
+    [disabled]="!dataSource || dataSource.data.length === 0"
+    (click)="openRemoveClientsDialog()">
+    Eliminar seleccionados
+  </button>
+</form>

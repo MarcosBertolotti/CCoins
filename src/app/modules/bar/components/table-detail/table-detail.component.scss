@@ -1,7 +1,7 @@
 :host {
   .container {
     display: flex;
-    justify-content: center;
+    justify-content: left;
     flex-wrap: wrap;
     
     > * {
@@ -11,26 +11,31 @@
       min-width: 25%;
     }
 
-    .bubble-gray {
-      margin: 1rem 0;
+    .left-content {
+      min-width: auto;
+      max-width: 330px;
 
-      h2 {
-        font-size: 22px;
-        margin: 1rem 0 .25rem;
-
-        span {
-          font-weight: 400;
+      .bubble-gray {
+        margin: 1rem 0;
+  
+        h2 {
+          font-size: 19px;
+          margin: 1rem 0 .25rem;
+  
+          span {
+            font-weight: 400;
+          }
         }
       }
-    }
-
-    qrcode {  
-      margin-top: .5rem;
-
-      ::ng-deep {
-        img {
-          max-width: 280px;
-          width: 100%;
+  
+      qrcode {  
+        margin-top: .5rem;
+  
+        ::ng-deep {
+          img {
+            max-width: 270px;
+            width: 100%;
+          }
         }
       }
     }
@@ -39,43 +44,35 @@
       width: fit-content;
       min-width: 75%;
 
-      h1 {
-        margin: 0 0 1rem;
-        font-size: 20px;
-        font-weight: 500;
-      }
-
-      mat-table {
-        mat-header-cell:first-of-type,
-        mat-header-cell:last-of-type,
-        mat-cell:first-of-type,
-        mat-cell:last-of-type {
-          flex: .75;
+      mat-tab-group ::ng-deep {
+        .mat-tab-body-wrapper {
+          margin-top: 1.5rem;
         }
-      }
 
-      .hide {
-        display: none;
-      }
+        .mat-tab-body-content {
+          overflow-x: hidden;
+        }
 
-      mat-paginator {
-        margin-top: .75rem;
+        .mat-tab-label-active {
+          opacity: 1;
+        }
+
+        .mat-ink-bar {
+          transition: 250ms cubic-bezier(0.35, 0, 0.25, 1)
+        }
       }
     }
   }
   
 }
 
-
 @media (min-width: 600px) {
   .container {
-    padding-top: 1rem;
-
     .bubble-gray {
-      max-width: calc(280px - 2rem);
+      max-width: calc(270px - 2rem);
     }
     button[mat-raised-button] {
-      max-width: 280px;
+      max-width: 270px;
     }
   }
 }

@@ -19,6 +19,8 @@ import { QrcodeDialogComponent } from 'src/app/shared/components/qrcode-dialog/q
 import { ToastService } from 'src/app/shared/services/toast.services';
 import { format } from 'date-fns';
 import esLocale from 'date-fns/locale/es';
+import { TableParty } from '../../models/table-party.model';
+import { ResponseList } from 'src/app/models/response-list.model';
 
 @Component({
   selector: 'app-table-list',
@@ -35,6 +37,7 @@ export class TableListComponent implements OnInit {
     { name: 'detail', display: 'Detalle', show: true },
     { name: 'active', display: 'Activo' , show: true },
     { name: 'number', display: 'Número', show: true },
+    { name: 'partyName', display: 'Party', show: false },
     { name: 'qrCode', display: 'Código QR', show: false },
     { name: 'updateQr', display: 'Actualizar QR', show: true },
   ];
@@ -77,7 +80,7 @@ export class TableListComponent implements OnInit {
     const barObserver: PartialObserver<Bar> = {
       next: async (bar: Bar) => {
         this.bar = bar;
-        this.getTables(idBar);
+        this.getTableParties(idBar);
       },
       error: (error: HttpErrorResponse) => { 
         this.toastService.openErrorToast(error.error?.message);
@@ -87,15 +90,47 @@ export class TableListComponent implements OnInit {
     this.barService.getCurrentBar(idBar).subscribe(barObserver);  
   }
 
-  private async getTables(idBar: number): Promise<void> {
-    const tables: any = await this.tableService.findAllByBar(idBar)
-      .catch((error: HttpErrorResponse) =>  this.toastService.openErrorToast(error.error?.message));
+  async getTableParties(idBar: number): Promise<void> {
+    const [tables, parties] = await Promise.all([
+      this.getTables(idBar),
+      this.getParties()
+    ])
 
-    if(tables && tables.list?.length > 0) {
-      this.barTables = tables.list;
+    if(tables && tables?.length > 0) {
+      this.barTables = tables;
+      if(parties && parties.length > 0)
+        this.mapTableParties(parties);
       this.updateMatTable();
     }
     this.buildForm();
+  }
+
+  private async getTables(idBar: number): Promise<Table[]> {
+    return await this.tableService.findAllByBar(idBar)
+      .then((response: ResponseList<Table>) => response?.list || [])
+      .catch((error: HttpErrorResponse) => {
+        this.toastService.openErrorToast(error.error?.message);
+        return [];
+      });
+  }
+
+  private async getParties(): Promise<TableParty[]> {
+    return await this.tableService.findAllWithActivePartyByBar()
+      .catch((error: HttpErrorResponse) => {
+        this.toastService.openErrorToast(error.error?.message);
+        return [];
+      });
+  }
+
+  async mapTableParties(parties: TableParty[]) {
+    this.barTables.map((table: Table) => {
+      let tableParty = parties.find((partyTable: TableParty) => partyTable.tableNumber === table.number);
+      if(tableParty) {
+        table.partyId = tableParty.id;
+        table.partyName = tableParty.name;
+        table.partyActive = table.active;
+      }
+    })
   }
 
   private buildForm(): void {
