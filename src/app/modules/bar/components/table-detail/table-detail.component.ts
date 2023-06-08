@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PartialObserver } from 'rxjs';
+import { Observable, PartialObserver, forkJoin } from 'rxjs';
 import { Bar } from 'src/app/models/bar-model';
 import { CoinsRegister } from 'src/app/models/coins-register.model';
 import { CoinsReport } from 'src/app/models/coins-report.model';
@@ -43,6 +43,8 @@ export class TableDetailComponent implements OnInit {
     { name: 'startDate', display: 'Fecha inicio', show: true },
   ];
   displayedColumns: any[] = this.initColumns.map(col => col.name);
+
+  loading = false;
 
   constructor(
     private barService: BarService,
@@ -165,4 +167,21 @@ export class TableDetailComponent implements OnInit {
     this.getPartyCoinsReport(event.selectedType, event.currentPage);
   }
 
+  refresh(): void {
+    this.loading = true;
+
+    const coinsReportObservable = new Observable<void>((observer) => {
+      try {
+        this.getPartyCoinsReport();
+        observer.next();
+        observer.complete();
+      } catch (error) {
+        observer.error(error);
+      }
+    });
+    
+    forkJoin([this.getMembers(), coinsReportObservable])
+    .toPromise()
+    .finally(() => this.loading = false);
+  } 
 }

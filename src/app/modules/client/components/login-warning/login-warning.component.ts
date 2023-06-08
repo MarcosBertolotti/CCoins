@@ -11,7 +11,7 @@ export class LoginWarningComponent implements OnInit {
 
   messages: any = {
     [WarningType.LOGOUT]: () => 'Gracias por haber participado, escanea el código QR de tu mesa para seguir sumando puntos a tu party',
-    [WarningType.KICK]: () => 'El lider de tu party te ha eliminado, escanea el código QR de tu mesa para seguir sumando puntos a tu party',
+    [WarningType.KICK]: () => '¡Ups! Te han eliminado de la mesa.',
     'default': () => 'Primero debe escanear el código QR de la mesa para disfrutar de la aplicación',
   };
 

@@ -29,7 +29,9 @@
 </ng-container>
 
 <ng-template #notConnected>
-  <h2 *ngIf="connected === false; else notPlayback">Servicio de reproducción desconectado.</h2>
+  <ng-container *ngIf="connected === false; else notPlayback">
+    <img height="56px" src="assets/chopp_coins_cinta.png"/>
+  </ng-container>
   <ng-template #notPlayback>
     <h2>No hay ningún tema en reproducción.</h2>
   </ng-template>
