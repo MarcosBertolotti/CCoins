@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PartialObserver } from 'rxjs';
+import { PartialObserver, Subscription } from 'rxjs';
 import { ResponseList } from 'src/app/models/response-list.model';
 import { ToastService } from 'src/app/shared/services/toast.services';
 import { ClientPaths } from '../../enums/client-paths.eum';
@@ -20,13 +20,14 @@ import { Client } from 'src/app/models/client.model';
   templateUrl: './bar-table-info.component.html',
   styleUrls: ['./bar-table-info.component.scss']
 })
-export class BarTableInfoComponent implements OnInit {
+export class BarTableInfoComponent implements OnInit, OnDestroy {
 
   me!: ClientTableDTO;
 
   party!: Party;
   clients!: Client[];
   formGroup!: FormGroup;
+  subscription = new Subscription();
   
   constructor(
     private router: Router,
@@ -41,6 +42,16 @@ export class BarTableInfoComponent implements OnInit {
     this.me = this.clientService.clientTable;
     this.getClients();
     this.getParty();
+
+    this.subscription.add(
+      this.clientService.leader$.subscribe(() => {
+        this.getClients();
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   getClients(): void {
