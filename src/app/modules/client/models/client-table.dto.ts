@@ -1,6 +1,6 @@
 export interface ClientTableDTO {
   clientIp: string;
-  clientId: string;
+  clientId: number;
   tableCode: string;
   nickName: string;
   partyId: string;

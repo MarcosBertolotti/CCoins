@@ -17,6 +17,12 @@ export class SseService {
     return this.newNotificationSubject.asObservable();
   }
 
+  newLeaderSubject = new Subject<void>();
+
+  get newLeader$(): Observable<void> {
+    return this.newLeaderSubject.asObservable();
+  }
+
   constructor(
     private _zone: NgZone,
     private clientService: ClientService,

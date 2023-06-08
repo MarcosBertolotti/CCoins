@@ -14,6 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/shared/components/dialog/dialog.component';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Client } from 'src/app/models/client.model';
+import { SseService } from '../../services/sse.service';
 
 @Component({
   selector: 'app-bar-table-info',
@@ -36,6 +37,7 @@ export class BarTableInfoComponent implements OnInit, OnDestroy {
     private toastService: ToastService,
     private partyService: PartyService,
     private clientService: ClientService,
+    private sseService: SseService,
   ) { }
 
   ngOnInit(): void {
@@ -44,7 +46,7 @@ export class BarTableInfoComponent implements OnInit, OnDestroy {
     this.getParty();
 
     this.subscription.add(
-      this.clientService.leader$.subscribe(() => {
+      this.sseService.newLeader$.subscribe(() => {
         this.getClients();
       })
     );
@@ -58,11 +60,22 @@ export class BarTableInfoComponent implements OnInit, OnDestroy {
     const partyClientsObserver: PartialObserver<ResponseList<Client>> = {
       next: (clients: ResponseList<Client>) => {
         this.clients = clients?.list || [];
+        this.checkLeader();
         this.buildForm();
       },
       error: (error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message)
     };
     this.partyService.getInfoClients(this.me.partyId).subscribe(partyClientsObserver);
+  }
+
+  checkLeader(): void {
+    if(this.clients && this.clients.length > 0) {
+      const me = this.clients.find((client: Client) => client.id == this.me.clientId);
+      if(me) {
+        this.me.leader = me.leader;
+        this.clientService.clientTable = this.me;
+      }
+    }
   }
 
   getParty(): void {

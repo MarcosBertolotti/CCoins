@@ -70,6 +70,10 @@ export class RouterComponent implements OnInit {
         case SseEvents.NEW_PRIZE:
           break;
 
+        case SseEvents.NEW_LEADER:
+          this.sseService.newLeaderSubject.next();
+          break;
+
         case SseEvents.YOU_ARE_THE_LEADER:
           this.clientService.leader = true;
           break;
