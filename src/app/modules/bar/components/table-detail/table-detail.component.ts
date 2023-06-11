@@ -144,7 +144,10 @@ export class TableDetailComponent implements OnInit {
 
   generateQRCode(): void {
     this.tableService.generateCodesByList([this.table.id])
-    .then(() => this.toastService.openSuccessToast(`Código QR de mesa ${this.table.number} actualizado exitosamente!`))
+    .then(() => {
+      this.toastService.openSuccessToast(`Código QR de mesa ${this.table.number} actualizado exitosamente!`);
+      this.getTable(this.table.id);
+    })
     .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message))
   }
 

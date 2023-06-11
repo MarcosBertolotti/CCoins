@@ -117,6 +117,7 @@ button[mat-raised-button] {
   top: 64px;
   right: 0;
   z-index: 2000;
+  min-width: 200px;
 
   .notification-container {
     position: relative;
