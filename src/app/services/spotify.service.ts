@@ -75,7 +75,7 @@ export class SpotifyService {
       tap((isConnected: boolean) => {
         this.connected = isConnected;
         if(isConnected)
-          this.startPlayback();
+          this.startPlayback().subscribe();
       }),
       catchError((error: HttpErrorResponse, caught: Observable<boolean>) => { 
         this.toastService.openErrorToast(error.error?.message);
