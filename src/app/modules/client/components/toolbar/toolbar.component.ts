@@ -1,6 +1,6 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
@@ -50,6 +50,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     private clientService: ClientService,
     private partyService: PartyService,
     private sseService: SseService,
+    private changeDetectorRef: ChangeDetectorRef,
   ) { }
 
   ngOnInit(): void {
@@ -65,6 +66,12 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.sseService.newNotification$.subscribe((notification: any) => {
         this.notifications.push(notification);
+      })
+    );
+
+    this.subscription.add(
+      this.partyCoins$.subscribe(() => {
+        this.changeDetectorRef.detectChanges();
       })
     );
   }
