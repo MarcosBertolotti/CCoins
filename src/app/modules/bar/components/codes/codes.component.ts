@@ -117,7 +117,12 @@ export class CodesComponent implements OnInit {
       data: {
         tables: this.barTables
       }
-    })
+    }).beforeClosed().subscribe((response: boolean) => {
+      if(response) {
+        this.getActiveCodes();
+        this.getTablesWithParty();
+      }
+    });
   } 
 
   subscribeBreakpointObserver() {
