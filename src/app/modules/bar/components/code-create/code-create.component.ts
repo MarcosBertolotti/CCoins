@@ -90,8 +90,9 @@ export class CodeCreateComponent implements OnInit {
   }
   
   submitForm(): void {
+    const code = this.code.value?.trim();
     const newCode = {
-      code: this.code.value?.trim(),
+      ...(code && code.length > 0 && { code }),
       quantity: this.quantity.value,
       oneUse: this.oneUse.value,
       perPerson: this.perPerson.value,
