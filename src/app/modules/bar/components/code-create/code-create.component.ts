@@ -101,14 +101,14 @@ export class CodeCreateComponent implements OnInit {
   }
   
   submitForm(): void {
-    if((this.expirationDate.value && !this.expirationTime.value) || (!this.expirationDate.value && this.expirationTime.value)) {
+    if(this.expires.value && ((this.expirationDate.value && !this.expirationTime.value) || (!this.expirationDate.value && this.expirationTime.value))) {
       this.toastService.openToast("Los campos de expiración no estan completos.");
       return;
     }
 
     const expirationDateTime = this.getExpirationDateTime() || null;
 
-    if(expirationDateTime != null) {
+    if(this.expires.value && expirationDateTime != null) {
       const expirationDate = new Date(expirationDateTime);
       const currentDateTime = new Date();
 
