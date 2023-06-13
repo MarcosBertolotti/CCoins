@@ -36,6 +36,7 @@ export class TableDetailComponent implements OnInit {
 
   dataSourceClients!: MatTableDataSource<Client>;
   idParty!: number;
+  idTable!: number;
   members!: Client[];
 
   initColumns: any[] = [
@@ -62,10 +63,10 @@ export class TableDetailComponent implements OnInit {
 
   ngOnInit(): void {
     const idBar = +this.route.snapshot.paramMap.get('id')!;
-    const idTable = +this.route.snapshot.paramMap.get('idTable')!;
-    if(!idBar || !idTable) this.goToHome();
+    this.idTable = +this.route.snapshot.paramMap.get('idTable')!;
+    if(!idBar || !this.idTable) this.goToHome();
 
-    this.getCurrentBar(idBar, idTable);
+    this.getCurrentBar(idBar, this.idTable);
     this.route.queryParams.subscribe((params) => {
       this.idParty = params['idParty'];
       if(this.idParty) this.getMembers();
@@ -105,7 +106,7 @@ export class TableDetailComponent implements OnInit {
   }
 
   async getMembers(): Promise<void> {
-    this.tableService.getTablePartyMembers(this.idParty)
+    this.tableService.getTablePartyMembers(this.idTable)
     .then((response: ResponseList<Client>) => {
       this.members = response?.list || [];
       this.dataSourceClients = new MatTableDataSource<Client>(this.members);

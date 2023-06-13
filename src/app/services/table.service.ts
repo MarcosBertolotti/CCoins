@@ -60,6 +60,6 @@ export class TableService {
   }
 
   getTablePartyMembers(partyId: number): Promise<ResponseList<Client>> {
-    return this.requestService.post('/party-tables/party/clients', { id: partyId });
+    return this.requestService.post('/party-tables/table/clients', { id: partyId });
   }
 }
