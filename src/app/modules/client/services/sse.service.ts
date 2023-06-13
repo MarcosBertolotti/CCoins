@@ -77,6 +77,16 @@ export class SseService {
         this.sendNotificationEvent((event as any)?.data);
       });
 
+      eventSource.addEventListener(SseEvents.CLIENT_LEFT_THE_PARTY, event => {
+        observer.next(event);
+        this.sendNotificationEvent((event as any)?.data);
+      });
+
+      eventSource.addEventListener(SseEvents.LOGIN_CLIENT, event => {
+        observer.next(event);
+        this.sendNotificationEvent((event as any)?.data);
+      });
+
       eventSource.addEventListener(SseEvents.LOGOUT_CLIENT, event => {
         observer.next(event);
       });

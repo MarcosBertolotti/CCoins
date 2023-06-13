@@ -89,6 +89,12 @@ export class RouterComponent implements OnInit {
           }
           break;
 
+        case SseEvents.CLIENT_LEFT_THE_PARTY:
+          break;
+
+        case SseEvents.LOGIN_CLIENT:
+          break;
+
         default:
           console.info('unkown event:', event.type);
       }
