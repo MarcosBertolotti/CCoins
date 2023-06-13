@@ -17,6 +17,7 @@ import { environment } from 'src/environments/environment';
 import { CoinsService } from '../../services/coins.service';
 import { Client } from 'src/app/models/client.model';
 import { ResponseList } from 'src/app/models/response-list.model';
+import { PartyService } from '../../services/party.service';
 
 @Component({
   selector: 'app-table-detail',
@@ -35,6 +36,7 @@ export class TableDetailComponent implements OnInit {
 
   dataSourceClients!: MatTableDataSource<Client>;
   idParty!: number;
+  members!: Client[];
 
   initColumns: any[] = [
     { name: 'nickName', display: 'Nickname', show: true },
@@ -55,6 +57,7 @@ export class TableDetailComponent implements OnInit {
     private matDialog: MatDialog,
     private parseArrayToDatePipe: ParseArrayToDatePipe,
     private coinsService: CoinsService,
+    private partyService: PartyService,
   ) { }
 
   ngOnInit(): void {
@@ -104,8 +107,8 @@ export class TableDetailComponent implements OnInit {
   async getMembers(): Promise<void> {
     this.tableService.getTablePartyMembers(this.idParty)
     .then((response: ResponseList<Client>) => {
-      const members = response?.list || [];
-      this.dataSourceClients = new MatTableDataSource<Client>(members);
+      this.members = response?.list || [];
+      this.dataSourceClients = new MatTableDataSource<Client>(this.members);
     })
     .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message));
   }
@@ -186,5 +189,19 @@ export class TableDetailComponent implements OnInit {
     forkJoin([this.getMembers(), coinsReportObservable])
     .toPromise()
     .finally(() => this.loading = false);
-  } 
+  }
+
+  closeTable(): void {
+    if(!this.members) return;
+    
+    const idMembers = this.members.map((client: Client) => client.id);
+
+    this.partyService.kickMembers(this.idParty, idMembers, false)
+    .then((response: any) => {
+      this.toastService.openSuccessToast("Se ha cerrado la mesa exitosamente!");
+      this.members = [];
+      this.dataSourceClients.data = [];
+    })
+    .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message))
+  }
 }

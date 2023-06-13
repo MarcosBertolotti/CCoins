@@ -50,14 +50,22 @@
           </ng-template>
         </mat-tab>
 
-        <mat-tab disabled class="refreshhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh">
-          <ng-template mat-tab-label class="refreshhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh">
+        <mat-tab disabled>
+          <ng-template mat-tab-label>
             <button 
-                mat-raised-button
-                color="primary"
-                class="refresh-btn"
-                (click)="refresh()">
-                Refrescar
+              mat-raised-button
+              color="accent"
+              class="close-table"
+              (click)="closeTable()"
+              [disabled]="!members || members.length == 0">
+              Cerrar Mesa
+            </button>
+            <button 
+              mat-raised-button
+              color="primary"
+              class="refresh-btn"
+              (click)="refresh()">
+              Refrescar
             </button>
           </ng-template>
         </mat-tab>

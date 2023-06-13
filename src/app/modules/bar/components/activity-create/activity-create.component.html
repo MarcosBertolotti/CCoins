@@ -12,14 +12,14 @@
     </mat-form-field>
     
     <div class="inline-content">
-      <div>
+      <div *ngIf="gameType?.value?.name !== 'CODE'">
         <mat-label>Puntos {{ (points | fieldRequired) ? '*' : '' }}</mat-label>
         <mat-form-field appearance="outline">
           <input matInput type="number" formControlName="points" placeholder="Puntos de la actividad" autocomplete="off">
           <mat-error>{{ 'points' | errorMessage : formGroup }}</mat-error>
         </mat-form-field>
       </div>
-      <div>
+      <div [ngClass]="{'expand': gameType.value?.name === 'CODE' }">
         <app-select
           label="Tipo de actividad"
           name="gameType"

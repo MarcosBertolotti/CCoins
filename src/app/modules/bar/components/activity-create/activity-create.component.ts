@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { PartialObserver } from 'rxjs';
 import { AppPaths } from 'src/app/enums/app-paths.enum';
+import { GameTypes } from 'src/app/enums/game-types.enum';
 import { Bar } from 'src/app/models/bar-model';
 import { GameType } from 'src/app/models/game-type.model';
 import { Game } from 'src/app/models/game.model';
@@ -52,6 +53,18 @@ export class ActivityCreateComponent implements OnInit {
       closeTime: [''],
       gameType: [this.gameTypes, [Validators.required]],
     });
+
+    this.gameType.valueChanges.subscribe((value: GameType) => {
+      if(value?.name === GameTypes.CODE) {
+        this.points.reset();
+        this.points.clearValidators();
+        this.points.disable();
+      } else {
+        this.points.enable();
+        this.points.addValidators(Validators.required);
+      }
+      console.log(value);
+    })
   }
 
   private getCurrentBar(idBar: number): void {

@@ -67,9 +67,15 @@
           display: flex;
           justify-content: flex-end;
 
+          .close-table,
           .refresh-btn {
             opacity: 1;
             height: 34px;
+          }
+
+          .close-table {
+            margin-right: .5rem;
+            padding: 0 1.5rem;
           }
         }
       }

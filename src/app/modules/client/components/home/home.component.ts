@@ -118,5 +118,9 @@ export class HomeComponent implements OnInit {
       width: '90%',
       maxWidth: '450px',
     })
-  } 
+  }
+
+  goToCoinsInfo(): void {
+    this.router.navigate([ClientPaths.PARTY_COINS]);
+  }
 }
