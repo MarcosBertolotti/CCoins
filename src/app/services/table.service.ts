@@ -6,6 +6,7 @@ import { ResponseList } from '../models/response-list.model';
 import { Response } from '../models/response.model';
 import { TableParty } from '../modules/bar/models/table-party.model';
 import { Client } from '../models/client.model';
+import { MemberList } from '../models/member-list.model';
 
 interface TableDTO {
   id?: number,
@@ -59,7 +60,7 @@ export class TableService {
     return this.requestService.put(`${this.baseApiURL}/codes`, { list: ids});
   }
 
-  getTablePartyMembers(partyId: number): Promise<ResponseList<Client>> {
+  getTablePartyMembers(partyId: number): Promise<MemberList> {
     return this.requestService.post('/party-tables/table/clients', { id: partyId });
   }
 }

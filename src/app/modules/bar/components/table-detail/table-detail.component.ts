@@ -18,6 +18,7 @@ import { CoinsService } from '../../services/coins.service';
 import { Client } from 'src/app/models/client.model';
 import { ResponseList } from 'src/app/models/response-list.model';
 import { PartyService } from '../../services/party.service';
+import { MemberList } from 'src/app/models/member-list.model';
 
 @Component({
   selector: 'app-table-detail',
@@ -67,10 +68,7 @@ export class TableDetailComponent implements OnInit {
     if(!idBar || !this.idTable) this.goToHome();
 
     this.getCurrentBar(idBar, this.idTable);
-    this.route.queryParams.subscribe((params) => {
-      this.idParty = params['idParty'];
-      if(this.idParty) this.getMembers();
-    });
+    this.getMembers();
   }
 
   private goToHome(): void {
@@ -107,8 +105,9 @@ export class TableDetailComponent implements OnInit {
 
   async getMembers(): Promise<void> {
     this.tableService.getTablePartyMembers(this.idTable)
-    .then((response: ResponseList<Client>) => {
+    .then((response: MemberList) => {
       this.members = response?.list || [];
+      this.idParty = response?.party;
       this.dataSourceClients = new MatTableDataSource<Client>(this.members);
     })
     .catch((error: HttpErrorResponse) => this.toastService.openErrorToast(error.error?.message));

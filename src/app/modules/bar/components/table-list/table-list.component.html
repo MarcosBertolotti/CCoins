@@ -47,7 +47,7 @@
 
         <ng-container *ngIf="index === 0">
           <mat-cell *matCellDef="let item"> 
-            <button mat-icon-button [routerLink]="[item.id]" [queryParams]="{idParty: item.partyId}">
+            <button mat-icon-button [routerLink]="[item.id]">
               <mat-icon fontSet="material-icons-outlined">info</mat-icon>
             </button>
           </mat-cell>
