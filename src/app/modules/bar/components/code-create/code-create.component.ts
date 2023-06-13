@@ -8,11 +8,13 @@ import { PrizeService } from 'src/app/services/prize.service';
 import { ToastService } from 'src/app/shared/services/toast.services';
 import { codeService } from '../../services/code.service';
 import { AppPaths } from 'src/app/enums/app-paths.enum';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-code-create',
   templateUrl: './code-create.component.html',
-  styleUrls: ['./code-create.component.scss']
+  styleUrls: ['./code-create.component.scss'],
+  providers: [DatePipe],
 })
 export class CodeCreateComponent implements OnInit {
 
@@ -29,6 +31,7 @@ export class CodeCreateComponent implements OnInit {
     private codeService: codeService,
     private prizeService: PrizeService,
     private toastService: ToastService,
+    private datePipe: DatePipe,
     private changeDetectorRef: ChangeDetectorRef,
   ) { }
 
@@ -48,7 +51,8 @@ export class CodeCreateComponent implements OnInit {
       perPerson: false,
       prize: null,
       points: [null, [Validators.min(1)]],
-      expirationDate: null,
+      expirationDate: new Date(),
+      expirationTime: null,
       expires: false,
       reward: [this.rewards[0], Validators.required],
     });
@@ -63,6 +67,13 @@ export class CodeCreateComponent implements OnInit {
     this.validateReward(this.reward.value?.value);
     this.reward.valueChanges.subscribe((value: { name: string, value: string }) => {
       this.validateReward(value?.value);
+    })
+
+    this.expires.valueChanges.subscribe((expires: boolean) => {
+      if(!expires) {
+        this.expirationDate.setValue(new Date());
+        this.expirationTime.reset();
+      }
     })
   }
 
@@ -90,6 +101,23 @@ export class CodeCreateComponent implements OnInit {
   }
   
   submitForm(): void {
+    if((this.expirationDate.value && !this.expirationTime.value) || (!this.expirationDate.value && this.expirationTime.value)) {
+      this.toastService.openToast("Los campos de expiración no estan completos.");
+      return;
+    }
+
+    const expirationDateTime = this.getExpirationDateTime() || null;
+
+    if(expirationDateTime != null) {
+      const expirationDate = new Date(expirationDateTime);
+      const currentDateTime = new Date();
+
+      if(expirationDate < currentDateTime) {
+        this.toastService.openToast("La expiración ingresada es menor a la fecha y hora actual.");
+        return;
+      }
+    }
+
     const code = this.code.value?.trim();
     const newCode = {
       ...(code && code.length > 0 && { code }),
@@ -98,7 +126,7 @@ export class CodeCreateComponent implements OnInit {
       perPerson: this.perPerson.value,
       prizeId: this.prize.value?.id || null,
       points: this.points.value || null,
-      expirationDate: this.expirationDate.value || null,
+      expirationDate: this.getExpirationDateTime() || null,
       expires: this.expires.value,
     }
 
@@ -110,8 +138,17 @@ export class CodeCreateComponent implements OnInit {
     .catch((error: HttpErrorResponse) => {
       const message = error.error?.message?.includes('0050') ? 'El código ingresado ya está en uso.' : null;
       this.toastService.openErrorToast(message || error.error?.message);
-      
     });
+  }
+
+  getExpirationDateTime(): string | null {
+    const expirationDateValue = this.expirationDate?.value;
+    const expirationTimeValue = this.expirationTime?.value;
+    
+    if (expirationDateValue && expirationTimeValue)
+      return `${this.datePipe.transform(expirationDateValue, 'yyyy-MM-dd')}T${expirationTimeValue}`;
+    else 
+      return null;
   }
   
   get code() { return this.formGroup.get('code') as FormControl }
@@ -121,6 +158,7 @@ export class CodeCreateComponent implements OnInit {
   get prize() { return this.formGroup.get('prize') as FormControl }
   get points() { return this.formGroup.get('points') as FormControl }
   get expirationDate() { return this.formGroup.get('expirationDate') as FormControl }
+  get expirationTime() { return this.formGroup.get('expirationTime') as FormControl }
   get expires() { return this.formGroup.get('expires') as FormControl }
   get reward() { return this.formGroup.get('reward') as FormControl }
 }

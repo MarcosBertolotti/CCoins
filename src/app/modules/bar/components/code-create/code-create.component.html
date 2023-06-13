@@ -61,21 +61,33 @@
     <mat-checkbox formControlName="expires" color="primary">Con expiración</mat-checkbox>
 
     <ng-container *ngIf="expires?.value">
-      <div class="inline expires">
-        <mat-label class="expire-date">Fecha de expiración {{ (expirationDate | fieldRequired) ? '*' : '' }}</mat-label>
-        <mat-icon 
-          matTooltip="Si no se completa el campo, el código expirará en 10 minutos de ser creado"
-          matTooltipClass="above"
-          matTooltipPosition="above">
-          error_outline
-        </mat-icon>
+      <div class="inline-content expires">
+        <div>
+          <div class="inline">
+            <mat-label class="expire-date">Fecha de expiración {{ (expirationDate | fieldRequired) ? '*' : '' }}</mat-label>
+            <mat-icon 
+              matTooltip="Si no se completa el campo, el código expirará en 10 minutos de ser creado"
+              matTooltipClass="above"
+              matTooltipPosition="above">
+              error_outline
+            </mat-icon>
+          </div>
+          <mat-form-field appearance="outline">
+            <input matInput autocomplete="off" formControlName="expirationDate" [matDatepicker]="picker" [min]="minDate" placeholder="dd/mm/aaaa">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error>{{ 'expirationDate' | errorMessage : formGroup }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-label class="expiration-time">Hora de expiración {{ (expirationTime | fieldRequired) ? '*' : '' }}</mat-label>
+          <mat-form-field appearance="outline">
+            <input matInput type="time" formControlName="expirationTime">
+            <mat-error>{{ 'expirationTime' | errorMessage : formGroup }}</mat-error>
+          </mat-form-field>
+        </div>
       </div>
-      <mat-form-field appearance="outline">
-        <input matInput autocomplete="off" formControlName="expirationDate" [matDatepicker]="picker" [min]="minDate" placeholder="dd/mm/aaaa">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-        <mat-error>{{ 'expirationDate' | errorMessage : formGroup }}</mat-error>
-      </mat-form-field>
+
     </ng-container>
 
     <div class="inline expires">

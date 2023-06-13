@@ -24,6 +24,17 @@ form {
 			width: 100%;
 			max-width: calc(50% - .5rem);
 		}
+
+		&.expires {
+			margin-top: .5rem;
+		}
+
+		mat-label.expiration-time {
+			position: relative;
+			top: 4px;
+			height: 22px;
+			padding-bottom: 0;
+		}
 	}
 
 	.inline {
@@ -39,10 +50,6 @@ form {
 			font-size: 20px;
 			height: 20px;
 			margin-left: .25rem;
-		}
-
-		&.expires {
-			margin-top: .5rem;
 		}
 	}
 }
