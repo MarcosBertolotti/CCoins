@@ -65,7 +65,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
     this.subscription.add(
       this.sseService.newNotification$.subscribe((notification: any) => {
-        this.notifications.push(notification);
+        this.notifications.unshift(notification);
       })
     );
 
