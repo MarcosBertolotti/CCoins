@@ -37,7 +37,9 @@
         <ng-container *ngFor="let detail of coinsReport.report.content">
           <mat-list-item >
             <h3 matLine *ngIf="detail.coins == 0">Código canjeado</h3>
-            <h3 matLine *ngIf="detail.coins != 0">Coins {{ detail.state == demandType.REVERSED ? 'reembolsadas' : (detail.coins > 0 ? 'ganadas' : 'consumidas') }}: <span [ngClass]="{'winner': detail.coins > 0}">{{ detail.coins }}</span></h3>
+            <h3 matLine *ngIf="detail.coins != 0">Coins 
+              {{ detail.state == demandType.REVERSED ? 'reembolsadas' : (detail.coins > 0 ? 'ganadas' : 'consumidas') }}: <span [ngClass]="{'winner': detail.coins > 0}">{{ detail.prize || detail.coins }}</span>
+            </h3>
             <h1 matLine>Actividad: <span class="activity">{{ detail.activity }}</span></h1>
             <h1 matLine>Miembro: <span class="member">{{ detail.client }}</span></h1>
             <p matLine>Fecha: {{ detail.date }}</p>

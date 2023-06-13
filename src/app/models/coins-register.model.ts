@@ -5,4 +5,5 @@ export interface CoinsRegister {
   activity: string,
   client: string,
   state: string,
+  prize: string,
 }
