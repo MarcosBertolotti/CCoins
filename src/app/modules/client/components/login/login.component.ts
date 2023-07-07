@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
 
   login(qrCode: string): void {
     localStorage.clear();
-    
+
     const loginObserver: PartialObserver<ClientTableDTO> = {
       next: (response: ClientTableDTO) => {
         this.clientService.clientTable = response;
@@ -38,16 +38,37 @@ export class LoginComponent implements OnInit {
       },
       error: (error: HttpErrorResponse) => this.handleLoginError(error)
     }
-    this.clientService.getIPAddress()
-    .pipe(
-      switchMap((response: IpAddress) => {
-        const ipAddress = response?.ip;
-        if(!ipAddress)
-          this.handleLoginError();
-        return this.clientService.login(qrCode, ipAddress);
-      })
-    )
-    .subscribe(loginObserver);
+
+  // Ejemplo de uso
+    this.getLocalIPAddress()
+    .then((ipAddress: string) => {
+      console.log("IpLocal: ", ipAddress);
+      this.clientService.login(qrCode, ipAddress).subscribe(loginObserver);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  }
+
+  getLocalIPAddress(): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const RTCPeerConnection = window.RTCPeerConnection;
+      const peerConnection = new RTCPeerConnection({ iceServers: [] });
+      peerConnection.createDataChannel('');
+      peerConnection.createOffer()
+        .then(offer => peerConnection.setLocalDescription(offer))
+        .catch(reject);
+
+      peerConnection.onicecandidate = event => {
+        if (event.candidate) {
+          const ipRegex = /([0-9]{1,3}(.[0-9]{1,3}){3})/;
+          const ipAddress = ipRegex.exec(event.candidate.candidate)![1];
+          resolve(ipAddress);
+          peerConnection.onicecandidate = null;
+          peerConnection.close();
+        }
+      };
+    });
   }
 
   handleLoginError(error?: HttpErrorResponse): void {

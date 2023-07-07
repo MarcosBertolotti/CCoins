@@ -90,7 +90,9 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ccoins:build"
+            "browserTarget": "ccoins:build",
+			"publicHost":"9165-201-179-221-81.ngrok-free.app",
+			"proxyConfig": "proxy.config.json"
           },
           "configurations": {
             "production": {

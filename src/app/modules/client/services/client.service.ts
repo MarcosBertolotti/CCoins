@@ -53,8 +53,8 @@ export class ClientService {
     private http: HttpClient,
   ) { }
 
-  getIPAddress(): Observable<IpAddress> {
-    return this.http.get<IpAddress>("http://api.ipify.org/?format=json");
+  getIPAddress(): Observable<any> {
+    return this.http.get("https://ifconfig.me/ip");
   }
 
   get clientTable(): ClientTableDTO {
