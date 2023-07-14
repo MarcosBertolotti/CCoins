@@ -3,12 +3,13 @@ import { GoogleLoginProvider, SocialAuthService, SocialUser } from 'angularx-soc
 import { Router } from '@angular/router';
 import { AppPaths } from '../enums/app-paths.enum';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { CompletionObserver, Observable, PartialObserver } from 'rxjs';
+import { Observable, PartialObserver } from 'rxjs';
 import { AccessToken } from '../models/access-token.model';
 import { environment } from 'src/environments/environment';
 import { ToastService } from '../shared/services/toast.services';
 import { ClientService } from '../modules/client/services/client.service';
 import { SpotifyService } from './spotify.service';
+import { take } from 'rxjs/operators';
 
 
 @Injectable({
@@ -61,10 +62,11 @@ export class AuthService {
   }
 
   checkSpotifyIsConnected(): void {
-    const spotifyObserver: CompletionObserver<boolean> = {
-      complete: () => this.router.navigate([AppPaths.ADMIN, AppPaths.BAR, AppPaths.LIST])
+    const spotifyObserver: PartialObserver<boolean> = {
+      next: () => this.router.navigate([AppPaths.ADMIN, AppPaths.BAR, AppPaths.LIST]),
+      error: (error: HttpErrorResponse) => console.log(error?.error?.message)
     }
-    this.spotifyService.checkIsConnected().subscribe(spotifyObserver);
+    this.spotifyService.checkIsConnected().pipe(take(1)).subscribe(spotifyObserver);
   }
 
   logOut(): void {

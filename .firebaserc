@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "chop-coins"
-  }
+    "default": "chopp-coins-dev",
+    "chopp-coins": "chopp-coins-dev"
+  },
+  "targets": {}
 }

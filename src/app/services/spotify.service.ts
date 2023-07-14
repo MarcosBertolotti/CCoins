@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, PartialObserver } from 'rxjs';
 import { SpotifyCredentials } from '../models/spotify-credentials.model';
 import { environment } from 'src/environments/environment';
 import { SpotifyStatus } from '../modules/bar/enums/spotify-status.enum';
-import { catchError, tap } from 'rxjs/operators';
+import { take, tap } from 'rxjs/operators';
 import { ToastService } from '../shared/services/toast.services';
 
 @Injectable({
@@ -72,12 +72,9 @@ export class SpotifyService {
   checkIsConnected(): Observable<boolean> {
     return this.http.get<boolean>(`${this.URL}/is-connected`)
     .pipe(
+      take(1),
       tap((isConnected: boolean) => {
         this.connected = isConnected;
-      }),
-      catchError((error: HttpErrorResponse, caught: Observable<boolean>) => { 
-        this.toastService.openErrorToast(error.error?.message);
-        return caught;
       })
     );
   }
