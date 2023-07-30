@@ -36,6 +36,7 @@ export class DemandTableComponent implements OnInit {
   initColumns: any[] = [
     { name: 'tableNumber', display: 'Mesa', show: true},
     { name: 'prizeName', display: 'Solicitud' , show: true },
+    { name: 'partyName', display: 'Party', show: true},
     { name: 'date', display: 'Fecha', show: false },
     { name: 'state', display: 'Estado', show: true },
     { name: 'action', display: 'Acciones', show: true },
