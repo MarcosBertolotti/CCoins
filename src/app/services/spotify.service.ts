@@ -40,7 +40,7 @@ export class SpotifyService {
     return status === SpotifyStatus.CONNECTED ? true : false;
   }
 
-  redirectURI = `http://localhost:4200/admin/bar/list`;
+  redirectURI = `${environment.PWA_URL}/admin/bar/list`;
   spotifyCredentials!: SpotifyCredentials;
 
   constructor(
